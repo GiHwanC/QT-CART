@@ -10,7 +10,9 @@
 #define UI_PAGEGUIDE_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
@@ -23,21 +25,24 @@ QT_BEGIN_NAMESPACE
 class Ui_PageGuide
 {
 public:
-    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *labelGuideTitle;
     QSpacerItem *horizontalSpacer;
     QPushButton *btnBackToCart;
+    QFrame *frame;
     QLabel *labelMap;
+    QPushButton *foodIcon;
+    QPushButton *groceryIcon;
 
     void setupUi(QWidget *PageGuide)
     {
         if (PageGuide->objectName().isEmpty())
             PageGuide->setObjectName("PageGuide");
-        PageGuide->resize(552, 393);
-        horizontalLayout_2 = new QHBoxLayout(PageGuide);
-        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        PageGuide->resize(532, 425);
+        verticalLayout_2 = new QVBoxLayout(PageGuide);
+        verticalLayout_2->setObjectName("verticalLayout_2");
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
         horizontalLayout = new QHBoxLayout();
@@ -60,17 +65,39 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        labelMap = new QLabel(PageGuide);
+        frame = new QFrame(PageGuide);
+        frame->setObjectName("frame");
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+        labelMap = new QLabel(frame);
         labelMap->setObjectName("labelMap");
-        labelMap->setPixmap(QPixmap(QString::fromUtf8("../../house.pgm")));
+        labelMap->setGeometry(QRect(10, 10, 500, 300));
+        labelMap->setPixmap(QPixmap(QString::fromUtf8("house.pgm")));
         labelMap->setScaledContents(true);
+        foodIcon = new QPushButton(frame);
+        foodIcon->setObjectName("foodIcon");
+        foodIcon->setGeometry(QRect(30, 190, 50, 50));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/food.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        foodIcon->setIcon(icon);
+        foodIcon->setIconSize(QSize(50, 50));
+        groceryIcon = new QPushButton(frame);
+        groceryIcon->setObjectName("groceryIcon");
+        groceryIcon->setGeometry(QRect(430, 220, 50, 50));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/groceries.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        groceryIcon->setIcon(icon1);
+        groceryIcon->setIconSize(QSize(50, 50));
+        labelMap->raise();
+        foodIcon->raise();
+        groceryIcon->raise();
 
-        verticalLayout->addWidget(labelMap);
+        verticalLayout->addWidget(frame);
 
         verticalLayout->setStretch(0, 2);
         verticalLayout->setStretch(1, 8);
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        verticalLayout_2->addLayout(verticalLayout);
 
 
         retranslateUi(PageGuide);
@@ -84,6 +111,8 @@ public:
         labelGuideTitle->setText(QCoreApplication::translate("PageGuide", "Instruction Mode", nullptr));
         btnBackToCart->setText(QCoreApplication::translate("PageGuide", "\354\236\245\353\260\224\352\265\254\353\213\210\353\241\234", nullptr));
         labelMap->setText(QString());
+        foodIcon->setText(QString());
+        groceryIcon->setText(QString());
     } // retranslateUi
 
 };

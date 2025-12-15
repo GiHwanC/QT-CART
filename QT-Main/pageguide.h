@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+
 namespace Ui {
 class PageGuide;
 }
@@ -20,6 +21,8 @@ signals:
 
 private slots:
     void on_btnBackToCart_clicked();
+    void on_foodIcon_clicked();
+    void on_groceryIcon_clicked();
 
 private:
     Ui::PageGuide *ui;

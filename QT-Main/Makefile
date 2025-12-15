@@ -57,7 +57,8 @@ SOURCES       = barcodescanner.cpp \
 		mainwidget.cpp \
 		pagecart.cpp \
 		pageguide.cpp \
-		pagewelcome.cpp moc_barcodescanner.cpp \
+		pagewelcome.cpp qrc_maps.cpp \
+		moc_barcodescanner.cpp \
 		moc_mainwidget.cpp \
 		moc_pagecart.cpp \
 		moc_pageguide.cpp \
@@ -68,6 +69,7 @@ OBJECTS       = barcodescanner.o \
 		pagecart.o \
 		pageguide.o \
 		pagewelcome.o \
+		qrc_maps.o \
 		moc_barcodescanner.o \
 		moc_mainwidget.o \
 		moc_pagecart.o \
@@ -820,6 +822,7 @@ Makefile: QTCart.pro ../../Qt/6.8.3/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt
 		../../Qt/6.8.3/gcc_64/mkspecs/features/yacc.prf \
 		../../Qt/6.8.3/gcc_64/mkspecs/features/lex.prf \
 		QTCart.pro \
+		maps.qrc \
 		../../Qt/6.8.3/gcc_64/lib/libQt6Widgets.prl \
 		../../Qt/6.8.3/gcc_64/lib/libQt6Gui.prl \
 		../../Qt/6.8.3/gcc_64/lib/libQt6Network.prl \
@@ -1188,6 +1191,7 @@ Makefile: QTCart.pro ../../Qt/6.8.3/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt
 ../../Qt/6.8.3/gcc_64/mkspecs/features/yacc.prf:
 ../../Qt/6.8.3/gcc_64/mkspecs/features/lex.prf:
 QTCart.pro:
+maps.qrc:
 ../../Qt/6.8.3/gcc_64/lib/libQt6Widgets.prl:
 ../../Qt/6.8.3/gcc_64/lib/libQt6Gui.prl:
 ../../Qt/6.8.3/gcc_64/lib/libQt6Network.prl:
@@ -1206,6 +1210,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents maps.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/6.8.3/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents barcodescanner.h item.h mainwidget.h pagecart.h pageguide.h pagewelcome.h $(DISTDIR)/
 	$(COPY_FILE) --parents barcodescanner.cpp main.cpp mainwidget.cpp pagecart.cpp pageguide.cpp pagewelcome.cpp $(DISTDIR)/
@@ -1233,8 +1238,16 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_maps.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_maps.cpp
+qrc_maps.cpp: maps.qrc \
+		../../Qt/6.8.3/gcc_64/libexec/rcc \
+		groceries.png \
+		house.pgm \
+		food.png
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/rcc -name maps maps.qrc -o qrc_maps.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -2335,7 +2348,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -3471,8 +3484,11 @@ pageguide.o: pageguide.cpp pageguide.h \
 		../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication_platform.h \
 		ui_pageguide.h \
 		../../Qt/6.8.3/gcc_64/include/QtCore/QVariant \
+		../../Qt/6.8.3/gcc_64/include/QtGui/QIcon \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt/6.8.3/gcc_64/include/QtWidgets/QFrame \
+		../../Qt/6.8.3/gcc_64/include/QtWidgets/qframe.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayout.h \
@@ -3480,14 +3496,14 @@ pageguide.o: pageguide.cpp pageguide.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/QLabel \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qlabel.h \
-		../../Qt/6.8.3/gcc_64/include/QtWidgets/qframe.h \
 		../../Qt/6.8.3/gcc_64/include/QtGui/qpicture.h \
 		../../Qt/6.8.3/gcc_64/include/QtGui/qtextdocument.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/QPushButton \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/QSpacerItem \
-		../../Qt/6.8.3/gcc_64/include/QtWidgets/QVBoxLayout
+		../../Qt/6.8.3/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/6.8.3/gcc_64/include/QtGui/QPixmap
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pageguide.o pageguide.cpp
 
 pagewelcome.o: pagewelcome.cpp pagewelcome.h \
@@ -3732,6 +3748,9 @@ pagewelcome.o: pagewelcome.cpp pagewelcome.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayout.h \
 		../../Qt/6.8.3/gcc_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pagewelcome.o pagewelcome.cpp
+
+qrc_maps.o: qrc_maps.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_maps.o qrc_maps.cpp
 
 moc_barcodescanner.o: moc_barcodescanner.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_barcodescanner.o moc_barcodescanner.cpp
