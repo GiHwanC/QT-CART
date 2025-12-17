@@ -42,7 +42,10 @@ static constexpr auto qt_meta_stringdata_ZN9PageGuideE = QtMocHelpers::stringDat
     "",
     "on_btnBackToCart_clicked",
     "on_foodIcon_clicked",
-    "on_groceryIcon_clicked"
+    "on_groceryIcon_clicked",
+    "on_btnForward_clicked",
+    "on_btnStop_clicked",
+    "on_btnBack_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -54,7 +57,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN9PageGuideE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,17 +65,23 @@ Q_CONSTINIT static const uint qt_meta_data_ZN9PageGuideE[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x06,    1 /* Public */,
+       1,    0,   56,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,   39,    2, 0x08,    2 /* Private */,
-       4,    0,   40,    2, 0x08,    3 /* Private */,
-       5,    0,   41,    2, 0x08,    4 /* Private */,
+       3,    0,   57,    2, 0x08,    2 /* Private */,
+       4,    0,   58,    2, 0x08,    3 /* Private */,
+       5,    0,   59,    2, 0x08,    4 /* Private */,
+       6,    0,   60,    2, 0x08,    5 /* Private */,
+       7,    0,   61,    2, 0x08,    6 /* Private */,
+       8,    0,   62,    2, 0x08,    7 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -96,6 +105,12 @@ Q_CONSTINIT const QMetaObject PageGuide::staticMetaObject = { {
         // method 'on_foodIcon_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_groceryIcon_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btnForward_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btnStop_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btnBack_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -110,6 +125,9 @@ void PageGuide::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 1: _t->on_btnBackToCart_clicked(); break;
         case 2: _t->on_foodIcon_clicked(); break;
         case 3: _t->on_groceryIcon_clicked(); break;
+        case 4: _t->on_btnForward_clicked(); break;
+        case 5: _t->on_btnStop_clicked(); break;
+        case 6: _t->on_btnBack_clicked(); break;
         default: ;
         }
     }
@@ -144,14 +162,14 @@ int PageGuide::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 7;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 7;
     }
     return _id;
 }
