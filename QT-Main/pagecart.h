@@ -34,17 +34,22 @@ private slots:
     void handleFetchFailed(const QString &err);
     void on_btnGuideMode_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_btnPay_clicked();
+
 public:
+
     explicit PageCart(QWidget *parent = nullptr);
     ~PageCart();
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
     void guideModeClicked();
-
+    void goWelcome();
 private:
     Ui::PageCart *ui;
-
+    QPixmap m_cartPixmap;
     void initDummyItems();
     void updateRowAmount(int row);
     void InitItemDb();
@@ -55,6 +60,7 @@ private:
     QLineEdit *m_editBarcode;         // ⬅ 스캐너 입력용 숨김 edit
     BarcodeScanner *m_scanner;
     QString m_barcodeData;
+
 };
 
 #endif // PAGECART_H

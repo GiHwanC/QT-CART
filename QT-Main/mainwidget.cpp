@@ -26,6 +26,7 @@ MainWidget::MainWidget(QWidget *parent)
     connect(pPageWelcome, SIGNAL(startClicked()), this, SLOT(on_pPBStartClicked()));
     connect(pPageGuide, SIGNAL(backToCartClicked()), this, SLOT(slotShowCartPage()));
     connect(pPageCart, SIGNAL(guideModeClicked()), this, SLOT(slotShowGuidePage()));
+    connect(pPageCart,SIGNAL(goWelcome()),this,SLOT(slotShowWelcomePage()));
 }
 
 MainWidget::~MainWidget()
@@ -46,3 +47,8 @@ void MainWidget::slotShowCartPage()
 {
     ui->pstackedWidget->setCurrentWidget(pPageCart);
 }
+void MainWidget::slotShowWelcomePage()
+{
+    ui->pstackedWidget->setCurrentWidget(pPageWelcome);
+}
+

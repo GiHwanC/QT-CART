@@ -7,14 +7,70 @@
 #include <QMessageBox>
 #include <QKeyEvent>
 #include <QApplication>
-
+#include <QStackedWidget>
 PageCart::PageCart(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PageCart)
-{
-    ui->setupUi(this);
+{  ui->setupUi(this);
 
-    qDebug() << "[PageCart] constructor called";
+    ui->tableCart->setStyleSheet(
+        /* 전체 테이블 */
+        "QTableWidget {"
+        " background-color: #ffffff;"
+        " gridline-color: #e0e0e0;"
+        " font: 11pt \"Ria Sans\";"
+        " border: 1px solid #dcdcdc;"
+        " selection-color: black;"
+        "}"
+
+        /* 셀 */
+        "QTableWidget::item {"
+        " padding: 6px;"
+        "}"
+
+
+        /* 헤더 전체 */
+        "QHeaderView {"
+        " background-color: #f5f5f5;"
+        "}"
+
+        /* 헤더 셀 */
+        "QHeaderView::section {"
+        " background-color: #f5f5f5;"
+        " color: #333;"
+        " font: bold 11pt \"Ria Sans\";"
+        " border: 1px solid #dcdcdc;"
+        " padding: 6px;"
+        "}"
+
+        /* 헤더 아래 구분선 제거 */
+        "QHeaderView::section:horizontal {"
+        " border-top: 0px;"
+        "}"
+
+        /* 스크롤바 (세로) */
+        "QScrollBar:vertical {"
+        " width: 12px;"
+        " background: #f0f0f0;"
+        "}"
+
+        "QScrollBar::handle:vertical {"
+        " background: #c1c1c1;"
+        " border-radius: 6px;"
+        " min-height: 30px;"
+        "}"
+
+        "QScrollBar::handle:vertical:hover {"
+        " background: #a8a8a8;"
+        "}"
+
+        "QScrollBar::add-line:vertical,"
+        "QScrollBar::sub-line:vertical {"
+        " height: 0px;"
+        "}"
+        );
+
+
 
     // 1) 바코드 입력용 숨겨진 QLineEdit (GUI에는 안 보임)
     m_editBarcode = new QLineEdit(this);
@@ -69,6 +125,7 @@ void PageCart::initDummyItems()
         // + 버튼 (col 2)
         QPushButton *btnPlus = new QPushButton("+", this);
         ui->tableCart->setCellWidget(row, 2, btnPlus);
+
         connect(btnPlus, SIGNAL(clicked()), this, SLOT(onPlusClicked()));
 
         // - 버튼 (col 3)
@@ -318,5 +375,16 @@ void PageCart::handleFetchFailed(const QString &error)
 void PageCart::on_btnGuideMode_clicked()
 {
     emit guideModeClicked();
+}
+
+
+void PageCart::on_pushButton_clicked()
+{
+    emit goWelcome();
+}
+
+void PageCart::on_btnPay_clicked()
+{
+
 }
 

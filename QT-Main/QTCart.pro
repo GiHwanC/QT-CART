@@ -14,6 +14,8 @@ SOURCES += \
     mainwidget.cpp \
     pagecart.cpp \
     pageguide.cpp \
+    pagepay.cpp \
+    pagepay_card.cpp \
     pagewelcome.cpp
 
 HEADERS += \
@@ -22,12 +24,16 @@ HEADERS += \
     mainwidget.h \
     pagecart.h \
     pageguide.h \
+    pagepay.h \
+    pagepay_card.h \
     pagewelcome.h
 
 FORMS += \
     mainwidget.ui \
     pagecart.ui \
     pageguide.ui \
+    pagepay.ui \
+    pagepay_card.ui \
     pagewelcome.ui
 
 # Default rules for deployment.
@@ -38,4 +44,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 RESOURCES += \
+    cart_img.qrc \
+    image.qrc \
     maps.qrc

@@ -6,54 +6,163 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>469</height>
+    <width>770</width>
+    <height>672</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,4,1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QLabel" name="labelTitle">
-         <property name="text">
-          <string>Shopping List</string>
+        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1,0">
+         <property name="spacing">
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+         <property name="topMargin">
+          <number>0</number>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnGuideMode">
-         <property name="text">
-          <string>안내모드</string>
-         </property>
-        </widget>
+         <item>
+          <widget class="QLabel" name="labelTitle">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(53, 132, 228);
+font: 700 20pt &quot;Ria Sans&quot;;</string>
+           </property>
+           <property name="text">
+            <string>QT</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Ria Sans&quot;;
+color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>CART</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 20pt &quot;Ria Sans&quot;;
+    border-radius: 5px;
+      
+</string>
+           </property>
+           <property name="text">
+            <string>🏠​</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,3">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,1">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="minimumSize">
+              <size>
+               <width>215</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 15pt &quot;Ria Sans&quot;;
+
+color: rgb(94, 92, 100);</string>
+             </property>
+             <property name="text">
+              <string>구매하실 상품을 스캔해주세요</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>147</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>33</width>
+               <height>148</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>720</width>
+               <height>720</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">image: url(:/new/prefix1/Gemini_Generated_Image_u34sf6u34sf6u34s.png);</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
        <item>
         <widget class="QTableWidget" name="tableCart">
+         <property name="frameShape">
+          <enum>QFrame::Shape::Box</enum>
+         </property>
          <column>
           <property name="text">
            <string>상품명</string>
@@ -63,10 +172,22 @@
           <property name="text">
            <string>개수</string>
           </property>
+          <property name="font">
+           <font>
+            <family>Ria Sans</family>
+            <italic>true</italic>
+           </font>
+          </property>
          </column>
          <column>
           <property name="text">
            <string>+</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>Ria Sans</family>
+            <italic>true</italic>
+           </font>
           </property>
          </column>
          <column>
@@ -83,44 +204,155 @@
           <property name="text">
            <string>삭제</string>
           </property>
+          <property name="font">
+           <font>
+            <family>Ria Sans</family>
+            <italic>true</italic>
+           </font>
+          </property>
          </column>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,2,5,3">
-       <item>
+      <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0" columnminimumwidth="0,0,0,0">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="1">
         <widget class="QLabel" name="labelTotalPrice">
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>169</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 30pt &quot;Ria Sans&quot;;
+background-color: rgb(119, 118, 123);
+color: rgb(255, 255, 255);
+</string>
+         </property>
          <property name="text">
-          <string>총액 : </string>
+          <string>결제금액</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="labelTotalPriceValue">
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_5">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(119, 118, 123);
+color: rgb(255, 255, 255);
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_4">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(119, 118, 123);
+color: rgb(255, 255, 255);
+font: 30pt &quot;Ria Sans&quot;;
+</string>
+         </property>
          <property name="text">
           <string>0원</string>
          </property>
         </widget>
        </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
+       <item row="0" column="3">
+        <widget class="QPushButton" name="btnPay">
+         <property name="minimumSize">
           <size>
-           <width>40</width>
-           <height>20</height>
+           <width>100</width>
+           <height>141</height>
           </size>
          </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnPay">
+         <property name="styleSheet">
+          <string notr="true">font: 40pt &quot;Ria Sans&quot;;
+
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);
+
+    border-radius: 5px;
+    padding:0px 0px;
+   
+
+hover {
+    background-color: rgb(246, 97, 81)
+}
+
+       
+          
+       
+
+       
+               
+
+
+       </string>
+         </property>
          <property name="text">
           <string>결제</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="btnGuideMode">
+         <property name="minimumSize">
+          <size>
+           <width>145</width>
+           <height>56</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 23pt &quot;Ria Sans&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);
+
+    border-radius: 0px;
+    padding: 0px 0px;
+   
+
+hover {
+    background-color: rgb(53, 132, 228)
+}
+
+       
+          
+       
+</string>
+         </property>
+         <property name="text">
+          <string>상품 찾기🔍</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>28</width>
+           <height>80</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="labelTotalPriceValue">
+         <property name="styleSheet">
+          <string notr="true">font: 30pt &quot;Ria Sans&quot;;
+background-color: rgb(119, 118, 123);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>                           </string>
          </property>
         </widget>
        </item>
