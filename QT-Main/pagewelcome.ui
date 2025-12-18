@@ -6,86 +6,262 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>612</width>
-    <height>416</height>
+    <width>841</width>
+    <height>593</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>11</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="font">
+   <font>
+    <bold>false</bold>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,4,1,4,1">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0">
+     <property name="sizeConstraint">
+      <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
+        <number>2</number>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
+       <property name="topMargin">
+        <number>0</number>
        </property>
-      </spacer>
+       <property name="rightMargin">
+        <number>3</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="styleSheet">
+          <string notr="true">border-image: url(:/new/prefix1/Gemini_Generated_Image_2fvasb2fvasb2fva.png);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <pointsize>30</pointsize>
-         <bold>true</bold>
-        </font>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,1,2">
+       <property name="spacing">
+        <number>0</number>
        </property>
-       <property name="text">
-        <string>QT CART</string>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="minimumSize">
+          <size>
+           <width>79</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(153, 193, 241);
+font: 700 30pt &quot;Ria Sans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Qt</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 25pt &quot;Ria Sans&quot;;</string>
+         </property>
+         <property name="text">
+          <string> Cart</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>181</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
      <item>
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="bottomMargin">
+        <number>12</number>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="minimumSize">
+          <size>
+           <width>117</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="text">
+          <string>시작하기 버튼을 눌러 쇼핑을 시작하세요</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pPBStart">
-       <property name="text">
-        <string>START</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>250</width>
-         <height>250</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pPBStart">
+         <property name="font">
+          <font>
+           <family>Ria Sans</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 11pt &quot;Ria Sans&quot;;
+ 
+          background-color: #4CAF50;
+          color: white;
+         border-radius: 10px;
+          padding: 6px 12px;
+       
+        hover { 
+         background-color: #45a049
+        };
+        pressed {
+          background-color: #3e8e41        };</string>
+         </property>
+         <property name="text">
+          <string>시작하기</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>250</width>
+           <height>250</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
