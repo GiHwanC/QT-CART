@@ -26,10 +26,6 @@ PageGuide::PageGuide(QWidget *parent)
     // 3. 수동 조작 퍼블리셔 (/cmd_vel)
     cmd_vel_publisher_ = node_->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
 
-
-    // ==========================================
-    // [맵 이미지 로드]
-    // ==========================================
     QPixmap map(":/house.pgm");
     if (map.isNull()) {
         qDebug() << "map load failed";
@@ -37,11 +33,6 @@ PageGuide::PageGuide(QWidget *parent)
         ui->labelMap->setPixmap(map);
         ui->labelMap->setScaledContents(true);
     }
-
-
-    // ==========================================
-    // [수동 조작 버튼 강제 생성 (UI 디자이너 대체)]
-    // ==========================================
 
     // 1. 버튼 3개 생성 (힙 메모리에 할당)
     QPushButton *codeBtnFwd = new QPushButton("▲ Forward", this);

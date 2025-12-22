@@ -14,7 +14,7 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++1z -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 INCPATH       = -I. -I../../Qt6/6.8.3/gcc_64/include -I../../Qt6/6.8.3/gcc_64/include/QtWidgets -I../../Qt6/6.8.3/gcc_64/include/QtGui -I../../Qt6/6.8.3/gcc_64/include/QtNetwork -I../../Qt6/6.8.3/gcc_64/include/QtCore -I. -I. -I../../Qt6/6.8.3/gcc_64/mkspecs/linux-g++
