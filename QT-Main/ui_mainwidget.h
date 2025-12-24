@@ -29,7 +29,7 @@ public:
     {
         if (MainWidget->objectName().isEmpty())
             MainWidget->setObjectName("MainWidget");
-        MainWidget->resize(685, 463);
+        MainWidget->resize(740, 600);
         verticalLayout = new QVBoxLayout(MainWidget);
         verticalLayout->setObjectName("verticalLayout");
         pstackedWidget = new QStackedWidget(MainWidget);

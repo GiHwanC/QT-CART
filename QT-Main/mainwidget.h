@@ -35,6 +35,7 @@ private slots:
     void on_pPBStartClicked();
     void slotShowCartPage();
     void slotShowGuidePage();
+    void slotShowWelcomePage();
 
 
 };

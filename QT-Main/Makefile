@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++1z -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
-INCPATH       = -I. -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I../../../Qt/6.8.3/gcc_64/include -I../../../Qt/6.8.3/gcc_64/include/QtWidgets -I../../../Qt/6.8.3/gcc_64/include/QtGui -I../../../Qt/6.8.3/gcc_64/include/QtNetwork -I../../../Qt/6.8.3/gcc_64/include/QtCore -I. -I. -I../../../Qt/6.8.3/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I../../../Qt/6.8.3/gcc_64/include -I../../../Qt/6.8.3/gcc_64/include/QtWidgets -I../../../Qt/6.8.3/gcc_64/include/QtGui -I../../../Qt/6.8.3/gcc_64/include/QtNetwork -I../../../Qt/6.8.3/gcc_64/include/QtSerialPort -I../../../Qt/6.8.3/gcc_64/include/QtCore -I. -I. -I../../../Qt/6.8.3/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/ubuntu/Qt/6.8.3/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = QTCart1.0.0
 DISTDIR = /home/ubuntu/Document/QT-CART/QT-Main/.tmp/QTCart1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/ubuntu/Qt/6.8.3/gcc_64/lib -Wl,-rpath-link,/home/ubuntu/Qt/6.8.3/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/opt/ros/humble/lib -lrclcpp -lrcl -lrcutils -lrcpputils -lrosidl_runtime_c -lrcl_yaml_param_parser -lyaml -ltracetools -lrmw -lgeometry_msgs__rosidl_typesupport_cpp -lgeometry_msgs__rosidl_typesupport_c -lstd_msgs__rosidl_typesupport_cpp -lstd_msgs__rosidl_typesupport_c /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Widgets.so /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Gui.so /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Network.so /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Core.so -lpthread -lGL   
+LIBS          = $(SUBLIBS) -L/opt/ros/humble/lib -lrclcpp -lrcl -lrcutils -lrcpputils -lrosidl_runtime_c -lrcl_yaml_param_parser -lyaml -ltracetools -lrmw -lgeometry_msgs__rosidl_typesupport_cpp -lgeometry_msgs__rosidl_typesupport_c -lstd_msgs__rosidl_typesupport_cpp -lstd_msgs__rosidl_typesupport_c /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Widgets.so /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Gui.so /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Network.so /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6SerialPort.so -pthread /home/ubuntu/Qt/6.8.3/gcc_64/lib/libQt6Core.so -lpthread -lGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -57,23 +57,39 @@ SOURCES       = barcodescanner.cpp \
 		mainwidget.cpp \
 		pagecart.cpp \
 		pageguide.cpp \
-		pagewelcome.cpp qrc_maps.cpp \
+		pagepay.cpp \
+		pagepay_card.cpp \
+		pagewelcome.cpp \
+		uwbdriver.cpp qrc_cart_img.cpp \
+		qrc_cart_obj.cpp \
+		qrc_image.cpp \
+		qrc_maps.cpp \
 		moc_barcodescanner.cpp \
 		moc_mainwidget.cpp \
 		moc_pagecart.cpp \
 		moc_pageguide.cpp \
+		moc_pagepay.cpp \
+		moc_pagepay_card.cpp \
 		moc_pagewelcome.cpp
 OBJECTS       = barcodescanner.o \
 		main.o \
 		mainwidget.o \
 		pagecart.o \
 		pageguide.o \
+		pagepay.o \
+		pagepay_card.o \
 		pagewelcome.o \
+		uwbdriver.o \
+		qrc_cart_img.o \
+		qrc_cart_obj.o \
+		qrc_image.o \
 		qrc_maps.o \
 		moc_barcodescanner.o \
 		moc_mainwidget.o \
 		moc_pagecart.o \
 		moc_pageguide.o \
+		moc_pagepay.o \
+		moc_pagepay_card.o \
 		moc_pagewelcome.o
 DIST          = ../../../Qt/6.8.3/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.8.3/gcc_64/mkspecs/common/unix.conf \
@@ -442,12 +458,18 @@ DIST          = ../../../Qt/6.8.3/gcc_64/mkspecs/features/spec_pre.prf \
 		mainwidget.h \
 		pagecart.h \
 		pageguide.h \
-		pagewelcome.h barcodescanner.cpp \
+		pagepay.h \
+		pagepay_card.h \
+		pagewelcome.h \
+		uwbdriver.h barcodescanner.cpp \
 		main.cpp \
 		mainwidget.cpp \
 		pagecart.cpp \
 		pageguide.cpp \
-		pagewelcome.cpp
+		pagepay.cpp \
+		pagepay_card.cpp \
+		pagewelcome.cpp \
+		uwbdriver.cpp
 QMAKE_TARGET  = QTCart
 DESTDIR       = 
 TARGET        = QTCart
@@ -456,7 +478,7 @@ TARGET        = QTCart
 first: all
 ####### Build rules
 
-QTCart: ui_mainwidget.h ui_pagecart.h ui_pageguide.h ui_pagewelcome.h $(OBJECTS)  
+QTCart: ui_mainwidget.h ui_pagecart.h ui_pageguide.h ui_pagepay.h ui_pagepay_card.h ui_pagewelcome.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: QTCart.pro ../../../Qt/6.8.3/gcc_64/mkspecs/linux-g++/qmake.conf ../../../Qt/6.8.3/gcc_64/mkspecs/features/spec_pre.prf \
@@ -822,10 +844,14 @@ Makefile: QTCart.pro ../../../Qt/6.8.3/gcc_64/mkspecs/linux-g++/qmake.conf ../..
 		../../../Qt/6.8.3/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt/6.8.3/gcc_64/mkspecs/features/lex.prf \
 		QTCart.pro \
+		cart_img.qrc \
+		cart_obj.qrc \
+		image.qrc \
 		maps.qrc \
 		../../../Qt/6.8.3/gcc_64/lib/libQt6Widgets.prl \
 		../../../Qt/6.8.3/gcc_64/lib/libQt6Gui.prl \
 		../../../Qt/6.8.3/gcc_64/lib/libQt6Network.prl \
+		../../../Qt/6.8.3/gcc_64/lib/libQt6SerialPort.prl \
 		../../../Qt/6.8.3/gcc_64/lib/libQt6Core.prl
 	$(QMAKE) -o Makefile QTCart.pro -spec linux-g++
 ../../../Qt/6.8.3/gcc_64/mkspecs/features/spec_pre.prf:
@@ -1191,10 +1217,14 @@ Makefile: QTCart.pro ../../../Qt/6.8.3/gcc_64/mkspecs/linux-g++/qmake.conf ../..
 ../../../Qt/6.8.3/gcc_64/mkspecs/features/yacc.prf:
 ../../../Qt/6.8.3/gcc_64/mkspecs/features/lex.prf:
 QTCart.pro:
+cart_img.qrc:
+cart_obj.qrc:
+image.qrc:
 maps.qrc:
 ../../../Qt/6.8.3/gcc_64/lib/libQt6Widgets.prl:
 ../../../Qt/6.8.3/gcc_64/lib/libQt6Gui.prl:
 ../../../Qt/6.8.3/gcc_64/lib/libQt6Network.prl:
+../../../Qt/6.8.3/gcc_64/lib/libQt6SerialPort.prl:
 ../../../Qt/6.8.3/gcc_64/lib/libQt6Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile QTCart.pro -spec linux-g++
@@ -1210,11 +1240,11 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents maps.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents cart_img.qrc cart_obj.qrc image.qrc maps.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/6.8.3/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents barcodescanner.h item.h mainwidget.h pagecart.h pageguide.h pagewelcome.h $(DISTDIR)/
-	$(COPY_FILE) --parents barcodescanner.cpp main.cpp mainwidget.cpp pagecart.cpp pageguide.cpp pagewelcome.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwidget.ui pagecart.ui pageguide.ui pagewelcome.ui $(DISTDIR)/
+	$(COPY_FILE) --parents barcodescanner.h item.h mainwidget.h pagecart.h pageguide.h pagepay.h pagepay_card.h pagewelcome.h uwbdriver.h $(DISTDIR)/
+	$(COPY_FILE) --parents barcodescanner.cpp main.cpp mainwidget.cpp pagecart.cpp pageguide.cpp pagepay.cpp pagepay_card.cpp pagewelcome.cpp uwbdriver.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwidget.ui pagecart.ui pageguide.ui pagepay.ui pagepay_card.ui pagewelcome.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1238,9 +1268,29 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_maps.cpp
+compiler_rcc_make_all: qrc_cart_img.cpp qrc_cart_obj.cpp qrc_image.cpp qrc_maps.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_maps.cpp
+	-$(DEL_FILE) qrc_cart_img.cpp qrc_cart_obj.cpp qrc_image.cpp qrc_maps.cpp
+qrc_cart_img.cpp: cart_img.qrc \
+		../../../Qt/6.8.3/gcc_64/libexec/rcc \
+		Gemini_Generated_Image_2fvasb2fvasb2fva.png
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/rcc -name cart_img cart_img.qrc -o qrc_cart_img.cpp
+
+qrc_cart_obj.cpp: cart_obj.qrc \
+		../../../Qt/6.8.3/gcc_64/libexec/rcc \
+		banana.jpg \
+		milk.jpg \
+		apple.jpg
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/rcc -name cart_obj cart_obj.qrc -o qrc_cart_obj.cpp
+
+qrc_image.cpp: image.qrc \
+		../../../Qt/6.8.3/gcc_64/libexec/rcc \
+		Gemini_Generated_Image_u34sf6u34sf6u34s.png \
+		cart.png \
+		KakaoTalk_20251211_142809413.png \
+		Gemini_Generated_Image_2fvasb2fvasb2fva.png
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/rcc -name image image.qrc -o qrc_image.cpp
+
 qrc_maps.cpp: maps.qrc \
 		../../../Qt/6.8.3/gcc_64/libexec/rcc \
 		groceries.png \
@@ -1254,9 +1304,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../Qt/6.8.3/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -Wextra -fPIC -dM -E -o moc_predefs.h ../../../Qt/6.8.3/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_barcodescanner.cpp moc_mainwidget.cpp moc_pagecart.cpp moc_pageguide.cpp moc_pagewelcome.cpp
+compiler_moc_header_make_all: moc_barcodescanner.cpp moc_mainwidget.cpp moc_pagecart.cpp moc_pageguide.cpp moc_pagepay.cpp moc_pagepay_card.cpp moc_pagewelcome.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_barcodescanner.cpp moc_mainwidget.cpp moc_pagecart.cpp moc_pageguide.cpp moc_pagewelcome.cpp
+	-$(DEL_FILE) moc_barcodescanner.cpp moc_mainwidget.cpp moc_pagecart.cpp moc_pageguide.cpp moc_pagepay.cpp moc_pagepay_card.cpp moc_pagewelcome.cpp
 moc_barcodescanner.cpp: barcodescanner.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QObject \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject.h \
@@ -1414,7 +1464,7 @@ moc_barcodescanner.cpp: barcodescanner.h \
 		item.h \
 		moc_predefs.h \
 		../../../Qt/6.8.3/gcc_64/libexec/moc
-	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include barcodescanner.h -o moc_barcodescanner.cpp
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include barcodescanner.h -o moc_barcodescanner.cpp
 
 moc_mainwidget.cpp: mainwidget.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
@@ -1653,7 +1703,10 @@ moc_mainwidget.cpp: mainwidget.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qpen.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QMap \
-		pageguide.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QTimer \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasictimer.h \
+		uwbdriver.h \
 		/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp \
@@ -1997,6 +2050,15 @@ moc_mainwidget.cpp: mainwidget.h \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/write_preferring_read_write_lock.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_template.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		pageguide.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_stamped.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__struct.hpp \
 		/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__struct.hpp \
@@ -2010,10 +2072,10 @@ moc_mainwidget.cpp: mainwidget.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp \
-		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QHideEvent \
 		moc_predefs.h \
 		../../../Qt/6.8.3/gcc_64/libexec/moc
-	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwidget.h -o moc_mainwidget.cpp
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwidget.h -o moc_mainwidget.cpp
 
 moc_pagecart.cpp: pagecart.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
@@ -2217,6 +2279,10 @@ moc_pagecart.cpp: pagecart.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QMap \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QString \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QTimer \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasictimer.h \
+		uwbdriver.h \
 		item.h \
 		barcodescanner.h \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QNetworkAccessManager \
@@ -2250,9 +2316,360 @@ moc_pagecart.cpp: pagecart.h \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/qnetworkreply.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QIODevice \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QNetworkRequest \
+		/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp \
+		/opt/ros/humble/include/rcl/rcl/guard_condition.h \
+		/opt/ros/humble/include/rcl/rcl/allocator.h \
+		/opt/ros/humble/include/rcutils/rcutils/allocator.h \
+		/opt/ros/humble/include/rcutils/rcutils/macros.h \
+		/opt/ros/humble/include/rcutils/rcutils/testing/fault_injection.h \
+		/opt/ros/humble/include/rcutils/rcutils/visibility_control.h \
+		/opt/ros/humble/include/rcutils/rcutils/visibility_control_macros.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/rcutils_ret.h \
+		/opt/ros/humble/include/rcl/rcl/context.h \
+		/opt/ros/humble/include/rmw/rmw/init.h \
+		/opt/ros/humble/include/rmw/rmw/init_options.h \
+		/opt/ros/humble/include/rmw/rmw/domain_id.h \
+		/opt/ros/humble/include/rmw/rmw/localhost.h \
+		/opt/ros/humble/include/rmw/rmw/visibility_control.h \
+		/opt/ros/humble/include/rmw/rmw/macros.h \
+		/opt/ros/humble/include/rmw/rmw/ret_types.h \
+		/opt/ros/humble/include/rmw/rmw/security_options.h \
+		/opt/ros/humble/include/rcl/rcl/arguments.h \
+		/opt/ros/humble/include/rcl/rcl/log_level.h \
+		/opt/ros/humble/include/rcl/rcl/macros.h \
+		/opt/ros/humble/include/rcl/rcl/types.h \
+		/opt/ros/humble/include/rmw/rmw/types.h \
+		/opt/ros/humble/include/rcutils/rcutils/logging.h \
+		/opt/ros/humble/include/rcutils/rcutils/error_handling.h \
+		/opt/ros/humble/include/rcutils/rcutils/snprintf.h \
+		/opt/ros/humble/include/rcutils/rcutils/time.h \
+		/opt/ros/humble/include/rcutils/rcutils/types.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/array_list.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/char_array.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/hash_map.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/string_array.h \
+		/opt/ros/humble/include/rcutils/rcutils/qsort.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/string_map.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/uint8_array.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/events_statuses.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/incompatible_qos.h \
+		/opt/ros/humble/include/rmw/rmw/qos_policy_kind.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/liveliness_changed.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/liveliness_lost.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/message_lost.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/offered_deadline_missed.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/requested_deadline_missed.h \
+		/opt/ros/humble/include/rmw/rmw/serialized_message.h \
+		/opt/ros/humble/include/rmw/rmw/subscription_content_filter_options.h \
+		/opt/ros/humble/include/rmw/rmw/time.h \
+		/opt/ros/humble/include/rcl/rcl/visibility_control.h \
+		/opt/ros/humble/include/rcl_yaml_param_parser/rcl_yaml_param_parser/types.h \
+		/opt/ros/humble/include/rcl/rcl/init_options.h \
+		/opt/ros/humble/include/rcl/rcl/wait.h \
+		/opt/ros/humble/include/rcl/rcl/client.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
+		/opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
+		/opt/ros/humble/include/rcl/rcl/event_callback.h \
+		/opt/ros/humble/include/rmw/rmw/event_callback_type.h \
+		/opt/ros/humble/include/rcl/rcl/node.h \
+		/opt/ros/humble/include/rcl/rcl/node_options.h \
+		/opt/ros/humble/include/rcl/rcl/domain_id.h \
+		/opt/ros/humble/include/rcl/rcl/service.h \
+		/opt/ros/humble/include/rcl/rcl/subscription.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
+		/opt/ros/humble/include/rmw/rmw/message_sequence.h \
+		/opt/ros/humble/include/rcl/rcl/timer.h \
+		/opt/ros/humble/include/rcl/rcl/time.h \
+		/opt/ros/humble/include/rmw/rmw/rmw.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/sequence_bound.h \
+		/opt/ros/humble/include/rmw/rmw/event.h \
+		/opt/ros/humble/include/rmw/rmw/publisher_options.h \
+		/opt/ros/humble/include/rmw/rmw/qos_profiles.h \
+		/opt/ros/humble/include/rmw/rmw/subscription_options.h \
+		/opt/ros/humble/include/rcl/rcl/event.h \
+		/opt/ros/humble/include/rcl/rcl/publisher.h \
+		/opt/ros/humble/include/rcpputils/rcpputils/scope_exit.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/context.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/init_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/visibility_control.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/macros.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/contexts/default_context.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/guard_condition.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/client.hpp \
+		/opt/ros/humble/include/rcl/rcl/error_handling.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/cpp_callback_trampoline.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/exceptions.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/exceptions/exceptions.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/join.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/expand_topic_or_service_name.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/function_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/logger.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/filesystem_helper.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/visibility_control.hpp \
+		/opt/ros/humble/include/rcutils/rcutils/logging_macros.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/utilities.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_graph_interface.hpp \
+		/opt/ros/humble/include/rcl/rcl/graph.h \
+		/opt/ros/humble/include/rmw/rmw/names_and_types.h \
+		/opt/ros/humble/include/rmw/rmw/get_topic_names_and_types.h \
+		/opt/ros/humble/include/rmw/rmw/topic_endpoint_info_array.h \
+		/opt/ros/humble/include/rmw/rmw/topic_endpoint_info.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/event.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/qos.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/duration.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/duration.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__struct.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/bounded_vector.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/message_initialization.hpp \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_initialization.h \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__builder.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__traits.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/traits.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__type_support.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/message_type_support.hpp \
+		/opt/ros/humble/include/rcl/rcl/logging_rosout.h \
+		/opt/ros/humble/include/rmw/rmw/incompatible_qos_events_statuses.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/type_support_decl.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/message_type_support_decl.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/service_type_support_decl.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/service_type_support.hpp \
+		/opt/ros/humble/include/rmw/rmw/error_handling.h \
+		/opt/ros/humble/include/rmw/rmw/impl/cpp/demangle.hpp \
+		/opt/ros/humble/include/rmw/rmw/impl/config.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/network_flow_endpoint.hpp \
+		/opt/ros/humble/include/rcl/rcl/network_flow_endpoints.h \
+		/opt/ros/humble/include/rmw/rmw/network_flow_endpoint.h \
+		/opt/ros/humble/include/rmw/rmw/network_flow_endpoint_array.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/qos_event.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/waitable.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/time.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/service.hpp \
+		/opt/ros/humble/include/tracetools/tracetools/tracetools.h \
+		/opt/ros/humble/include/tracetools/tracetools/config.h \
+		/opt/ros/humble/include/tracetools/tracetools/visibility_control.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/any_service_callback.hpp \
+		/opt/ros/humble/include/tracetools/tracetools/utils.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/any_subscription_callback.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/allocator/allocator_common.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/allocator/allocator_deleter.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/subscription_callback_type_helper.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/message_info.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/serialized_message.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/type_adapter.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/intra_process_manager.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/ros_message_intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/buffer_implementation_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/create_intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/ring_buffer_implementation.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/intra_process_buffer_type.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_content_filter_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/timer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/time.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/time.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__builder.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__traits.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/rate.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_base_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/resolve_use_intra_process.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/intra_process_setting.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/resolve_intra_process_buffer_type.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/message_memory_strategy.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/rmw_implementation_specific_subscription_payload.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/rmw_implementation_specific_payload.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/qos_overriding_options.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/set_parameters_result.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics_state.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/collector/generate_statistics_message.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/metrics_message.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__struct.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/statistic_data_point__struct.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__builder.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__traits.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/statistic_data_point__traits.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__type_support.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/visibility_control.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/moving_average_statistics/types.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/constants.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/received_message_age.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/topic_statistics_collector.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/collector/collector.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/moving_average_statistics/moving_average.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/thread_safety_annotations.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/collector/metric_details_interface.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/received_message_period.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/get_message_type_support_handle.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/is_ros_compatible_type.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/loaned_message.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/rmw_implementation_specific_publisher_payload.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/future_return_code.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/single_threaded_executor.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/list_parameters_result.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_descriptor.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/floating_point_range__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/integer_range__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/floating_point_range__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/integer_range__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_event.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/generic_publisher.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/shared_library.hpp \
+		/opt/ros/humble/include/rcutils/rcutils/shared_library.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_topics_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_timers_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher_factory.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_factory.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/typesupport_helpers.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/generic_subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_clock_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_logging_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_parameters_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_value.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_type.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_value.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_services_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_time_source_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_waitables_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_impl.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_client.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_generic_publisher.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_generic_subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_publisher.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_topics_interface.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/pointer_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_topics_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/qos_parameters.hpp \
+		/opt/ros/humble/include/rmw/rmw/qos_string_conversions.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_parameters_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_parameters_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_service.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/resolve_enable_topic_statistics.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_timers_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_timers_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_timer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_base_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_base_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/static_single_threaded_executor.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/static_executor_entities_collector.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/executable_list.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_client.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/describe_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/get_parameter_types.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/get_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/list_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/set_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/set_parameters_atomically.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__type_support.hpp \
+		/opt/ros/humble/include/rcl_yaml_param_parser/rcl_yaml_param_parser/parser.h \
+		/opt/ros/humble/include/rcl_yaml_param_parser/rcl_yaml_param_parser/visibility_control.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_map.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_event_handler.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_service.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/dynamic_storage.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_wait_set_mask.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/storage_policy_common.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/sequential_synchronization.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_result.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_result_kind.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/synchronization_policy_common.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/static_storage.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/write_preferring_read_write_lock.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_template.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
 		moc_predefs.h \
 		../../../Qt/6.8.3/gcc_64/libexec/moc
-	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pagecart.h -o moc_pagecart.cpp
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pagecart.h -o moc_pagecart.cpp
 
 moc_pageguide.cpp: pageguide.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
@@ -2801,9 +3218,405 @@ moc_pageguide.cpp: pageguide.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QHideEvent \
 		moc_predefs.h \
 		../../../Qt/6.8.3/gcc_64/libexec/moc
-	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pageguide.h -o moc_pageguide.cpp
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pageguide.h -o moc_pageguide.cpp
+
+moc_pagepay.cpp: pagepay.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversionchecks.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfiginclude.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfigmacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcoreexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qassert.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtnoop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypes.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qyieldcpu.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconstructormacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdarwinhelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexceptionhandling.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qforeach.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttypetraits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmalloc.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qminmax.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qoverload.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qswap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtenvironmentvariables.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtresource.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttranslation.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcomparehelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20type_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qxptype_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20functional.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20memory.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlatin1stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter_base.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfloat16.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopeguard.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbindingstorage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q23utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qaction.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsize.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrect.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgba64.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qimage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixelformat.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qregion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qspan.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20iterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qline.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qset.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfont.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qendian.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbitmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qurl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qeventpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvectornd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpointingdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QList \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QRect \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSize \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSizeF \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QTransform \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnativeinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtsan_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpromise.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication_platform.h \
+		moc_predefs.h \
+		../../../Qt/6.8.3/gcc_64/libexec/moc
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pagepay.h -o moc_pagepay.cpp
+
+moc_pagepay_card.cpp: pagepay_card.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversionchecks.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfiginclude.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfigmacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcoreexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qassert.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtnoop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypes.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qyieldcpu.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconstructormacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdarwinhelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexceptionhandling.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qforeach.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttypetraits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmalloc.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qminmax.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qoverload.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qswap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtenvironmentvariables.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtresource.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttranslation.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcomparehelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20type_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qxptype_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20functional.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20memory.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlatin1stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter_base.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfloat16.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopeguard.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbindingstorage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q23utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qaction.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsize.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrect.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgba64.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qimage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixelformat.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qregion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qspan.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20iterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qline.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qset.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfont.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qendian.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbitmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qurl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qeventpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvectornd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpointingdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QList \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QRect \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSize \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSizeF \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QTransform \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnativeinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtsan_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpromise.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication_platform.h \
+		moc_predefs.h \
+		../../../Qt/6.8.3/gcc_64/libexec/moc
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pagepay_card.h -o moc_pagepay_card.cpp
 
 moc_pagewelcome.cpp: pagewelcome.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
@@ -3031,15 +3844,15 @@ moc_pagewelcome.cpp: pagewelcome.h \
 		item.h \
 		moc_predefs.h \
 		../../../Qt/6.8.3/gcc_64/libexec/moc
-	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pagewelcome.h -o moc_pagewelcome.cpp
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/moc $(DEFINES) --include /home/ubuntu/Document/QT-CART/QT-Main/moc_predefs.h -I/home/ubuntu/Qt/6.8.3/gcc_64/mkspecs/linux-g++ -I/home/ubuntu/Document/QT-CART/QT-Main -I/opt/ros/humble/include -I/opt/ros/humble/include/rclcpp -I/opt/ros/humble/include/rcl -I/opt/ros/humble/include/rcutils -I/opt/ros/humble/include/rmw -I/opt/ros/humble/include/rcpputils -I/opt/ros/humble/include/builtin_interfaces -I/opt/ros/humble/include/geometry_msgs -I/opt/ros/humble/include/std_msgs -I/opt/ros/humble/include/nav_msgs -I/opt/ros/humble/include/rosidl_runtime_c -I/opt/ros/humble/include/rosidl_runtime_cpp -I/opt/ros/humble/include/rosidl_typesupport_interface -I/opt/ros/humble/include/rosidl_typesupport_cpp -I/opt/ros/humble/include/rosidl_typesupport_introspection_cpp -I/opt/ros/humble/include/tracetools -I/opt/ros/humble/include/libstatistics_collector -I/opt/ros/humble/include/statistics_msgs -I/opt/ros/humble/include/rcl_yaml_param_parser -I/opt/ros/humble/include/libyaml_vendor -I/opt/ros/humble/include/rcl_interfaces -I/opt/ros/humble/include/rcl_logging_interface -I/opt/ros/humble/include/rosgraph_msgs -I/opt/ros/humble/include/unique_identifier_msgs -I/opt/ros/humble/include/action_msgs -I/opt/ros/humble/include/rosidl_adapter -I/home/ubuntu/Qt/6.8.3/gcc_64/include -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtWidgets -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtGui -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtNetwork -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtSerialPort -I/home/ubuntu/Qt/6.8.3/gcc_64/include/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include pagewelcome.h -o moc_pagewelcome.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwidget.h ui_pagecart.h ui_pageguide.h ui_pagewelcome.h
+compiler_uic_make_all: ui_mainwidget.h ui_pagecart.h ui_pageguide.h ui_pagepay.h ui_pagepay_card.h ui_pagewelcome.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwidget.h ui_pagecart.h ui_pageguide.h ui_pagewelcome.h
+	-$(DEL_FILE) ui_mainwidget.h ui_pagecart.h ui_pageguide.h ui_pagepay.h ui_pagepay_card.h ui_pagewelcome.h
 ui_mainwidget.h: mainwidget.ui \
 		../../../Qt/6.8.3/gcc_64/libexec/uic
 	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/uic mainwidget.ui -o ui_mainwidget.h
@@ -3051,6 +3864,14 @@ ui_pagecart.h: pagecart.ui \
 ui_pageguide.h: pageguide.ui \
 		../../../Qt/6.8.3/gcc_64/libexec/uic
 	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/uic pageguide.ui -o ui_pageguide.h
+
+ui_pagepay.h: pagepay.ui \
+		../../../Qt/6.8.3/gcc_64/libexec/uic
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/uic pagepay.ui -o ui_pagepay.h
+
+ui_pagepay_card.h: pagepay_card.ui \
+		../../../Qt/6.8.3/gcc_64/libexec/uic
+	/home/ubuntu/Qt/6.8.3/gcc_64/libexec/uic pagepay_card.ui -o ui_pagepay_card.h
 
 ui_pagewelcome.h: pagewelcome.ui \
 		../../../Qt/6.8.3/gcc_64/libexec/uic
@@ -3471,7 +4292,10 @@ main.o: main.cpp mainwidget.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qpen.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QMap \
-		pageguide.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QTimer \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasictimer.h \
+		uwbdriver.h \
 		/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp \
@@ -3815,6 +4639,15 @@ main.o: main.cpp mainwidget.h \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/write_preferring_read_write_lock.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_template.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		pageguide.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_stamped.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__struct.hpp \
 		/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__struct.hpp \
@@ -3828,7 +4661,7 @@ main.o: main.cpp mainwidget.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp \
-		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QHideEvent \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -4070,7 +4903,10 @@ mainwidget.o: mainwidget.cpp mainwidget.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qpen.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QMap \
-		pageguide.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QTimer \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasictimer.h \
+		uwbdriver.h \
 		/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp \
@@ -4414,6 +5250,15 @@ mainwidget.o: mainwidget.cpp mainwidget.h \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/write_preferring_read_write_lock.hpp \
 		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_template.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		pageguide.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose_stamped.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__struct.hpp \
 		/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__struct.hpp \
@@ -4427,7 +5272,7 @@ mainwidget.o: mainwidget.cpp mainwidget.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp \
-		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QHideEvent \
 		ui_mainwidget.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h \
@@ -4642,6 +5487,10 @@ pagecart.o: pagecart.cpp pagecart.h \
 		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QMap \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QString \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QTimer \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasictimer.h \
+		uwbdriver.h \
 		item.h \
 		barcodescanner.h \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QNetworkAccessManager \
@@ -4675,16 +5524,364 @@ pagecart.o: pagecart.cpp pagecart.h \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/qnetworkreply.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QIODevice \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QNetworkRequest \
+		/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp \
+		/opt/ros/humble/include/rcl/rcl/guard_condition.h \
+		/opt/ros/humble/include/rcl/rcl/allocator.h \
+		/opt/ros/humble/include/rcutils/rcutils/allocator.h \
+		/opt/ros/humble/include/rcutils/rcutils/macros.h \
+		/opt/ros/humble/include/rcutils/rcutils/testing/fault_injection.h \
+		/opt/ros/humble/include/rcutils/rcutils/visibility_control.h \
+		/opt/ros/humble/include/rcutils/rcutils/visibility_control_macros.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/rcutils_ret.h \
+		/opt/ros/humble/include/rcl/rcl/context.h \
+		/opt/ros/humble/include/rmw/rmw/init.h \
+		/opt/ros/humble/include/rmw/rmw/init_options.h \
+		/opt/ros/humble/include/rmw/rmw/domain_id.h \
+		/opt/ros/humble/include/rmw/rmw/localhost.h \
+		/opt/ros/humble/include/rmw/rmw/visibility_control.h \
+		/opt/ros/humble/include/rmw/rmw/macros.h \
+		/opt/ros/humble/include/rmw/rmw/ret_types.h \
+		/opt/ros/humble/include/rmw/rmw/security_options.h \
+		/opt/ros/humble/include/rcl/rcl/arguments.h \
+		/opt/ros/humble/include/rcl/rcl/log_level.h \
+		/opt/ros/humble/include/rcl/rcl/macros.h \
+		/opt/ros/humble/include/rcl/rcl/types.h \
+		/opt/ros/humble/include/rmw/rmw/types.h \
+		/opt/ros/humble/include/rcutils/rcutils/logging.h \
+		/opt/ros/humble/include/rcutils/rcutils/error_handling.h \
+		/opt/ros/humble/include/rcutils/rcutils/snprintf.h \
+		/opt/ros/humble/include/rcutils/rcutils/time.h \
+		/opt/ros/humble/include/rcutils/rcutils/types.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/array_list.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/char_array.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/hash_map.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/string_array.h \
+		/opt/ros/humble/include/rcutils/rcutils/qsort.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/string_map.h \
+		/opt/ros/humble/include/rcutils/rcutils/types/uint8_array.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/events_statuses.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/incompatible_qos.h \
+		/opt/ros/humble/include/rmw/rmw/qos_policy_kind.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/liveliness_changed.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/liveliness_lost.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/message_lost.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/offered_deadline_missed.h \
+		/opt/ros/humble/include/rmw/rmw/events_statuses/requested_deadline_missed.h \
+		/opt/ros/humble/include/rmw/rmw/serialized_message.h \
+		/opt/ros/humble/include/rmw/rmw/subscription_content_filter_options.h \
+		/opt/ros/humble/include/rmw/rmw/time.h \
+		/opt/ros/humble/include/rcl/rcl/visibility_control.h \
+		/opt/ros/humble/include/rcl_yaml_param_parser/rcl_yaml_param_parser/types.h \
+		/opt/ros/humble/include/rcl/rcl/init_options.h \
+		/opt/ros/humble/include/rcl/rcl/wait.h \
+		/opt/ros/humble/include/rcl/rcl/client.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
+		/opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
+		/opt/ros/humble/include/rcl/rcl/event_callback.h \
+		/opt/ros/humble/include/rmw/rmw/event_callback_type.h \
+		/opt/ros/humble/include/rcl/rcl/node.h \
+		/opt/ros/humble/include/rcl/rcl/node_options.h \
+		/opt/ros/humble/include/rcl/rcl/domain_id.h \
+		/opt/ros/humble/include/rcl/rcl/service.h \
+		/opt/ros/humble/include/rcl/rcl/subscription.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
+		/opt/ros/humble/include/rmw/rmw/message_sequence.h \
+		/opt/ros/humble/include/rcl/rcl/timer.h \
+		/opt/ros/humble/include/rcl/rcl/time.h \
+		/opt/ros/humble/include/rmw/rmw/rmw.h \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/sequence_bound.h \
+		/opt/ros/humble/include/rmw/rmw/event.h \
+		/opt/ros/humble/include/rmw/rmw/publisher_options.h \
+		/opt/ros/humble/include/rmw/rmw/qos_profiles.h \
+		/opt/ros/humble/include/rmw/rmw/subscription_options.h \
+		/opt/ros/humble/include/rcl/rcl/event.h \
+		/opt/ros/humble/include/rcl/rcl/publisher.h \
+		/opt/ros/humble/include/rcpputils/rcpputils/scope_exit.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/context.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/init_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/visibility_control.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/macros.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/contexts/default_context.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/guard_condition.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/client.hpp \
+		/opt/ros/humble/include/rcl/rcl/error_handling.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/cpp_callback_trampoline.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/exceptions.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/exceptions/exceptions.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/join.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/expand_topic_or_service_name.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/function_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/logger.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/filesystem_helper.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/visibility_control.hpp \
+		/opt/ros/humble/include/rcutils/rcutils/logging_macros.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/utilities.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_graph_interface.hpp \
+		/opt/ros/humble/include/rcl/rcl/graph.h \
+		/opt/ros/humble/include/rmw/rmw/names_and_types.h \
+		/opt/ros/humble/include/rmw/rmw/get_topic_names_and_types.h \
+		/opt/ros/humble/include/rmw/rmw/topic_endpoint_info_array.h \
+		/opt/ros/humble/include/rmw/rmw/topic_endpoint_info.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/event.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/qos.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/duration.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/duration.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__struct.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/bounded_vector.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/message_initialization.hpp \
+		/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_initialization.h \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__builder.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__traits.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/traits.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__type_support.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/message_type_support.hpp \
+		/opt/ros/humble/include/rcl/rcl/logging_rosout.h \
+		/opt/ros/humble/include/rmw/rmw/incompatible_qos_events_statuses.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/type_support_decl.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/message_type_support_decl.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/service_type_support_decl.hpp \
+		/opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/service_type_support.hpp \
+		/opt/ros/humble/include/rmw/rmw/error_handling.h \
+		/opt/ros/humble/include/rmw/rmw/impl/cpp/demangle.hpp \
+		/opt/ros/humble/include/rmw/rmw/impl/config.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/network_flow_endpoint.hpp \
+		/opt/ros/humble/include/rcl/rcl/network_flow_endpoints.h \
+		/opt/ros/humble/include/rmw/rmw/network_flow_endpoint.h \
+		/opt/ros/humble/include/rmw/rmw/network_flow_endpoint_array.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/qos_event.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/waitable.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/time.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/service.hpp \
+		/opt/ros/humble/include/tracetools/tracetools/tracetools.h \
+		/opt/ros/humble/include/tracetools/tracetools/config.h \
+		/opt/ros/humble/include/tracetools/tracetools/visibility_control.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/any_service_callback.hpp \
+		/opt/ros/humble/include/tracetools/tracetools/utils.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/any_subscription_callback.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/allocator/allocator_common.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/allocator/allocator_deleter.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/subscription_callback_type_helper.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/message_info.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/serialized_message.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/type_adapter.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/intra_process_manager.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/ros_message_intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/buffer_implementation_base.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/create_intra_process_buffer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/ring_buffer_implementation.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/intra_process_buffer_type.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_content_filter_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/timer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/time.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/time.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__builder.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__traits.hpp \
+		/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/rate.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_base_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/resolve_use_intra_process.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/intra_process_setting.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/resolve_intra_process_buffer_type.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/message_memory_strategy.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/rmw_implementation_specific_subscription_payload.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/rmw_implementation_specific_payload.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/qos_overriding_options.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/set_parameters_result.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics_state.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/collector/generate_statistics_message.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/metrics_message.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__struct.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/statistic_data_point__struct.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__builder.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__traits.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/statistic_data_point__traits.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/detail/metrics_message__type_support.hpp \
+		/opt/ros/humble/include/statistics_msgs/statistics_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/visibility_control.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/moving_average_statistics/types.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/constants.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/received_message_age.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/topic_statistics_collector.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/collector/collector.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/moving_average_statistics/moving_average.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/thread_safety_annotations.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/collector/metric_details_interface.hpp \
+		/opt/ros/humble/include/libstatistics_collector/libstatistics_collector/topic_statistics_collector/received_message_period.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/get_message_type_support_handle.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/is_ros_compatible_type.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/loaned_message.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/rmw_implementation_specific_publisher_payload.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/future_return_code.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/single_threaded_executor.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/list_parameters_result.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/list_parameters_result__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_descriptor.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/floating_point_range__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/integer_range__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/floating_point_range__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/integer_range__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_descriptor__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_event.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_event__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/generic_publisher.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/shared_library.hpp \
+		/opt/ros/humble/include/rcutils/rcutils/shared_library.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_topics_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_timers_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/publisher_factory.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_factory.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/typesupport_helpers.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/generic_subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_clock_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_logging_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_parameters_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_value.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_type.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_type__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/parameter_value.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter_value__type_support.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_services_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_time_source_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_waitables_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_options.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_impl.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_client.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_generic_publisher.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_generic_subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_publisher.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_topics_interface.hpp \
+		/opt/ros/humble/include/rcpputils/rcpputils/pointer_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_topics_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/qos_parameters.hpp \
+		/opt/ros/humble/include/rmw/rmw/qos_string_conversions.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_parameters_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_parameters_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_service.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_subscription.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/detail/resolve_enable_topic_statistics.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_timers_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_timers_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/create_timer.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/get_node_base_interface.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_base_interface_traits.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/static_single_threaded_executor.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/executors/static_executor_entities_collector.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/experimental/executable_list.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_client.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/describe_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/get_parameter_types.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameter_types__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/get_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/get_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/list_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/set_parameters.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__type_support.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/set_parameters_atomically.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__struct.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__builder.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__traits.hpp \
+		/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters_atomically__type_support.hpp \
+		/opt/ros/humble/include/rcl_yaml_param_parser/rcl_yaml_param_parser/parser.h \
+		/opt/ros/humble/include/rcl_yaml_param_parser/rcl_yaml_param_parser/visibility_control.h \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_map.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_event_handler.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/parameter_service.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/dynamic_storage.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/subscription_wait_set_mask.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/storage_policy_common.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/sequential_synchronization.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_result.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_result_kind.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/synchronization_policy_common.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/static_storage.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/write_preferring_read_write_lock.hpp \
+		/opt/ros/humble/include/rclcpp/rclcpp/wait_set_template.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
 		ui_pagecart.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayout.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QTableWidgetItem \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtablewidget.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtableview.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/qabstractitemmodel.h \
@@ -4700,24 +5897,20 @@ pagecart.o: pagecart.cpp pagecart.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QLabel \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlabel.h \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/qpicture.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QPushButton \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QSpacerItem \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QTableWidget \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtablewidget.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtableview.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QVBoxLayout \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QDebug \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QMessageBox \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qdialog.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/QKeyEvent
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QKeyEvent \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QStackedWidget \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qstackedwidget.h \
+		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/6.8.3/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QNetworkDatagram \
+		../../../Qt/6.8.3/gcc_64/include/QtNetwork/qnetworkdatagram.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pagecart.o pagecart.cpp
 
 pageguide.o: pageguide.cpp pageguide.h \
@@ -5267,30 +6460,413 @@ pageguide.o: pageguide.cpp pageguide.h \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__traits.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__type_support.hpp \
 		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/twist.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__builder.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__traits.hpp \
+		/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__type_support.hpp \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QHideEvent \
 		ui_pageguide.h \
-		../../../Qt/6.8.3/gcc_64/include/QtCore/QVariant \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/QIcon \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QFrame \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QPixmap \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QDebug \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayout.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QLabel \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlabel.h \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/qpicture.h \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextdocument.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QPushButton \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QSpacerItem \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QVBoxLayout \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/QPixmap \
-		../../../Qt/6.8.3/gcc_64/include/QtCore/QDebug
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pageguide.o pageguide.cpp
+
+pagepay.o: pagepay.cpp pagepay.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversionchecks.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfiginclude.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfigmacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcoreexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qassert.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtnoop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypes.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qyieldcpu.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconstructormacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdarwinhelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexceptionhandling.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qforeach.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttypetraits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmalloc.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qminmax.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qoverload.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qswap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtenvironmentvariables.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtresource.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttranslation.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcomparehelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20type_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qxptype_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20functional.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20memory.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlatin1stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter_base.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfloat16.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopeguard.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbindingstorage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q23utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qaction.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsize.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrect.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgba64.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qimage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixelformat.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qregion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qspan.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20iterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qline.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qset.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfont.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qendian.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbitmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qurl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qeventpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvectornd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpointingdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QList \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QRect \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSize \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSizeF \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QTransform \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnativeinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtsan_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpromise.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication_platform.h \
+		ui_pagepay.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pagepay.o pagepay.cpp
+
+pagepay_card.o: pagepay_card.cpp pagepay_card.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversionchecks.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfiginclude.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtconfigmacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtcoreexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qassert.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtnoop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypes.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtversion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qyieldcpu.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qconstructormacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdarwinhelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexceptionhandling.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qforeach.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttypetraits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmalloc.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qminmax.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qoverload.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qswap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtenvironmentvariables.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtresource.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qttranslation.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtguiexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcomparehelpers.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20type_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qxptype_traits.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20functional.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20memory.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringfwd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlatin1stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringconverter_base.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfloat16.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qscopeguard.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qbindingstorage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q23utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20utility.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qaction.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsize.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrect.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qrgba64.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qimage.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpixelformat.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qregion.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qspan.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/q20iterator.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qline.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qset.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfont.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qendian.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qbitmap.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qevent.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qurl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qeventpoint.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qvectornd.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qpointingdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputdevice.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QList \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QRect \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSize \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/QSizeF \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/QTransform \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qnativeinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qscreen_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qtsan_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qpromise.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.8.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.8.3/gcc_64/include/QtGui/qguiapplication_platform.h \
+		ui_pagepay_card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pagepay_card.o pagepay_card.cpp
 
 pagewelcome.o: pagewelcome.cpp pagewelcome.h \
 		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QWidget \
@@ -5516,24 +7092,20 @@ pagewelcome.o: pagewelcome.cpp pagewelcome.h \
 		../../../Qt/6.8.3/gcc_64/include/QtCore/QIODevice \
 		../../../Qt/6.8.3/gcc_64/include/QtNetwork/QNetworkRequest \
 		item.h \
-		ui_pagewelcome.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qapplication.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QLabel \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlabel.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/qpicture.h \
-		../../../Qt/6.8.3/gcc_64/include/QtGui/qtextdocument.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QPushButton \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QSpacerItem \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/QVBoxLayout \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qlayout.h \
-		../../../Qt/6.8.3/gcc_64/include/QtWidgets/qgridlayout.h
+		ui_pagewelcome.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pagewelcome.o pagewelcome.cpp
+
+uwbdriver.o: uwbdriver.cpp uwbdriver.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uwbdriver.o uwbdriver.cpp
+
+qrc_cart_img.o: qrc_cart_img.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_cart_img.o qrc_cart_img.cpp
+
+qrc_cart_obj.o: qrc_cart_obj.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_cart_obj.o qrc_cart_obj.cpp
+
+qrc_image.o: qrc_image.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
 
 qrc_maps.o: qrc_maps.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_maps.o qrc_maps.cpp
@@ -5549,6 +7121,12 @@ moc_pagecart.o: moc_pagecart.cpp
 
 moc_pageguide.o: moc_pageguide.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pageguide.o moc_pageguide.cpp
+
+moc_pagepay.o: moc_pagepay.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pagepay.o moc_pagepay.cpp
+
+moc_pagepay_card.o: moc_pagepay_card.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pagepay_card.o moc_pagepay_card.cpp
 
 moc_pagewelcome.o: moc_pagewelcome.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pagewelcome.o moc_pagewelcome.cpp

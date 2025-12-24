@@ -1,0 +1,21 @@
+
+# Qt Creator user settings
+*.pro.user*
+.qtcreator/
+QT-Main/.qtcreator/
+
+# qmake / Qt build outputs
+build*/
+*.o
+moc_*
+ui_*
+qrc_*
+Makefile
+.qmake.stash
+QTCart
+
+# Qt Design Studio / Qt Creator artifacts
+*.qtds
+
+# Build dirs
+QT-Main/build/

@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -63,7 +63,10 @@ SOURCES += \
     mainwidget.cpp \
     pagecart.cpp \
     pageguide.cpp \
-    pagewelcome.cpp
+    pagepay.cpp \
+    pagepay_card.cpp \
+    pagewelcome.cpp \
+    uwbdriver.cpp
 
 HEADERS += \
     barcodescanner.h \
@@ -71,12 +74,17 @@ HEADERS += \
     mainwidget.h \
     pagecart.h \
     pageguide.h \
-    pagewelcome.h
+    pagepay.h \
+    pagepay_card.h \
+    pagewelcome.h \
+    uwbdriver.h
 
 FORMS += \
     mainwidget.ui \
     pagecart.ui \
     pageguide.ui \
+    pagepay.ui \
+    pagepay_card.ui \
     pagewelcome.ui
 
 # Default rules for deployment.
@@ -87,4 +95,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 RESOURCES += \
+    cart_img.qrc \
+    cart_obj.qrc \
+    image.qrc \
     maps.qrc
