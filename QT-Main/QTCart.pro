@@ -63,7 +63,8 @@ SOURCES += \
     mainwidget.cpp \
     pagecart.cpp \
     pageguide.cpp \
-    pagewelcome.cpp
+    pagewelcome.cpp \
+    uwbdriver.cpp
 
 HEADERS += \
     barcodescanner.h \
@@ -71,7 +72,8 @@ HEADERS += \
     mainwidget.h \
     pagecart.h \
     pageguide.h \
-    pagewelcome.h
+    pagewelcome.h \
+    uwbdriver.h
 
 FORMS += \
     mainwidget.ui \

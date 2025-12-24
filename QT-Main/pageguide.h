@@ -4,8 +4,8 @@
 #include <QWidget>
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
-// ▼ [추가] 속도 명령 메시지 헤더
 #include <geometry_msgs/msg/twist.hpp>
+#include <QHideEvent>
 
 namespace Ui {
 class PageGuide;
@@ -27,23 +27,23 @@ private slots:
     void on_foodIcon_clicked();
     void on_groceryIcon_clicked();
 
-    // ▼ [추가] 수동 조작 버튼 슬롯 (UI에서 우클릭 -> Go to slot으로도 생성 가능)
+    // 수동 조작 버튼 슬롯
     void on_btnForward_clicked();
     void on_btnStop_clicked();
     void on_btnBack_clicked();
+
+    // 화면이 숨겨질 때(다른 화면으로 갈 때) 자동 실행되는 이벤트 함수
+protected:
+    void hideEvent(QHideEvent *event) override;
 
 private:
     Ui::PageGuide *ui;
 
     rclcpp::Node::SharedPtr node_;
     rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr goal_publisher_;
-
-    // ▼ [추가] 속도 명령 퍼블리셔
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;
 
     void sendGoal(double x, double y, double w = 1.0);
-
-    // ▼ [추가] 속도 전송 도우미 함수
     void moveTurtle(double linear, double angular);
 };
 

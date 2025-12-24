@@ -6,7 +6,8 @@
 #include <QLineEdit>
 #include <QMap>
 #include <QString>
-#include <QtNetwork/QUdpSocket>
+#include <QTimer>
+#include "uwbdriver.h"
 #include "item.h"
 #include "barcodescanner.h"
 #include "rclcpp/rclcpp.hpp"
@@ -35,7 +36,6 @@ signals:
     void guideModeClicked();
 
 private slots:
-    // 기존 UI 슬롯
     void onPlusClicked();
     void onMinusClicked();
     void onDeleteClicked();
@@ -44,7 +44,7 @@ private slots:
     void handleFetchFailed(const QString &err);
     void on_btnGuideMode_clicked();
 
-    void readUwbUdp();
+    void onUwbTimerTimeout();
 
 private:
     Ui::PageCart *ui;
@@ -52,25 +52,22 @@ private:
     void initDummyItems();
     void updateRowAmount(int row);
     void updateTotal();
-    // void handleBarcode(const QString &code); // 중복 기능 제거 가능
 
     QVector<int> m_unitPrice;
     QLineEdit *m_editBarcode;
     BarcodeScanner *m_scanner;
     QString m_barcodeData;
+    UwbDriver *m_uwbDriver;
+    QTimer *m_uwbTimer;
 
-    // [네트워크]
-    QUdpSocket *m_udpSocket;
-
-    // [UWB 데이터 저장용 변수 추가]
+    // UWB 데이터
     float m_distL = 0.0;
     float m_distR = 0.0;
 
-    // [ROS 2 제어 관련]
     rclcpp::Node::SharedPtr m_node;
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_cmdVelPub;
 
-    // [수정된 제어 로직] L, R 두 개의 값을 인자로 받음
+    // L, R 두 개의 값을 인자로 받음
     void controlDualRobot(float l, float r);
 };
 

@@ -2,8 +2,6 @@
 #include "ui_pageguide.h"
 #include <QPixmap>
 #include <QDebug>
-
-// ▼ [추가] 코드로 버튼과 레이아웃을 만들기 위한 헤더 파일
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -14,9 +12,6 @@ PageGuide::PageGuide(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // ==========================================
-    // [ROS 2 초기화]
-    // ==========================================
     // 1. 노드 생성
     node_ = rclcpp::Node::make_shared("page_guide_node");
 
@@ -71,15 +66,10 @@ PageGuide::PageGuide(QWidget *parent)
         mainLayout->addLayout(buttonLayout);
     }
 
-    // 5. [중요] 생성한 버튼을 클릭했을 때 실행할 함수 연결 (Signal & Slot)
+    // 생성한 버튼을 클릭했을 때 실행할 함수 연결 (Signal & Slot)
     connect(codeBtnFwd, &QPushButton::clicked, this, &PageGuide::on_btnForward_clicked);
     connect(codeBtnStop, &QPushButton::clicked, this, &PageGuide::on_btnStop_clicked);
     connect(codeBtnBack, &QPushButton::clicked, this, &PageGuide::on_btnBack_clicked);
-
-
-    // ==========================================
-    // [기존 UI 버튼 연결]
-    // ==========================================
     connect(ui->btnBackToCart, SIGNAL(clicked()), this, SLOT(on_btnBackToCart_clicked()));
 }
 
@@ -88,9 +78,7 @@ PageGuide::~PageGuide()
     delete ui;
 }
 
-// ---------------------------------------------------------
-// [함수 1] 자율 주행 목표 전송 (기존 기능)
-// ---------------------------------------------------------
+// 자율 주행 목표 전송
 void PageGuide::sendGoal(double x, double y, double w)
 {
     if (!goal_publisher_) {
@@ -116,9 +104,7 @@ void PageGuide::sendGoal(double x, double y, double w)
     qDebug() << "Sending Goal -> X:" << x << " Y:" << y;
 }
 
-// ---------------------------------------------------------
-// [함수 2] 수동 조작 속도 전송 (추가된 기능)
-// ---------------------------------------------------------
+// 수동 조작 속도 전송
 void PageGuide::moveTurtle(double linear, double angular)
 {
     if (!cmd_vel_publisher_) {
@@ -134,41 +120,41 @@ void PageGuide::moveTurtle(double linear, double angular)
     qDebug() << "Manual Move -> Linear:" << linear << " Angular:" << angular;
 }
 
-// ---------------------------------------------------------
-// 버튼 슬롯 (이벤트 처리)
-// ---------------------------------------------------------
+// 페이지를 벗어나면 자율주행 종료
+void PageGuide::hideEvent(QHideEvent *event)
+{
+    qDebug() << "[PageGuide] Leaving Guide Mode -> Robot Stopped.";
+    on_btnStop_clicked();
+
+    QWidget::hideEvent(event);
+}
 
 void PageGuide::on_btnBackToCart_clicked()
 {
     emit backToCartClicked();
 }
 
-// [자율 주행] 음식 아이콘 -> 지정된 좌표로 이동
 void PageGuide::on_foodIcon_clicked()
 {
     sendGoal(-0.8, 0.0);
 }
 
-// [자율 주행] 식료품 아이콘 -> 지정된 좌표로 이동
 void PageGuide::on_groceryIcon_clicked()
 {
     sendGoal(2.0, 0.0);
 }
 
-// [수동 조작] 앞으로 가기
 void PageGuide::on_btnForward_clicked()
 {
-    moveTurtle(0.2, 0.0); // 0.2 m/s 속도로 전진
+    moveTurtle(0.2, 0.0);
 }
 
-// [수동 조작] 멈춤
 void PageGuide::on_btnStop_clicked()
 {
-    moveTurtle(0.0, 0.0); // 정지
+    moveTurtle(0.0, 0.0);
 }
 
-// [수동 조작] 뒤로 가기
 void PageGuide::on_btnBack_clicked()
 {
-    moveTurtle(-0.2, 0.0); // -0.2 m/s 속도로 후진
+    moveTurtle(-0.2, 0.0);
 }

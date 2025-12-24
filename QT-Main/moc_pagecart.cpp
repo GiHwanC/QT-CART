@@ -52,7 +52,7 @@ static constexpr auto qt_meta_stringdata_ZN8PageCartE = QtMocHelpers::stringData
     "handleFetchFailed",
     "err",
     "on_btnGuideMode_clicked",
-    "readUwbUdp"
+    "onUwbTimerTimeout"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -127,7 +127,7 @@ Q_CONSTINIT const QMetaObject PageCart::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'on_btnGuideMode_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'readUwbUdp'
+        // method 'onUwbTimerTimeout'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -146,7 +146,7 @@ void PageCart::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 5: _t->handleItemFetched((*reinterpret_cast< std::add_pointer_t<Item>>(_a[1]))); break;
         case 6: _t->handleFetchFailed((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 7: _t->on_btnGuideMode_clicked(); break;
-        case 8: _t->readUwbUdp(); break;
+        case 8: _t->onUwbTimerTimeout(); break;
         default: ;
         }
     }

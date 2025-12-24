@@ -1,6 +1,5 @@
 #include "pagecart.h"
 #include "ui_pagecart.h"
-
 #include <QPushButton>
 #include <QTableWidgetItem>
 #include <QDebug>
@@ -8,34 +7,32 @@
 #include <QKeyEvent>
 #include <QApplication>
 
-// UDP 통신 및 네트워크 데이터그램 헤더
-#include <QtNetwork/QUdpSocket>
-#include <QtNetwork/QNetworkDatagram>
-
 PageCart::PageCart(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PageCart)
 {
     ui->setupUi(this);
 
-    qDebug() << "[PageCart] Constructor Called";
-
-    m_node = rclcpp::Node::make_shared("page_cart_udp_node");
+    // ROS2 노드 초기화
+    m_node = rclcpp::Node::make_shared("page_cart_node");
     m_cmdVelPub = m_node->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
 
-    m_udpSocket = new QUdpSocket(this);
+    // 1. 드라이버 인스턴스 생성
+    m_uwbDriver = new UwbDriver();
 
-    // 5005번 포트 바인딩
-    if (m_udpSocket->bind(QHostAddress::AnyIPv4, 5005)) {
-        connect(m_udpSocket, &QUdpSocket::readyRead, this, &PageCart::readUwbUdp);
-        qDebug() << "[PageCart] UDP Socket Bound on Port 5005. Waiting for 'L:x,R:y' data...";
+    // 2. USB 포트 열기 (내부적으로 스레드가 돌며 데이터 파싱 시작)
+    if (m_uwbDriver->openDualPorts("/dev/ttyUSB0", "/dev/ttyUSB1")) {
+        qDebug() << "[PageCart] UWB Driver Connected to /dev/ttyUSB0";
     } else {
-        qDebug() << "[PageCart] UDP Socket Bind Failed!";
+        qDebug() << "[PageCart] Failed to open UWB Driver! Check Connection.";
     }
 
-    // ==========================================
-    // [기존 바코드 및 UI 설정]
-    // ==========================================
+    // 3. 타이머 설정 (50ms마다 데이터 확인 = 20Hz)
+    m_uwbTimer = new QTimer(this);
+    connect(m_uwbTimer, &QTimer::timeout, this, &PageCart::onUwbTimerTimeout);
+    m_uwbTimer->start(50);
+
+    // 바코드 및 UI 설정
     m_editBarcode = new QLineEdit(this);
     m_editBarcode->setVisible(false);
     m_editBarcode->setFocusPolicy(Qt::StrongFocus);
@@ -59,87 +56,74 @@ PageCart::PageCart(QWidget *parent) :
 
 PageCart::~PageCart()
 {
+    // 메모리 정리 및 스레드 종료
+    if (m_uwbTimer) {
+        m_uwbTimer->stop();
+        delete m_uwbTimer;
+    }
+    if (m_uwbDriver) {
+        m_uwbDriver->closePorts(); // 스레드 join 및 포트 닫기
+        delete m_uwbDriver;
+    }
     delete ui;
 }
 
-// ---------------------------------------------------------
-// [UDP 데이터 수신 및 파싱 슬롯]
-// 형식: "L:1.50,R:1.60"
-// ---------------------------------------------------------
-void PageCart::readUwbUdp()
+// 타이머 핸들러: 드라이버에서 최신 거리값 조회 및 로봇 제어
+void PageCart::onUwbTimerTimeout()
 {
-    // 장바구니 페이지가 보일 때만 작동
-    // if (!this->isVisible()) return;
+    // 화면이 보이지 않거나(다른 페이지 이동), 안내 모드 등일 때는 제어 중지
+    // if (!this->isVisible()) {
+    //     controlDualRobot(0.0, 0.0); // 안전을 위해 정지 명령
+    //     return;
+    // }
 
-    while (m_udpSocket->hasPendingDatagrams()) {
-        QNetworkDatagram datagram = m_udpSocket->receiveDatagram();
-        QString str = QString::fromUtf8(datagram.data()).trimmed();
+    if (m_uwbDriver) {
+        float l = 0.0f;
+        float r = 0.0f;
 
-        // 1. 콤마(,)를 기준으로 분리 -> ["L:1.50", "R:1.60"]
-        qDebug() << str;
-        QStringList parts = str.split(",", Qt::SkipEmptyParts);
-        bool updated = false;
+        // 드라이버 내부의 Mutex로 보호된 최신값 가져오기 (Non-blocking)
+        m_uwbDriver->getDistances(l, r);
 
-        for (const QString &part : parts) {
-            // L 데이터 파싱
-            if (part.startsWith("L:")) {
-                m_distL = part.mid(2).toFloat(); // "L:" 다음부터 숫자 변환
-                updated = true;
-            }
-            // R 데이터 파싱
-            else if (part.startsWith("R:")) {
-                m_distR = part.mid(2).toFloat(); // "R:" 다음부터 숫자 변환
-                updated = true;
-            }
-        }
+        m_distL = l;
+        m_distR = r;
 
-        // 2. 데이터가 갱신되었으면 제어 함수 호출
-        if (updated) {
-            controlDualRobot(m_distL, m_distR);
-        }
+        controlDualRobot(m_distL, m_distR);
+
+        qDebug() << "UWB Dist: L=" << l << " R=" << r;
     }
 }
 
-// ---------------------------------------------------------
-// [듀얼 앵커 기반 주행 로직]
-// ---------------------------------------------------------
 void PageCart::controlDualRobot(float l, float r)
 {
     auto msg = geometry_msgs::msg::Twist();
 
-    // 0. 안전장치: 센서 값이 0이거나 튄 무시
-    if (l <= 0.01 || r <= 0.01)
+    // 유효하지 않은 값이면 정지
+    if (l <= 0.01 || r <= 0.01) {
+        m_cmdVelPub->publish(msg);
         return;
+    }
 
     // 1. 평균 거리 (전진 여부 판단)
     float avg_dist = (l + r) / 2.0;
 
-    // 2. 회전 제어 (P제어: 거리 차이 비례)
-    // 오른쪽이 더 멀다(R > L) -> 사람이 왼쪽에 있다 -> 왼쪽 회전 (+z)
-    // 왼쪽이 더 멀다(L > R) -> 사람이 오른쪽에 있다 -> 오른쪽 회전 (-z)
-
+    // 2. 회전 제어
     float diff = r - l;
+    if (std::abs(diff) < 0.1) diff = 0.0;  // 떨림 방지 Deadzone
 
-    // 데드밴드 (차이가 일정 미만이면 떨림 방지용으로 무시)
-    if (std::abs(diff) > 0.05) diff = 0.0;  // 0.05m
-
-    float turn_gain = 2.0; // 회전 민감도 (조절 필요)
+    float turn_gain = 2.0; // 회전 민감도
     msg.angular.z = diff * turn_gain;
 
-    // 1.2m 이상 멀어지면 전진
+    // 1.2m 이상 -> 전진
     if (avg_dist > 1.2) {
-        msg.linear.x = 0.2; // 0.2 m/s 속도
+        msg.linear.x = 0.2;
     }
-    // 0.6m 이내로 너무 가까우면 정지
+    // 0.6m 이내 -> 정지
     else if (avg_dist < 0.6) {
         msg.linear.x = 0.0;
-        // msg.angular.z = 0.0;
     }
-
-    // 0.6 ~ 1.2m 사이는 유지 구역 (제자리 회전만 허용)
+    // 그 사이 -> 제자리 회전만
     else {
         msg.linear.x = 0.0;
-        // 회전값은 유지 (사람을 계속 바라봄)
     }
 
     m_cmdVelPub->publish(msg);
