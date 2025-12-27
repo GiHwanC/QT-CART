@@ -78,7 +78,7 @@
     <string>멤버십 할인 적용</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="btnBackToCart">
    <property name="geometry">
     <rect>
      <x>290</x>

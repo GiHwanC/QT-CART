@@ -43,6 +43,7 @@ static constexpr auto qt_meta_stringdata_ZN8PageCartE = QtMocHelpers::stringData
     "guideModeClicked",
     "",
     "goWelcome",
+    "goPay",
     "onPlusClicked",
     "onMinusClicked",
     "onDeleteClicked",
@@ -67,30 +68,32 @@ Q_CONSTINIT static const uint qt_meta_data_ZN8PageCartE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   86,    2, 0x06,    1 /* Public */,
-       3,    0,   87,    2, 0x06,    2 /* Public */,
+       1,    0,   92,    2, 0x06,    1 /* Public */,
+       3,    0,   93,    2, 0x06,    2 /* Public */,
+       4,    0,   94,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       4,    0,   88,    2, 0x08,    3 /* Private */,
-       5,    0,   89,    2, 0x08,    4 /* Private */,
-       6,    0,   90,    2, 0x08,    5 /* Private */,
-       7,    0,   91,    2, 0x08,    6 /* Private */,
-       8,    1,   92,    2, 0x08,    7 /* Private */,
-      11,    1,   95,    2, 0x08,    9 /* Private */,
-      13,    0,   98,    2, 0x08,   11 /* Private */,
-      14,    0,   99,    2, 0x08,   12 /* Private */,
-      15,    0,  100,    2, 0x08,   13 /* Private */,
-      16,    0,  101,    2, 0x08,   14 /* Private */,
+       5,    0,   95,    2, 0x08,    4 /* Private */,
+       6,    0,   96,    2, 0x08,    5 /* Private */,
+       7,    0,   97,    2, 0x08,    6 /* Private */,
+       8,    0,   98,    2, 0x08,    7 /* Private */,
+       9,    1,   99,    2, 0x08,    8 /* Private */,
+      12,    1,  102,    2, 0x08,   10 /* Private */,
+      14,    0,  105,    2, 0x08,   12 /* Private */,
+      15,    0,  106,    2, 0x08,   13 /* Private */,
+      16,    0,  107,    2, 0x08,   14 /* Private */,
+      17,    0,  108,    2, 0x08,   15 /* Private */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -99,8 +102,8 @@ Q_CONSTINIT static const uint qt_meta_data_ZN8PageCartE[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 9,   10,
-    QMetaType::Void, QMetaType::QString,   12,
+    QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void, QMetaType::QString,   13,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -121,6 +124,8 @@ Q_CONSTINIT const QMetaObject PageCart::staticMetaObject = { {
         // method 'guideModeClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'goWelcome'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'goPay'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'onPlusClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -155,16 +160,17 @@ void PageCart::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         switch (_id) {
         case 0: _t->guideModeClicked(); break;
         case 1: _t->goWelcome(); break;
-        case 2: _t->onPlusClicked(); break;
-        case 3: _t->onMinusClicked(); break;
-        case 4: _t->onDeleteClicked(); break;
-        case 5: _t->onBarcodeEntered(); break;
-        case 6: _t->handleItemFetched((*reinterpret_cast< std::add_pointer_t<Item>>(_a[1]))); break;
-        case 7: _t->handleFetchFailed((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 8: _t->on_btnGuideMode_clicked(); break;
-        case 9: _t->on_pushButton_clicked(); break;
-        case 10: _t->on_btnPay_clicked(); break;
-        case 11: _t->processPendingDatagrams(); break;
+        case 2: _t->goPay(); break;
+        case 3: _t->onPlusClicked(); break;
+        case 4: _t->onMinusClicked(); break;
+        case 5: _t->onDeleteClicked(); break;
+        case 6: _t->onBarcodeEntered(); break;
+        case 7: _t->handleItemFetched((*reinterpret_cast< std::add_pointer_t<Item>>(_a[1]))); break;
+        case 8: _t->handleFetchFailed((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 9: _t->on_btnGuideMode_clicked(); break;
+        case 10: _t->on_pushButton_clicked(); break;
+        case 11: _t->on_btnPay_clicked(); break;
+        case 12: _t->processPendingDatagrams(); break;
         default: ;
         }
     }
@@ -181,6 +187,13 @@ void PageCart::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
             using _q_method_type = void (PageCart::*)();
             if (_q_method_type _q_method = &PageCart::goWelcome; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
                 *result = 1;
+                return;
+            }
+        }
+        {
+            using _q_method_type = void (PageCart::*)();
+            if (_q_method_type _q_method = &PageCart::goPay; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+                *result = 2;
                 return;
             }
         }
@@ -206,14 +219,14 @@ int PageCart::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 13)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 12;
+        _id -= 13;
     }
     return _id;
 }
@@ -228,5 +241,11 @@ void PageCart::guideModeClicked()
 void PageCart::goWelcome()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void PageCart::goPay()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }
 QT_WARNING_POP

@@ -80,8 +80,8 @@
        <widget class="QPushButton" name="foodIcon">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>190</y>
+          <x>60</x>
+          <y>170</y>
           <width>50</width>
           <height>50</height>
          </rect>
@@ -103,8 +103,8 @@
        <widget class="QPushButton" name="groceryIcon">
         <property name="geometry">
          <rect>
-          <x>430</x>
-          <y>220</y>
+          <x>350</x>
+          <y>130</y>
           <width>50</width>
           <height>50</height>
          </rect>
@@ -123,9 +123,6 @@
          </size>
         </property>
        </widget>
-       <zorder>labelMap</zorder>
-       <zorder>foodIcon</zorder>
-       <zorder>groceryIcon</zorder>
       </widget>
      </item>
     </layout>

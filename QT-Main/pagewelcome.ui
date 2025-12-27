@@ -18,6 +18,7 @@
   </property>
   <property name="font">
    <font>
+    <weight>50</weight>
     <bold>false</bold>
    </font>
   </property>
@@ -43,7 +44,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0">
      <property name="sizeConstraint">
-      <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+      <enum>QLayout::SetDefaultConstraint</enum>
      </property>
      <property name="bottomMargin">
       <number>0</number>
@@ -72,7 +73,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,1,2">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,0,2">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -81,9 +82,6 @@
        </property>
        <item>
         <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
@@ -127,9 +125,6 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
        </item>
        <item>
         <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>181</width>
@@ -147,9 +142,6 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
        </property>
        <item>
         <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
@@ -169,6 +161,7 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
          <property name="font">
           <font>
            <pointsize>11</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -182,9 +175,6 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
        </item>
        <item>
         <spacer name="horizontalSpacer_6">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
@@ -199,9 +189,6 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
@@ -216,6 +203,7 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
           <font>
            <family>Ria Sans</family>
            <pointsize>11</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
            <bold>false</bold>
           </font>
@@ -250,9 +238,6 @@ font: 700 30pt &quot;Ria Sans&quot;;</string>
        </item>
        <item>
         <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>

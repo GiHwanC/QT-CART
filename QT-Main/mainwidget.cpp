@@ -2,7 +2,7 @@
 #include "ui_mainwidget.h"
 #include "pagewelcome.h"
 #include "pagecart.h"
-
+#include "pagepay.h"
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
@@ -14,11 +14,13 @@ MainWidget::MainWidget(QWidget *parent)
     pPageWelcome = new PageWelcome(this);
     pPageCart = new PageCart(this);
     pPageGuide =  new PageGuide(this);
+    pPagePay = new PagePay(this);
 
     // stackedWidget register
     ui->pstackedWidget->addWidget(pPageWelcome);
     ui->pstackedWidget->addWidget(pPageCart);
     ui->pstackedWidget->addWidget(pPageGuide);
+    ui->pstackedWidget->addWidget(pPagePay);
 
     // first UI -> PageWelcome
     ui->pstackedWidget->setCurrentWidget(pPageWelcome);
@@ -27,6 +29,8 @@ MainWidget::MainWidget(QWidget *parent)
     connect(pPageGuide, SIGNAL(backToCartClicked()), this, SLOT(slotShowCartPage()));
     connect(pPageCart, SIGNAL(guideModeClicked()), this, SLOT(slotShowGuidePage()));
     connect(pPageCart,SIGNAL(goWelcome()),this,SLOT(slotShowWelcomePage()));
+    connect(pPageCart,SIGNAL(goPay()),this,SLOT(slotShowPayPage()));
+    connect(pPagePay, SIGNAL(backToCartClicked()), this, SLOT(slotShowCartPage()));
 }
 
 MainWidget::~MainWidget()
@@ -50,5 +54,10 @@ void MainWidget::slotShowCartPage()
 void MainWidget::slotShowWelcomePage()
 {
     ui->pstackedWidget->setCurrentWidget(pPageWelcome);
+}
+
+void MainWidget::slotShowPayPage()
+{
+    ui->pstackedWidget->setCurrentWidget(pPagePay);
 }
 

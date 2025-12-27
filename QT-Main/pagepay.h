@@ -15,6 +15,12 @@ public:
     explicit PagePay(QWidget *parent = nullptr);
     ~PagePay();
 
+private slots:
+    void on_btnBackToCart_clicked();
+
+signals:
+    void backToCartClicked();
+
 private:
     Ui::PagePay *ui;
 };
