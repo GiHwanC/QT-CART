@@ -47,6 +47,7 @@ public:
 signals:
     void guideModeClicked();
     void goWelcome();
+    void goPay();
 
 private:
     Ui::PageCart *ui;

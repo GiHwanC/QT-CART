@@ -138,6 +138,7 @@ PageCart::PageCart(QWidget *parent) :
     updateTotal();
 
     connect(ui->btnGuideMode, SIGNAL(clicked()), this, SLOT(on_btnGuideMode_clicked()));
+    connect(ui->btnPay, SIGNAL(clicked()), this, SLOT(on_btnPay_clicked()));
 }
 
 PageCart::~PageCart()
@@ -396,7 +397,6 @@ void PageCart::on_btnGuideMode_clicked()
     emit guideModeClicked();
 }
 
-
 void PageCart::on_pushButton_clicked()
 {
     emit goWelcome();
@@ -404,6 +404,5 @@ void PageCart::on_pushButton_clicked()
 
 void PageCart::on_btnPay_clicked()
 {
-
+    emit goPay();
 }
-

@@ -5,7 +5,7 @@
 #include "pagewelcome.h"
 #include "pagecart.h"
 #include "pageguide.h"
-
+#include "pagepay.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,12 +21,12 @@ public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
-
 private:
     Ui::MainWidget *ui;
     PageWelcome *pPageWelcome;
     PageCart *pPageCart;
     PageGuide *pPageGuide;
+    PagePay *pPagePay;
 
     // rclcpp::Node::SharedPtr node_;
     // rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
@@ -36,7 +36,6 @@ private slots:
     void slotShowCartPage();
     void slotShowGuidePage();
     void slotShowWelcomePage();
-
-
+    void slotShowPayPage();
 };
 #endif // MAINWIDGET_H
