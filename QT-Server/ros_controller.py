@@ -12,7 +12,7 @@ class RosController(Node):
     def __init__(self):
         super().__init__('ros_controller_node')
         
-        # ROS 2 퍼블리셔 (TwistStamped로 변경)
+        # ROS 2 퍼블리셔 
         self.cmd_vel_pub = self.create_publisher(TwistStamped, '/cmd_vel', 10)
         self.navigator = BasicNavigator()
         
@@ -39,7 +39,7 @@ class RosController(Node):
         self.receive_uwb_data()
         self.receive_qt_command()
         
-        # 발행할 메시지 틀 생성 (TwistStamped)
+        # 발행할 메시지 틀 생성 
         msg = TwistStamped()
         msg.header.stamp = self.get_clock().now().to_msg() # 현재 시간 필수
         msg.header.frame_id = 'base_link'
@@ -97,9 +97,9 @@ class RosController(Node):
 
         # 2. 전진/후진 제어 (역방향)
         if avg > 1.2:          # 사용자가 1.2m보다 멀어지면
-            msg.twist.linear.x = -0.2  # 뒷걸음질로 따라가기
-        elif avg < 0.8:        # 사용자가 0.8m 이내로 들어오면
-            msg.twist.linear.x = 0.0   # 정지
+            msg.twist.linear.x = -0.2 # 뒷걸음질로 따라가기
+        elif avg < 1.0:        # 정지거리
+            msg.twist.linear.x = 0.0   
         
         self.cmd_vel_pub.publish(msg)
 
