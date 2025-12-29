@@ -7,8 +7,6 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QStackedWidget>
-#include <QtNetwork/QUdpSocket>
-#include <QtNetwork/QNetworkDatagram>
 
 PageCart::PageCart(QWidget *parent) :
     QWidget(parent),
@@ -102,22 +100,6 @@ PageCart::PageCart(QWidget *parent) :
 
     ui->tableCart->setSelectionMode(QAbstractItemView::NoSelection);
 
-
-    m_node = rclcpp::Node::make_shared("page_cart_udp_node");
-    m_cmdVelPub = m_node->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
-
-    m_udpSocket = new QUdpSocket(this);
-
-    // 포트 44444 바인딩 (모든 IP에서 오는 데이터 수신)
-    if (m_udpSocket->bind(QHostAddress::Any, 44444)) {
-        qDebug() << "[PageCart] UDP Socket Listening on Port 44444";
-    } else {
-        qDebug() << "[PageCart] Failed to bind UDP Port!";
-    }
-
-    // 데이터가 들어오면 processPendingDatagrams 실행하도록 연결
-    connect(m_udpSocket, &QUdpSocket::readyRead, this, &PageCart::processPendingDatagrams);
-
     // 바코드 및 UI 설정
     m_editBarcode = new QLineEdit(this);
     m_editBarcode->setVisible(false);
@@ -144,73 +126,6 @@ PageCart::PageCart(QWidget *parent) :
 PageCart::~PageCart()
 {
     delete ui;
-}
-
-void PageCart::processPendingDatagrams()
-{
-    // 대기 중인 패킷이 있으면 모두 처리
-    while (m_udpSocket->hasPendingDatagrams()) {
-        QNetworkDatagram datagram = m_udpSocket->receiveDatagram();
-
-        // 받은 데이터: "L:1.52" or "R:1.20"
-        QString data = QString::fromUtf8(datagram.data()).trimmed();
-
-        bool updated = false;
-
-        // 데이터 파싱
-        if (data.startsWith("L:")) {
-            m_distL = data.mid(2).toFloat(); // "L:" 제거하고 숫자로 변환
-            updated = true;
-        }
-        else if (data.startsWith("R:")) {
-            m_distR = data.mid(2).toFloat(); // "R:" 제거하고 숫자로 변환
-            updated = true;
-        }
-
-        // 값이 갱신되었으면 로봇 제어
-        if (updated) {
-            qDebug() << "UDP Recv: " << data << " (L:" << m_distL << " R:" << m_distR << ")";
-            controlDualRobot(m_distL, m_distR);
-        }
-    }
-}
-
-void PageCart::controlDualRobot(float l, float r)
-{
-    // if (!this->isVisible()) return;
-
-    auto msg = geometry_msgs::msg::Twist();
-
-    // 유효하지 않은 값이면 정지
-    if (l <= 0.01 || r <= 0.01) {
-        m_cmdVelPub->publish(msg);
-        return;
-    }
-
-    // 1. 평균 거리 (전진 여부 판단)
-    float avg_dist = (l + r) / 2.0;
-
-    // 2. 회전 제어
-    float diff = r - l;
-    if (std::abs(diff) < 0.1) diff = 0.0;  // 떨림 방지 Deadzone
-
-    float turn_gain = 2.0; // 회전 민감도
-    msg.angular.z = diff * turn_gain;
-
-    // 1.2m 이상 -> 전진
-    if (avg_dist > 1.2) {
-        msg.linear.x = 0.2;
-    }
-    // 0.6m 이내 -> 정지
-    else if (avg_dist < 0.6) {
-        msg.linear.x = 0.0;
-    }
-    // 그 사이 -> 제자리 회전만
-    else {
-        msg.linear.x = 0.0;
-    }
-
-    m_cmdVelPub->publish(msg);
 }
 
 void PageCart::initDummyItems()

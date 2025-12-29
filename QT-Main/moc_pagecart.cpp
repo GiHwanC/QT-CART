@@ -55,8 +55,7 @@ static constexpr auto qt_meta_stringdata_ZN8PageCartE = QtMocHelpers::stringData
     "err",
     "on_btnGuideMode_clicked",
     "on_pushButton_clicked",
-    "on_btnPay_clicked",
-    "processPendingDatagrams"
+    "on_btnPay_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -68,7 +67,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN8PageCartE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -76,21 +75,20 @@ Q_CONSTINIT static const uint qt_meta_data_ZN8PageCartE[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   92,    2, 0x06,    1 /* Public */,
-       3,    0,   93,    2, 0x06,    2 /* Public */,
-       4,    0,   94,    2, 0x06,    3 /* Public */,
+       1,    0,   86,    2, 0x06,    1 /* Public */,
+       3,    0,   87,    2, 0x06,    2 /* Public */,
+       4,    0,   88,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    0,   95,    2, 0x08,    4 /* Private */,
-       6,    0,   96,    2, 0x08,    5 /* Private */,
-       7,    0,   97,    2, 0x08,    6 /* Private */,
-       8,    0,   98,    2, 0x08,    7 /* Private */,
-       9,    1,   99,    2, 0x08,    8 /* Private */,
-      12,    1,  102,    2, 0x08,   10 /* Private */,
-      14,    0,  105,    2, 0x08,   12 /* Private */,
-      15,    0,  106,    2, 0x08,   13 /* Private */,
-      16,    0,  107,    2, 0x08,   14 /* Private */,
-      17,    0,  108,    2, 0x08,   15 /* Private */,
+       5,    0,   89,    2, 0x08,    4 /* Private */,
+       6,    0,   90,    2, 0x08,    5 /* Private */,
+       7,    0,   91,    2, 0x08,    6 /* Private */,
+       8,    0,   92,    2, 0x08,    7 /* Private */,
+       9,    1,   93,    2, 0x08,    8 /* Private */,
+      12,    1,   96,    2, 0x08,   10 /* Private */,
+      14,    0,   99,    2, 0x08,   12 /* Private */,
+      15,    0,  100,    2, 0x08,   13 /* Private */,
+      16,    0,  101,    2, 0x08,   14 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -104,7 +102,6 @@ Q_CONSTINIT static const uint qt_meta_data_ZN8PageCartE[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 10,   11,
     QMetaType::Void, QMetaType::QString,   13,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -146,8 +143,6 @@ Q_CONSTINIT const QMetaObject PageCart::staticMetaObject = { {
         // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_btnPay_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'processPendingDatagrams'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -170,7 +165,6 @@ void PageCart::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 9: _t->on_btnGuideMode_clicked(); break;
         case 10: _t->on_pushButton_clicked(); break;
         case 11: _t->on_btnPay_clicked(); break;
-        case 12: _t->processPendingDatagrams(); break;
         default: ;
         }
     }
@@ -219,14 +213,14 @@ int PageCart::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 12;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 12)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 13;
+        _id -= 12;
     }
     return _id;
 }
