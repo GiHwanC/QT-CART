@@ -10,7 +10,7 @@
 #include "pagepay.h"
 
 // 우분투 중계 서버
-#define ROS_SERVER_IP   "10.10.14.54"
+#define ROS_SERVER_IP   "10.10.14.92"
 #define ROS_SERVER_PORT 55555
 
 QT_BEGIN_NAMESPACE
