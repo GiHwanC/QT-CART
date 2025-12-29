@@ -16,19 +16,11 @@ PageGuide::PageGuide(QWidget *parent)
         ui->labelMap->setPixmap(map);
         ui->labelMap->setScaledContents(true);
     }
-
-    connect(ui->btnBackToCart, SIGNAL(clicked()), this, SLOT(on_btnBackToCart_clicked()));
 }
 
 PageGuide::~PageGuide()
 {
     delete ui;
-}
-
-void PageGuide::hideEvent(QHideEvent *event)
-{
-    qDebug() << "[PageGuide] Leaving Guide Mode";
-    QWidget::hideEvent(event);
 }
 
 void PageGuide::on_btnBackToCart_clicked()
