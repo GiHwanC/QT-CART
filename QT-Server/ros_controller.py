@@ -83,22 +83,23 @@ class RosController(Node):
 
     def process_follow_mode(self, msg):
         l, r = self.uwb_L, self.uwb_R
+        
+        # 센서 데이터가 유효하지 않으면 정지
         if l <= 0.01 or r <= 0.01:
             self.cmd_vel_pub.publish(msg)
             return
         
         avg = (l + r) / 2.0
-        diff = r - l
+        diff = r - l  # r이 크면 사용자가 왼쪽에 가까이 있음 (l이 작으므로)
         
-        # 조향 제어 (오른쪽이 멀면 오른쪽으로 회전)
-        if abs(diff) > 0.1: 
-            msg.twist.angular.z = diff * 1.5 
+        if abs(diff) > 0.05: 
+            msg.twist.angular.z = -(diff * 2.5) 
 
-        # 전진 제어 (멀어지면 전진)
-        if avg > 1.0: 
-            msg.twist.linear.x = 0.15
-        elif avg < 0.6:          
-            msg.twist.linear.x = 0.0
+        # 2. 전진/후진 제어 (역방향)
+        if avg > 1.2:          # 사용자가 1.2m보다 멀어지면
+            msg.twist.linear.x = -0.2  # 뒷걸음질로 따라가기
+        elif avg < 0.8:        # 사용자가 0.8m 이내로 들어오면
+            msg.twist.linear.x = 0.0   # 정지
         
         self.cmd_vel_pub.publish(msg)
 
