@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>house.pgm</file>
-        <file>food.png</file>
-        <file>groceries.png</file>
-    </qresource>
-    <qresource prefix="/image"/>
-    <qresource lang="." prefix="/image"/>
-</RCC>
