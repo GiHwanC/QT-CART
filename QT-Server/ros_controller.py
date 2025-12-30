@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import Twist, TwistStamped, PoseStamped # TwistStamped 추가
+from geometry_msgs.msg import Twist, TwistStamped, PoseStamped 
 from nav2_simple_commander.robot_navigator import BasicNavigator
 import socket
 
@@ -20,14 +20,13 @@ class RosController(Node):
         self.sock_qt = self.create_udp_socket(UDP_PORT_QT)
         self.sock_uwb = self.create_udp_socket(UDP_PORT_UWB)
 
-        # 상태 변수
         self.current_mode = 0
         self.uwb_L = 0.0
         self.uwb_R = 0.0
 
         # 20Hz 주기로 제어 루프 실행
         self.create_timer(0.05, self.control_loop)
-        self.get_logger().info(f"ROS Controller Started! (TwistStamped Mode)")
+        self.get_logger().info(f"ROS Controller Started!")
 
     def create_udp_socket(self, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -39,28 +38,47 @@ class RosController(Node):
         self.receive_uwb_data()
         self.receive_qt_command()
         
-        # 발행할 메시지 틀 생성 
+        # 한 줄 로그 출력
+        print(f"L: {self.uwb_L:>5.2f}m | R: {self.uwb_R:>5.2f}m", end='', flush=True)
+
         msg = TwistStamped()
-        msg.header.stamp = self.get_clock().now().to_msg() # 현재 시간 필수
+        msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = 'base_link'
         
-        if self.current_mode == 0:     # 정지
+        if self.current_mode == 0:
             self.cmd_vel_pub.publish(msg)
-            
-        elif self.current_mode == 1:   # 따라가기
+        elif self.current_mode == 1:
             self.process_follow_mode(msg)
-            
-        elif self.current_mode == 2:   # 자율주행
+        elif self.current_mode == 2:
             if self.navigator.isTaskComplete(): pass
+
+    # uwb 값이 0이거나 이전 값과 3m 이상 차이가 나면 직전에 온 정상값으로 대체 
+    def filter_uwb_value(self, current_val, new_val):
+        if new_val <= 0.0:
+            return current_val
+        
+        if current_val != 0.0 and abs(new_val - current_val) > 3.0:
+            return current_val 
+            
+        # 지수이동평균(LPF): 이전값 30% + 새로운 값 70%으로 부드럽게 필터링
+        alpha = 0.7
+        return (current_val * (1.0 - alpha)) + (new_val * alpha)
 
     def receive_uwb_data(self):
         try:
             while True:
                 data, _ = self.sock_uwb.recvfrom(BUFFER_SIZE)
                 text = data.decode('utf-8').strip()
-                if text.startswith("L:"): self.uwb_L = float(text[2:])
-                elif text.startswith("R:"): self.uwb_R = float(text[2:])
-        except (BlockingIOError, socket.error): pass
+                
+                if text.startswith("L:"):
+                    raw_val = float(text[2:])
+                    self.uwb_L = self.filter_uwb_value(self.uwb_L, raw_val)
+                elif text.startswith("R:"):
+                    raw_val = float(text[2:])
+                    self.uwb_R = self.filter_uwb_value(self.uwb_R, raw_val)
+                    
+        except (BlockingIOError, socket.error, ValueError):
+            pass
 
     def receive_qt_command(self):
         try:
@@ -84,22 +102,36 @@ class RosController(Node):
     def process_follow_mode(self, msg):
         l, r = self.uwb_L, self.uwb_R
         
-        # 센서 데이터가 유효하지 않으면 정지
         if l <= 0.01 or r <= 0.01:
             self.cmd_vel_pub.publish(msg)
             return
         
         avg = (l + r) / 2.0
-        diff = r - l  # r이 크면 사용자가 왼쪽에 가까이 있음 (l이 작으므로)
+        diff = r - l 
         
-        if abs(diff) > 0.05: 
-            msg.twist.angular.z = -(diff * 2.5) 
-
-        # 2. 전진/후진 제어 (역방향)
-        if avg > 1.2:          # 사용자가 1.2m보다 멀어지면
-            msg.twist.linear.x = -0.2 # 뒷걸음질로 따라가기
-        elif avg < 1.0:        # 정지거리
-            msg.twist.linear.x = 0.0   
+        # 전진/후진 제어 (역방향)
+        is_stopping = False
+        if avg > 1.2:
+            msg.twist.linear.x = -0.18   # 최대 속도는 0.22지만 부드러운 방향전환을 위해 
+        elif avg < 0.8:
+            msg.twist.linear.x = 0.0 
+            is_stopping = True
+        
+        # 방향 제어
+        if is_stopping:
+            self.stop_rotate_counter += 1
+            # 멈춤 상태에서는 발작 방지를 위해 5번 중 1번만 회전 명령
+            if self.stop_rotate_counter % 5 == 0:
+                if abs(diff) > 0.05: 
+                    msg.twist.angular.z = -(diff * 4.0) 
+                else:
+                    msg.twist.angular.z = 0.0
+            else:
+                msg.twist.angular.z = 0.0
+        else:
+            self.stop_rotate_counter = 0
+            if abs(diff) > 0.05: 
+                msg.twist.angular.z = -(diff * 4.0) 
         
         self.cmd_vel_pub.publish(msg)
 
