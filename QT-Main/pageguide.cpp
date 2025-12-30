@@ -21,7 +21,7 @@ PageGuide::PageGuide(QWidget *parent)
 
     // ✅ 이미지(임시) - 너가 나중에 바꿔서 쓰면 됨
     // qrc에 tree 이미지 넣고 경로만 바꿔줘
-    m_treePixmap = QPixmap(":/new/prefix1/map.pgm");
+    m_treePixmap = QPixmap(":/item/cart_handcream.jpg");
 
 
     // 버튼/배경 스타일(원하면 수정)

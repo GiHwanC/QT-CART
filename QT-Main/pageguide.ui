@@ -75,8 +75,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/new/prefix1/map.pgm) 0 0 0 0 stretch stretch;
-</string>
+    <string notr="true">border-image: url(:/etc/map.png) 0 0 0 0 stretch stretch;</string>
    </property>
    <property name="text">
     <string/>

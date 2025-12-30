@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="/item">
+    <file>apple.jpg</file>
+    <file>banana.jpg</file>
+    <file>cart_handcream.jpg</file>
+    <file>cart_iphone.jpg</file>
+    <file>cart_snack.jpg</file>
+    <file>fire.jpg</file>
+  </qresource>
+</RCC>
+

@@ -49,8 +49,8 @@ void PageWelcome::loadPixmapsOnce()
     m_pixLoaded = true;
 
     // ✅ cart_image / wind_image pixmap 강제 세팅
-    QPixmap cartPx(":/new/prefix1/cart_2.png");
-    QPixmap windPx(":/new/prefix1/Untitled design.png");
+    QPixmap cartPx(":/etc/cart.png");
+    QPixmap windPx(":/etc/wind.png");
 
     qDebug() << "[cartPx isNull?]" << cartPx.isNull();
     qDebug() << "[windPx isNull?]" << windPx.isNull();
