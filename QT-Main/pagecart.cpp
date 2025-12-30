@@ -7,6 +7,7 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QStackedWidget>
+#include <cmath> 
 
 PageCart::PageCart(QWidget *parent) :
     QWidget(parent),
@@ -163,6 +164,76 @@ void PageCart::initDummyItems()
     }
 }
 
+void PageCart::addItemByScan(const Item &item)
+{
+    int rowFound = -1;
+
+    for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
+        if (ui->tableCart->item(r, 0)->text() == item.name) {
+            rowFound = r;
+            break;
+        }
+    }
+
+    if (rowFound >= 0) {
+        // 기존 상품 → 수량 +1
+        int qty = ui->tableCart->item(rowFound, 1)->text().toInt() + 1;
+        ui->tableCart->item(rowFound, 1)->setText(QString::number(qty));
+        updateRowAmount(rowFound);
+    } else {
+        // 신규 상품
+        int row = ui->tableCart->rowCount();
+        ui->tableCart->insertRow(row);
+
+        ui->tableCart->setItem(row, 0, new QTableWidgetItem(item.name));
+        ui->tableCart->setItem(row, 1, new QTableWidgetItem("1"));
+        ui->tableCart->setItem(row, 4,
+            new QTableWidgetItem(QString::number(item.price)));
+
+        m_unitPrice.append(item.price);
+
+        ItemInfo info;
+        info.name   = item.name;
+        info.price  = item.price;
+        info.weight = item.weight;
+        m_items.append(info);
+
+        QPushButton *btnPlus   = new QPushButton("+", this);
+        QPushButton *btnMinus  = new QPushButton("-", this);
+        QPushButton *btnDelete = new QPushButton("삭제", this);
+
+        ui->tableCart->setCellWidget(row, 2, btnPlus);
+        ui->tableCart->setCellWidget(row, 3, btnMinus);
+        ui->tableCart->setCellWidget(row, 5, btnDelete);
+
+        connect(btnPlus,  &QPushButton::clicked, this, &PageCart::onPlusClicked);
+        connect(btnMinus, &QPushButton::clicked, this, &PageCart::onMinusClicked);
+        connect(btnDelete,&QPushButton::clicked, this, &PageCart::onDeleteClicked);
+    }
+}
+
+void PageCart::updateExpectedWeightByScan(double itemWeight)
+{
+    m_expectedWeight += itemWeight;
+}
+
+bool PageCart::checkWeightOrStop(double cartWeight)
+{
+    double diff = std::fabs(cartWeight - m_expectedWeight);
+
+    qDebug() << "[WEIGHT CHECK]"
+             << "expected =" << m_expectedWeight
+             << "real =" << cartWeight
+             << "diff =" << diff;
+
+    if (diff > 30.0) {
+        qDebug() << "[STOP] 무게 불일치";
+        sendRobotMode(0);
+        return false;
+    }
+    return true;
+}
+
 void PageCart::onPlusClicked()
 {
     QPushButton *btn = qobject_cast<QPushButton*>(sender());
@@ -263,6 +334,13 @@ void PageCart::onBarcodeEntered()
     m_scanner->fetchItemDetails(code);
 }
 
+void PageCart::sendRobotMode(int mode)
+{
+    qDebug() << "[SEND ROBOT MODE]" << mode;
+
+    // TODO: 실제 UDP / Serial 제어
+}
+
 bool PageCart::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
@@ -289,55 +367,13 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
 }
 
 void PageCart::handleItemFetched(const Item &item, double cartWeight)
-{   
-    m_expectedWeight += item.weight;
+{
+    addItemByScan(item);                       // 수량 처리
+    updateExpectedWeightByScan(item.weight);   // 무게 +1
 
-    double diff = fabs(cartWeight - m_expectedWeight);
-
-    qDebug() << "[WEIGHT CHECK]"
-             << "item =" << item.weight
-             << "cart =" << cartWeight
-             << "diff =" << diff;
-
-    if (diff > 30.0) {
-        qDebug() << "[STOP] 무게 불일치 → 로봇 정지";
-        sendRobotMode(0);
+    if (!checkWeightOrStop(cartWeight))
         return;
-    }
 
-    int rowFound = -1;
-    for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
-        QTableWidgetItem *nameItem = ui->tableCart->item(r, 0);
-        if (nameItem && nameItem->text() == item.name) {
-            rowFound = r; break;
-        }
-    }
-
-    if (rowFound == -1) {
-        int row = ui->tableCart->rowCount();
-        ui->tableCart->insertRow(row);
-        ui->tableCart->setItem(row, 0, new QTableWidgetItem(item.name));
-        ui->tableCart->setItem(row, 1, new QTableWidgetItem("1"));
-        ui->tableCart->setItem(row, 4, new QTableWidgetItem(QString::number(item.price)));
-        m_unitPrice.append(static_cast<int>(item.price));
-
-        QPushButton *btnPlus    = new QPushButton("+", this);
-        QPushButton *btnMinus   = new QPushButton("-", this);
-        QPushButton *btnDelete = new QPushButton("삭제", this);
-        ui->tableCart->setCellWidget(row, 2, btnPlus);
-        ui->tableCart->setCellWidget(row, 3, btnMinus);
-        ui->tableCart->setCellWidget(row, 5, btnDelete);
-
-        connect(btnPlus,  SIGNAL(clicked()), this, SLOT(onPlusClicked()));
-        connect(btnMinus, SIGNAL(clicked()), this, SLOT(onMinusClicked()));
-        connect(btnDelete,SIGNAL(clicked()), this, SLOT(onDeleteClicked()));
-    } else {
-        QTableWidgetItem *qtyItem = ui->tableCart->item(rowFound, 1);
-        int qty = qtyItem->text().toInt();
-        qty++;
-        qtyItem->setText(QString::number(qty));
-        updateRowAmount(rowFound);
-    }
     updateTotal();
 }
 

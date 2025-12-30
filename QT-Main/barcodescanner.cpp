@@ -24,22 +24,21 @@ void BarcodeScanner::fetchItemDetails(const QString& barcodeId)
 
 void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
 {
-    QByteArray raw = reply->readAll();
-    qDebug() << "[SCAN] server replied, raw:" << raw;
+    // 1. HTTP 상태 코드
+    int statusCode =
+        reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    // 1. HTTP 상태 코드 확인 (4xx, 5xx)
-    int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-
+    // 2. 네트워크 오류
     if (reply->error() != QNetworkReply::NoError) {
-        // 2. 네트워크 자체 오류 (e.g., 서버 연결 실패)
         emit fetchFailed(QString("네트워크 오류: %1").arg(reply->errorString()));
         reply->deleteLater();
         return;
     }
-    else if (statusCode >= 400) {
-        // 3. HTTP 상태 오류 (e.g., 404 Not Found, 400 Bad Request)
+
+    if (statusCode >= 400) {
         if (statusCode == 404) {
-            emit fetchFailed(QString("상품 ID %1는 존재하지 않습니다.").arg(reply->url().path().split("/").last()));
+            emit fetchFailed(QString("상품 ID %1는 존재하지 않습니다.")
+                             .arg(reply->url().path().split("/").last()));
         } else {
             emit fetchFailed(QString("서버 오류 발생. Status: %1").arg(statusCode));
         }
@@ -47,31 +46,60 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
         return;
     }
 
-    // 4. 응답 데이터 읽기 및 JSON 파싱
+    // 3. 응답 데이터 (한 번만!)
     QByteArray responseData = reply->readAll();
-    QJsonDocument doc = QJsonDocument::fromJson(responseData);
+    qDebug() << "[SCAN] server replied, raw:" << responseData;
 
-    if (doc.isNull() || !doc.isObject()) {
-        emit fetchFailed("서버로부터 유효하지 않은 응답 데이터를 받았습니다.");
+    // 4. JSON 파싱
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(responseData, &parseError);
+
+    if (parseError.error != QJsonParseError::NoError || !doc.isObject()) {
+        emit fetchFailed("서버로부터 유효하지 않은 JSON 응답을 받았습니다.");
         reply->deleteLater();
         return;
     }
 
-    QJsonObject itemJson = doc.object();
+    QJsonObject obj = doc.object();
 
-    // 5. JSON 데이터를 Item 구조체에 매핑
+    // 5. ✅ 키 존재 검증 (핵심)
+    if (!obj.contains("id") ||
+        !obj.contains("name") ||
+        !obj.contains("price") ||
+        !obj.contains("stock") ||
+        !obj.contains("weight") ||
+        !obj.contains("cart_weight")) {
+
+        emit fetchFailed("서버 응답에 필수 키가 누락되었습니다.");
+        reply->deleteLater();
+        return;
+    }
+
+    // 6. ✅ 타입 검증 (실무 필수)
+    if (!obj.value("id").isDouble() ||
+        !obj.value("name").isString() ||
+        !obj.value("price").isDouble() ||
+        !obj.value("stock").isDouble() ||
+        !obj.value("weight").isDouble() ||
+        !obj.value("cart_weight").isDouble()) {
+
+        emit fetchFailed("서버 응답 데이터 타입이 올바르지 않습니다.");
+        reply->deleteLater();
+        return;
+    }
+
+    // 7. Item 매핑
     Item item;
-    item.id = itemJson["id"].toInt();
-    item.name = itemJson["name"].toString();
-    item.price = itemJson["price"].toDouble();
-    item.stock = itemJson["stock"].toInt();
-    item.weight = itemJson["weight"].toDouble();
-    double cartWeight = itemJson["cart_weight"].toDouble();
+    item.id     = obj.value("id").toInt();
+    item.name   = obj.value("name").toString();
+    item.price  = obj.value("price").toDouble();
+    item.stock  = obj.value("stock").toInt();
+    item.weight = obj.value("weight").toDouble();
 
+    double cartWeight = obj.value("cart_weight").toDouble();
 
-    // 6. 성공 시 시그널 방출
-    emit itemFetched(item,cartWeight);
+    // 8. 성공 시그널
+    emit itemFetched(item, cartWeight);
 
     reply->deleteLater();
 }
-

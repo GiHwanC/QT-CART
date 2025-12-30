@@ -4,40 +4,36 @@
 #include <QWidget>
 #include <QVector>
 #include <QLineEdit>
-#include <QMap>
 #include <QString>
+#include <QUdpSocket>
+#include <QEvent>
+#include <QPixmap>
+
 #include "item.h"
 #include "barcodescanner.h"
 
+namespace Ui {
+class PageCart;
+}
+
+/* =======================
+ *  장바구니 아이템 구조체
+ * ======================= */
 struct ItemInfo {
     QString name;
     int price;
     double weight;
 };
 
-namespace Ui {
-class PageCart;
-}
-
 class PageCart : public QWidget
 {
     Q_OBJECT
 
-private slots:
-    void onPlusClicked();
-    void onMinusClicked();
-    void onDeleteClicked();
-    void onBarcodeEntered();
-    void handleItemFetched(const Item &item, double cartWeight);
-    void handleFetchFailed(const QString &err);
-    void on_btnGuideMode_clicked();
-    void on_pushButton_clicked();
-    void on_btnPay_clicked();
-    void processPendingDatagrams();
-
 public:
     explicit PageCart(QWidget *parent = nullptr);
     ~PageCart();
+
+protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
@@ -45,36 +41,48 @@ signals:
     void goWelcome();
     void goPay();
 
+private slots:
+    void onPlusClicked();
+    void onMinusClicked();
+    void onDeleteClicked();
+    void onBarcodeEntered();
+
+    void handleItemFetched(const Item &item, double cartWeight);
+    void handleFetchFailed(const QString &err);
+
+    void on_btnGuideMode_clicked();
+    void on_pushButton_clicked();
+    void on_btnPay_clicked();
+
 private:
+    /* UI */
     Ui::PageCart *ui;
     QPixmap m_cartPixmap;
-
-    void initDummyItems();
-    void updateRowAmount(int row);
-    void updateTotal();
-    void createRow(int row, const QString &name, int price, int qty);
-    void updateRowAmount(int row, int qty);
-
+    void addItemByScan(const Item &item);
+    void updateExpectedWeightByScan(double itemWeight);
+    bool checkWeightOrStop(double cartWeight);
+    /* Cart Data */
+    QVector<ItemInfo> m_items;     // ✅ 반드시 필요
     QVector<int> m_unitPrice;
-    QLineEdit *m_editBarcode;
-    BarcodeScanner *m_scanner;
-    QString m_barcodeData;
-    QUdpSocket *m_udpSocket;
-
-    // UWB 데이터
-    float m_distL = 0.0;
-    float m_distR = 0.0;
-
-    rclcpp::Node::SharedPtr m_node;
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_cmdVelPub;
 
     double m_expectedWeight = 0.0;
     const double m_tolerance = 30.0;
 
+    /* Barcode */
+    QLineEdit *m_editBarcode;
+    QString m_barcodeData;
+    BarcodeScanner *m_scanner;
 
+    /* Network */
+    QUdpSocket *m_udpSocket;
 
-    // L, R 두 개의 값을 인자로 받음
-    void controlDualRobot(float l, float r);
+    /* Internal */
+    void initDummyItems();
+    void updateRowAmount(int row);
+    void updateTotal();
+
+    /* Robot control */
+    void sendRobotMode(int mode);  // ✅ 핵심
 };
 
 #endif // PAGECART_H
