@@ -4,6 +4,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import models, database
 
+from read_weight import read_cart_weight
+
+
+app = FastAPI()
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
@@ -45,3 +49,11 @@ def read_all_items(db: Session = Depends(get_db)):
 if __name__ == "__main__":
     print("Starting API Server on Port 8000...")
     uvicorn.run(app, host="0.0.0.0", port=8000)
+@app.get("/cart/weight")
+def get_cart_weight():
+    return {
+        "cart_weight": read_cart_weight(),
+        "unit": "g"
+    }
+
+    
