@@ -23,6 +23,10 @@ class ItemSchema(BaseModel):
     price: float
     stock: int
     weight: float
+    cart_weight: float
 
-    class Config:
-        from_attributes = True
+class Config:
+    from_attributes = True
+
+class ItemWithWeight(ItemSchema):
+    cart_weight: float

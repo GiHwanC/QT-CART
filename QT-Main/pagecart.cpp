@@ -115,6 +115,12 @@ PageCart::PageCart(QWidget *parent) :
     connect(m_scanner, &BarcodeScanner::itemFetched, this, &PageCart::handleItemFetched);
     connect(m_scanner, &BarcodeScanner::fetchFailed, this, &PageCart::handleFetchFailed);
 
+    connect(m_scanner, &BarcodeScanner::requestStop,
+        this, [this](){
+            qDebug() << "[PageCart] Weight mismatch → STOP";
+            sendRobotMode(0);
+        });
+
     ui->tableCart->setColumnCount(6);
     initDummyItems();
     updateTotal();
@@ -172,6 +178,10 @@ void PageCart::onPlusClicked()
     int qty = qtyItem->text().toInt();
     qty++;
     qtyItem->setText(QString::number(qty));
+
+    double w = m_items[row].weight;
+    m_expectedWeight += w; 
+
     updateRowAmount(row);
     updateTotal();
 }
@@ -191,6 +201,13 @@ void PageCart::onMinusClicked()
     int qty = qtyItem->text().toInt();
     if (qty > 0) qty--;
     qtyItem->setText(QString::number(qty));
+
+    double w = m_items[row].weight;
+    m_expectedWeight -= w;
+
+    if (m_expectedWeight < 0)
+        m_expectedWeight = 0;
+    
     updateRowAmount(row);
     updateTotal();
 }
@@ -205,9 +222,16 @@ void PageCart::onDeleteClicked()
             row = r; break;
         }
     }
-    if (row < 0) return;
+    int qty = ui->tableCart->item(row, 1)->text().toInt();
+    double w = m_items[row].weight * qty;
+
+    m_expectedWeight -= w;
+    if (m_expectedWeight < 0)
+        m_expectedWeight = 0;
+
     if (row < m_unitPrice.size()) m_unitPrice.removeAt(row);
     ui->tableCart->removeRow(row);
+
     updateTotal();
 }
 
@@ -264,8 +288,23 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
     return QWidget::eventFilter(obj, event);
 }
 
-void PageCart::handleItemFetched(const Item &item)
-{
+void PageCart::handleItemFetched(const Item &item, double cartWeight)
+{   
+    m_expectedWeight += item.weight;
+
+    double diff = fabs(cartWeight - m_expectedWeight);
+
+    qDebug() << "[WEIGHT CHECK]"
+             << "item =" << item.weight
+             << "cart =" << cartWeight
+             << "diff =" << diff;
+
+    if (diff > 30.0) {
+        qDebug() << "[STOP] 무게 불일치 → 로봇 정지";
+        sendRobotMode(0);
+        return;
+    }
+
     int rowFound = -1;
     for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
         QTableWidgetItem *nameItem = ui->tableCart->item(r, 0);

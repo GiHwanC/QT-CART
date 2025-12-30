@@ -23,6 +23,18 @@ class PageCart : public QWidget
 {
     Q_OBJECT
 
+private slots:
+    void onPlusClicked();
+    void onMinusClicked();
+    void onDeleteClicked();
+    void onBarcodeEntered();
+    void handleItemFetched(const Item &item, double cartWeight);
+    void handleFetchFailed(const QString &err);
+    void on_btnGuideMode_clicked();
+    void on_pushButton_clicked();
+    void on_btnPay_clicked();
+    void processPendingDatagrams();
+
 public:
     explicit PageCart(QWidget *parent = nullptr);
     ~PageCart();
@@ -32,17 +44,6 @@ signals:
     void guideModeClicked();
     void goWelcome();
     void goPay();
-
-private slots:
-    void onPlusClicked();
-    void onMinusClicked();
-    void onDeleteClicked();
-    void onBarcodeEntered();
-    void handleItemFetched(const Item &item);
-    void handleFetchFailed(const QString &err);
-    void on_btnGuideMode_clicked();
-    void on_pushButton_clicked();
-    void on_btnPay_clicked();
 
 private:
     Ui::PageCart *ui;
@@ -58,6 +59,22 @@ private:
     QLineEdit *m_editBarcode;
     BarcodeScanner *m_scanner;
     QString m_barcodeData;
+    QUdpSocket *m_udpSocket;
+
+    // UWB 데이터
+    float m_distL = 0.0;
+    float m_distR = 0.0;
+
+    rclcpp::Node::SharedPtr m_node;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_cmdVelPub;
+
+    double m_expectedWeight = 0.0;
+    const double m_tolerance = 30.0;
+
+
+
+    // L, R 두 개의 값을 인자로 받음
+    void controlDualRobot(float l, float r);
 };
 
 #endif // PAGECART_H

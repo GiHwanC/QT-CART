@@ -6,6 +6,7 @@ import models, database
 
 from read_weight import read_cart_weight
 
+TOLERANCE = 30.0   # 허용 오차 (g)
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=database.engine)
@@ -39,7 +40,17 @@ def read_item(item_id: str, db: Session = Depends(get_db)):
         
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
-    return item
+    
+    cart_weight = read_cart_weight()
+
+    return {
+        "id": item.id,
+        "name": item.name,
+        "price": item.price,
+        "stock": item.stock,
+        "weight": item.weight,
+        "cart_weight": cart_weight
+    }
 
 # 전체 상품 조회
 @app.get("/items", response_model=List[models.ItemSchema])

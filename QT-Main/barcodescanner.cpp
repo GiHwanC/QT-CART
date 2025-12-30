@@ -21,8 +21,12 @@ void BarcodeScanner::fetchItemDetails(const QString& barcodeId)
     qDebug() << "Fetching item details for ID:" << barcodeId;
 }
 
+
 void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
 {
+    QByteArray raw = reply->readAll();
+    qDebug() << "[SCAN] server replied, raw:" << raw;
+
     // 1. HTTP 상태 코드 확인 (4xx, 5xx)
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
@@ -62,9 +66,12 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
     item.price = itemJson["price"].toDouble();
     item.stock = itemJson["stock"].toInt();
     item.weight = itemJson["weight"].toDouble();
+    double cartWeight = itemJson["cart_weight"].toDouble();
+
 
     // 6. 성공 시 시그널 방출
-    emit itemFetched(item);
+    emit itemFetched(item,cartWeight);
 
     reply->deleteLater();
 }
+
