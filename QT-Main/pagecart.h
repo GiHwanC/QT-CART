@@ -32,7 +32,7 @@ private slots:
     void onMinusClicked();
     void onDeleteClicked();
     void onBarcodeEntered();
-    void handleItemFetched(const Item &item);
+    void handleItemFetched(const Item &item, double cartWeight);
     void handleFetchFailed(const QString &err);
     void on_btnGuideMode_clicked();
     void on_pushButton_clicked();
@@ -69,6 +69,11 @@ private:
 
     rclcpp::Node::SharedPtr m_node;
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_cmdVelPub;
+
+    double m_expectedWeight = 0.0;
+    const double m_tolerance = 30.0;
+
+
 
     // L, R 두 개의 값을 인자로 받음
     void controlDualRobot(float l, float r);

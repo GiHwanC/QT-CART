@@ -15,8 +15,11 @@ public:
     void fetchItemDetails(const QString& barcodeId);
 
 signals:
-    void itemFetched(const Item& item);
+    void itemFetched(const Item& item, double cart_weight);
     void fetchFailed(const QString& error);
+    void requestStop();
+
+
 
 private slots:    void onNetworkReply(QNetworkReply *reply);
 
