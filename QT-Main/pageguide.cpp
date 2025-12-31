@@ -30,12 +30,12 @@ void PageGuide::on_btnBackToCart_clicked()
 
 void PageGuide::on_foodIcon_clicked()
 {
-    qDebug() << "Food Icon Clicked";
-    emit requestGoal(-0.8, 0.0);
+    qDebug() << "right Clicked";
+    emit requestGoal(0.0, -6.83);
 }
 
 void PageGuide::on_groceryIcon_clicked()
 {
-    qDebug() << "Grocery Icon Clicked";
-    emit requestGoal(2.0, 0.0);
+    qDebug() << "left Clicked";
+    emit requestGoal(0.0, -1.0);
 }

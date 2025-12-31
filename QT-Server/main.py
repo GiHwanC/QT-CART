@@ -57,9 +57,6 @@ def read_item(item_id: str, db: Session = Depends(get_db)):
 def read_all_items(db: Session = Depends(get_db)):
     return db.query(models.Item).all()
 
-if __name__ == "__main__":
-    print("Starting API Server on Port 8000...")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
 @app.get("/cart/weight")
 def get_cart_weight():
     return {
@@ -67,4 +64,6 @@ def get_cart_weight():
         "unit": "g"
     }
 
-    
+if __name__ == "__main__":
+    print("Starting API Server on Port 8000...")
+    uvicorn.run(app, host="0.0.0.0", port=8000)
