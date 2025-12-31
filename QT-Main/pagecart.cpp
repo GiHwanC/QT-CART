@@ -361,23 +361,35 @@ void PageCart::updateRowAmount(int row)
 // ----------------------------------------
 void PageCart::updateTotal()
 {
-    int totalCount = 0;
-    int productsCount = 0;
+    int totalCount = 0;     // 장바구니 전체 수량 합
+    int productsCount = 0;  // 담긴 "종류" 개수(수량>0인 행 개수)
+    int totalPrice = 0;     // 총 금액 합
 
     for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
         auto *qtyItem = ui->tableCart->item(r, 3);
         if (!qtyItem) continue;
-        int q = qtyItem->text().toInt();
-        totalCount += q;
-        if (q > 0) productsCount++;
+
+        int qty = qtyItem->text().toInt();
+        totalCount += qty;
+        if (qty > 0) productsCount++;
+
+        // ✅ 총 금액 누적(단가 * 수량)
+        int unit = (r < m_unitPrice.size()) ? m_unitPrice[r] : 0;
+        totalPrice += unit * qty;
     }
 
+    // ✅ (A) "총 금액" 표시 (너가 말한 lblTotalPrice_2)
     if (ui->lblTotalPrice_2)
-        ui->lblTotalPrice_2->setText(QString::number(totalCount));
+        ui->lblTotalPrice_2->setText(QString::number(totalPrice) + "원");
 
+
+
+    // ✅ Cart (n products)
     if (ui->lblCartTitle)
-        ui->lblCartTitle->setText(QString("Cart (%1 products)").arg(productsCount));
+        ui->lblCartTitle->setText(QString("Cart (%1 products)").arg(totalCount));
 }
+
+
 
 // ----------------------------------------
 // 바코드 엔터(숨김 QLineEdit)

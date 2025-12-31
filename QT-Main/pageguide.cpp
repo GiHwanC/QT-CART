@@ -70,17 +70,17 @@ void PageGuide::onFindItemClicked()
 }
 
 
-// void PageGuide::on_foodIcon_clicked()
-// {
-//     qDebug() << "Food Icon Clicked";
-//     emit requestGoal(-0.8, 0.0);
-// }
+void PageGuide::on_Region1_clicked()
+{
+    qDebug() << "Region1 Icon Clicked";
+    emit requestGoal(-0.03, -1.0);
+}
 
-// void PageGuide::on_groceryIcon_clicked()
-// {
-//     qDebug() << "Grocery Icon Clicked";
-//     emit requestGoal(2.0, 0.0);
-// }
+void PageGuide::on_Region2_clicked()
+{
+    qDebug() << "Region2 Icon Clicked";
+    emit requestGoal(0.0, 1.0);
+}
 
 void PageGuide::onStopGuideClicked()
 {

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>948</width>
+    <width>988</width>
     <height>543</height>
    </rect>
   </property>
@@ -16,330 +16,342 @@
   <property name="styleSheet">
    <string notr="true">background-color: #F2F4F7;</string>
   </property>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>40</y>
-     <width>121</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 13pt &quot;Ubuntu Condensed&quot;;
-color: rgb(0, 0, 0);
-background-color: #F2F4F7;
-</string>
-   </property>
-   <property name="text">
-    <string>O Checkout   &gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>40</y>
-     <width>111</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 13pt &quot;Ubuntu Condensed&quot;;
-color: rgb(154, 153, 150);
-background-color: #F2F4F7;</string>
-   </property>
-   <property name="text">
-    <string>O Payment    &gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>340</x>
-     <y>40</y>
-     <width>111</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 13pt &quot;Ubuntu Condensed&quot;;
-color: rgb(154, 153, 150);
-background-color: #F2F4F7;</string>
-   </property>
-   <property name="text">
-    <string>O Cart    &gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>100</y>
-     <width>301</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 18pt &quot;Ubuntu Condensed&quot;;
-color: rgb(0, 0, 0)</string>
-   </property>
-   <property name="text">
-    <string>아래 구매 내역을 확인해주세요</string>
-   </property>
-  </widget>
-  <widget class="QFrame" name="frame_2">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>150</y>
-     <width>391</width>
-     <height>301</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 16px;</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Shape::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Shadow::Raised</enum>
-   </property>
-   <widget class="QLabel" name="lblCardIcon">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>20</y>
-      <width>201</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/etc/card.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lblCarGuide">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>220</y>
-      <width>241</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 500 15pt &quot;Ubuntu&quot;;</string>
-    </property>
-    <property name="text">
-     <string>카드를  투입구에 넣어주세요</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="btnNext">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>470</y>
-     <width>211</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(53, 132, 228);
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="btnNext">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>450</y>
+        <width>211</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(53, 132, 228);
 color: rgb(255, 255, 255);
 border: none;
 border-radius: 14px;
 padding: 10px 18px;
 font: 17pt &quot;Ubuntu&quot;;</string>
-   </property>
-   <property name="text">
-    <string>다음으로 넘어가기</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>150</y>
-     <width>451</width>
-     <height>301</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
+      </property>
+      <property name="text">
+       <string>다음으로 넘어가기</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnBack">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>10</y>
+        <width>95</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(154, 153, 150);
+color: rgb(255, 255, 255);
+border: none;
+border-radius: 14px;
+padding: 10px 18px;</string>
+      </property>
+      <property name="text">
+       <string>이전 화면</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_2">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>130</y>
+        <width>441</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
 border-radius: 16px;</string>
-   </property>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>141</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 500 20pt &quot;Ubuntu&quot;;</string>
-    </property>
-    <property name="text">
-     <string>구매 내역</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>91</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 15pt &quot;Ubuntu Mono&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Prdoucts</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>50</y>
-      <width>91</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 15pt &quot;Ubuntu Mono&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Count</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_12">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>50</y>
-      <width>91</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 15pt &quot;Ubuntu Mono&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Price</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tablePayItems">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>90</y>
-      <width>451</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="lblCardIcon">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>201</width>
+         <height>211</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">image: url(:/etc/card.png);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblCarGuide">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>220</y>
+         <width>241</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 500 15pt &quot;Ubuntu&quot;;</string>
+       </property>
+       <property name="text">
+        <string>카드를  투입구에 넣어주세요</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>20</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 13pt &quot;Ubuntu Condensed&quot;;
+color: rgb(0, 0, 0);
+background-color: #F2F4F7;
+</string>
+      </property>
+      <property name="text">
+       <string>O Checkout   &gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>20</y>
+        <width>111</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 13pt &quot;Ubuntu Condensed&quot;;
+color: rgb(154, 153, 150);
+background-color: #F2F4F7;</string>
+      </property>
+      <property name="text">
+       <string>O Cart    &gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>301</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;Ubuntu Condensed&quot;;
+color: rgb(0, 0, 0)</string>
+      </property>
+      <property name="text">
+       <string>아래 구매 내역을 확인해주세요</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>451</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 16px;</string>
+      </property>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 500 20pt &quot;Ubuntu&quot;;</string>
+       </property>
+       <property name="text">
+        <string>구매 내역</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>91</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 15pt &quot;Ubuntu Mono&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Prdoucts</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>50</y>
+         <width>91</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 15pt &quot;Ubuntu Mono&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Count</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>50</y>
+         <width>91</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 15pt &quot;Ubuntu Mono&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Price</string>
+       </property>
+      </widget>
+      <widget class="QTableWidget" name="tablePayItems">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>90</y>
+         <width>451</width>
+         <height>151</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
 border-radius: 0px;
 font: 300 13pt &quot;Umpush&quot;;
 border-top: 1px solid #cfcfcf;
 border-bottom: 0px;
 border-left: 0px;
 border-right: 0px;</string>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>250</y>
-      <width>451</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>250</y>
+         <width>451</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
 border-style: solid;
 border-top: 1px solid rgb(200, 200, 200);
 border-left: 1px solid rgb(255, 255, 255);
 border-right: 1px solid rgb(255, 255, 255);
 border-bottom: 1px solid rgb(255, 255, 255);
 border-radius: 0px;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-    <widget class="QLabel" name="label_10">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 700 16pt &quot;Umpush&quot;;
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <widget class="QLabel" name="label_10">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 700 16pt &quot;Umpush&quot;;
 background-color: rgb(255, 255, 255);
 border: none;
 </string>
-     </property>
-     <property name="text">
-      <string>총 결제금액</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lblTotalPriceValue">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>10</y>
-       <width>101</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border: none;
+        </property>
+        <property name="text">
+         <string>총 결제금액</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblTotalPriceValue">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>10</y>
+          <width>101</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: none;
 font: 15pt &quot;Umpush&quot;;
 color: rgb(28, 113, 216);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>20</y>
+        <width>111</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 13pt &quot;Ubuntu Condensed&quot;;
+color: rgb(154, 153, 150);
+background-color: #F2F4F7;</string>
+      </property>
+      <property name="text">
+       <string>O Payment    &gt;</string>
+      </property>
+     </widget>
     </widget>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="btnBack">
-   <property name="geometry">
-    <rect>
-     <x>820</x>
-     <y>30</y>
-     <width>95</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(154, 153, 150);
-color: rgb(255, 255, 255);
-border: none;
-border-radius: 14px;
-padding: 10px 18px;</string>
-   </property>
-   <property name="text">
-    <string>이전 화면</string>
-   </property>
-  </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
