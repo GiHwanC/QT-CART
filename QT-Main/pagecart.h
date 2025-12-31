@@ -42,6 +42,7 @@ public:
     QVector<CartLine> getCartLines() const;
     void resetCart();
 
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
@@ -50,6 +51,7 @@ signals:
     void goWelcome();
     void goPay();
     void payClicked();
+
 
 private slots:
     void onPlusClicked();
@@ -60,10 +62,9 @@ private slots:
     // BarcodeScanner 시그널(너 헤더에 있는 버전 유지)
     void handleItemFetched(const Item &item, double cartWeight);
     void handleFetchFailed(const QString &err);
-
-    void on_btnGuideMode_clicked();  // (ui에 없으면 지워도 됨)
     void on_pushButton_clicked();    // clear cart 버튼(pushButton)
-    void on_btnPay_clicked();        // (ui에 없으면 지워도 됨)
+    void on_btnCheckout_clicked();
+    void on_btnGuide_clicked();
 
 private:
     Ui::PageCart *ui;

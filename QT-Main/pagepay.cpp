@@ -38,7 +38,7 @@ PagePay::PagePay(QWidget *parent)
 
     // 카드 아이콘(임시 이미지)
     if (ui->lblCardIcon) {
-        QPixmap px(":/new/prefix1/creditcard.png");
+        QPixmap px(":/etc/card.png");
         if (!px.isNull()) {
             ui->lblCardIcon->setPixmap(px.scaled(180, 180, Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ui->lblCardIcon->setAlignment(Qt::AlignCenter);

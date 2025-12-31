@@ -19,10 +19,9 @@
 // ------------------------------
 static QString imageForName(const QString& name)
 {
-    if (name == "헬로키티 인형")   return ":/new/prefix1/kitty.jpg";
-    if (name == "바나나")         return ":/new/prefix1/banana.jpg";
-    if (name == "불닭볶음면 컵")   return ":/new/prefix1/fire.jpg";
-    return ":/new/prefix1/kitty.jpg";
+    if (name == "헬로키티 인형")   return ":/etc/kitty.jpg";
+    if (name == "바나나")         return ":/item/banana.jpg";
+    if (name == "불닭볶음면 컵")   return ":/item/fire.jpg";
 }
 
 // ------------------------------
@@ -114,10 +113,10 @@ PageCart::PageCart(QWidget *parent)
         });
     }
     if (ui->btnGuide) {
-        connect(ui->btnGuide, SIGNAL(clicked()), this, SLOT(on_btnGuideMode_clicked()));
+        connect(ui->btnGuide, SIGNAL(clicked()), this, SLOT(on_btnGuide_clicked()));
     }
     if (ui->btnCheckout) {
-        connect(ui->btnCheckout, &QPushButton::clicked, this, &PageCart::payClicked);
+        connect(ui->btnCheckout, SIGNAL(clicked()), this, SLOT(on_btnCheckout_clicked()));
     }
 
     // clear cart 버튼(pushButton)
@@ -511,7 +510,7 @@ void PageCart::sendRobotMode(int mode)
 // ----------------------------------------
 // UI 버튼 슬롯들 (필요한 것만)
 // ----------------------------------------
-void PageCart::on_btnGuideMode_clicked()
+void PageCart::on_btnGuide_clicked()
 {
     emit guideModeClicked();
 }
@@ -522,7 +521,7 @@ void PageCart::on_pushButton_clicked()
     resetCart();
 }
 
-void PageCart::on_btnPay_clicked()
+void PageCart::on_btnCheckout_clicked()
 {
     // 새 UI는 btnCheckout 쓰니까 비워도 됨
     emit goPay();

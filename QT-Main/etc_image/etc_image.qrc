@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/etc">
+        <file>card.png</file>
+        <file>cart.png</file>
+        <file>counter.png</file>
+        <file>food.png</file>
+        <file>home.png</file>
+        <file>kitty.jpg</file>
+        <file>search.png</file>
+        <file>wind.png</file>
+        <file>map.pgm</file>
+    </qresource>
+</RCC>

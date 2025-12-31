@@ -43,9 +43,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 RESOURCES += \
-    CART_IMAGE.qrc \
-    cart.qrc \
-    cart_img.qrc \
-    cart_item.qrc \
-    image.qrc \
-    maps.qrc
+    etc_image/etc_image.qrc \
+    item_image/item_image.qrc

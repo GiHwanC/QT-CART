@@ -17,7 +17,6 @@
    <string notr="true">background-color: rgb(242, 244, 245);
 </string>
   </property>
-
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
@@ -36,7 +35,6 @@ background-color: rgb(242, 244, 245);
     <string>O Cart    &gt;</string>
    </property>
   </widget>
-
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
@@ -56,7 +54,6 @@ background-color: rgb(242, 244, 245);
     <string>O Checkout   &gt;</string>
    </property>
   </widget>
-
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
@@ -76,7 +73,6 @@ background-color: rgb(242, 244, 245);
     <string>O Payment    &gt;</string>
    </property>
   </widget>
-
   <widget class="QPushButton" name="btnGuide">
    <property name="geometry">
     <rect>
@@ -94,7 +90,7 @@ background-color: rgb(242, 244, 245);
    </property>
    <property name="styleSheet">
     <string notr="true">font: 23pt &quot;Ria Sans&quot;;
-image: url(:/new/prefix1/search.png);
+image: url(:/etc/search.png);
 border-radius: 0px;
 background-color: rgb(242, 244, 245);
 </string>
@@ -109,7 +105,6 @@ background-color: rgb(242, 244, 245);
     </size>
    </property>
   </widget>
-
   <widget class="QPushButton" name="btnHome">
    <property name="geometry">
     <rect>
@@ -127,7 +122,7 @@ background-color: rgb(242, 244, 245);
    </property>
    <property name="styleSheet">
     <string notr="true">font: 23pt &quot;Ria Sans&quot;;
-image: url(:/new/prefix1/home.png);
+image: url(:/etc/home.png);
 border-radius: 0px;
 padding: 0px 0px;
 background-color: rgb(242, 244, 245);
@@ -143,7 +138,6 @@ background-color: rgb(242, 244, 245);
     </size>
    </property>
   </widget>
-
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
@@ -156,7 +150,6 @@ background-color: rgb(242, 244, 245);
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
@@ -179,12 +172,11 @@ border-radius: 0px;
 </string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+     <enum>QFrame::Shape::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Shadow::Raised</enum>
     </property>
-
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
@@ -205,7 +197,6 @@ border-radius: 16px;
       <string>총 금액</string>
      </property>
     </widget>
-
     <widget class="QPushButton" name="btnCheckout">
      <property name="geometry">
       <rect>
@@ -227,19 +218,20 @@ padding: 10px 18px;
       <string>결제하기</string>
      </property>
     </widget>
-
     <widget class="QLabel" name="lblTotalPrice_2">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>30</y>
-       <width>71</width>
-       <height>20</height>
+       <x>160</x>
+       <y>10</y>
+       <width>121</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);
+      <string notr="true">font: 700 21pt &quot;Umpush&quot;;
+background-color: rgb(255, 255, 255);
 border: none;
+border-radius: 16px;
 </string>
      </property>
      <property name="text">
@@ -247,7 +239,6 @@ border: none;
      </property>
     </widget>
    </widget>
-
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
@@ -265,7 +256,6 @@ border: none;
     </property>
    </widget>
   </widget>
-
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
@@ -280,7 +270,6 @@ border: none;
 border-radius: 16px;
 </string>
    </property>
-
    <widget class="QTableWidget" name="tableCart">
     <property name="geometry">
      <rect>
@@ -291,7 +280,6 @@ border-radius: 16px;
      </rect>
     </property>
    </widget>
-
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -308,7 +296,6 @@ border-radius: 16px;
      <string>Cart</string>
     </property>
    </widget>
-
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -343,7 +330,6 @@ QPushButton:disabled {
      <string>clear cart</string>
     </property>
    </widget>
-
    <widget class="QLabel" name="lblCartTitle">
     <property name="geometry">
      <rect>
@@ -360,7 +346,6 @@ QPushButton:disabled {
      <string/>
     </property>
    </widget>
-
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
@@ -377,7 +362,6 @@ QPushButton:disabled {
      <string>Product</string>
     </property>
    </widget>
-
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
@@ -394,7 +378,6 @@ QPushButton:disabled {
      <string>Count</string>
     </property>
    </widget>
-
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
@@ -413,9 +396,6 @@ QPushButton:disabled {
    </widget>
   </widget>
  </widget>
-
- <resources>
-  <include location="image.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

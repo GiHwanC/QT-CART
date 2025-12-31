@@ -56,7 +56,6 @@ private slots:
     void onPageChanged(int index);
     void slotShowPayCardPage();
     void slotShowPayPage();
-    void slowShowCCartPage();
     void slotShowTotalPayPage_2();
 
 };
