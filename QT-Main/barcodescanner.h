@@ -25,7 +25,7 @@ private slots:    void onNetworkReply(QNetworkReply *reply);
 
 private:
     QNetworkAccessManager *manager;
-    const QString SERVER_BASE_URL = "http://10.10.14.92:8000";
+    const QString SERVER_BASE_URL = "http://100.97.162.49:8000";
 };
 
 #endif // BARCODESCANNER_H
