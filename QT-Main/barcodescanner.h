@@ -19,13 +19,12 @@ signals:
     void fetchFailed(const QString& error);
     void requestStop();
 
-
-
-private slots:    void onNetworkReply(QNetworkReply *reply);
+private slots:    
+    void onNetworkReply(QNetworkReply *reply);
 
 private:
     QNetworkAccessManager *manager;
-    const QString SERVER_BASE_URL = "http://10.10.14.92:8000";
+    const QString SERVER_BASE_URL = "http://172.20.10.8:8000";
 };
 
 #endif // BARCODESCANNER_H

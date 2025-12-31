@@ -21,14 +21,13 @@ void BarcodeScanner::fetchItemDetails(const QString& barcodeId)
     qDebug() << "Fetching item details for ID:" << barcodeId;
 }
 
-
 void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
 {
-    // 1. HTTP 상태 코드
+    // HTTP 상태 코드
     int statusCode =
         reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    // 2. 네트워크 오류
+    // 네트워크 오류
     if (reply->error() != QNetworkReply::NoError) {
         emit fetchFailed(QString("네트워크 오류: %1").arg(reply->errorString()));
         reply->deleteLater();
@@ -46,11 +45,11 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
         return;
     }
 
-    // 3. 응답 데이터 (한 번만!)
+    // 응답 데이터 
     QByteArray responseData = reply->readAll();
     qDebug() << "[SCAN] server replied, raw:" << responseData;
 
-    // 4. JSON 파싱
+    // JSON 파싱
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(responseData, &parseError);
 
@@ -62,7 +61,7 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
 
     QJsonObject obj = doc.object();
 
-    // 5. ✅ 키 존재 검증 (핵심)
+    // 키 존재 검증
     if (!obj.contains("id") ||
         !obj.contains("name") ||
         !obj.contains("price") ||
@@ -75,7 +74,7 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
         return;
     }
 
-    // 6. ✅ 타입 검증 (실무 필수)
+    // 타입 검증
     if (!obj.value("id").isDouble() ||
         !obj.value("name").isString() ||
         !obj.value("price").isDouble() ||
@@ -88,7 +87,7 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
         return;
     }
 
-    // 7. Item 매핑
+    // Item 매핑
     Item item;
     item.id     = obj.value("id").toInt();
     item.name   = obj.value("name").toString();
@@ -98,7 +97,7 @@ void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
 
     double cartWeight = obj.value("cart_weight").toDouble();
 
-    // 8. 성공 시그널
+    // 성공 시그널
     emit itemFetched(item, cartWeight);
 
     reply->deleteLater();
