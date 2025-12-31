@@ -30,6 +30,10 @@ private slots:
     void onStopGuideClicked();
     void onBackToCartClicked();
 
+    void on_Region1_clicked();
+    void on_Region2_clicked();
+
+
 private:
     Ui::PageGuide *ui;
     void applyTreePixmap();

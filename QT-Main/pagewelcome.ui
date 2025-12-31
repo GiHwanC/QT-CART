@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
-    <height>504</height>
+    <width>961</width>
+    <height>643</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,98 +27,107 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QWidget" name="start_image" native="true">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>100</y>
-     <width>221</width>
-     <height>131</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <widget class="QLabel" name="cart_image">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>30</y>
-      <width>121</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="wind_image">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>70</y>
-      <width>61</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QLabel" name="qtcart_text">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>250</y>
-     <width>341</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 700 40pt &quot;Ria Sans&quot;;
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <widget class="QLabel" name="start_text">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>430</y>
+        <width>249</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+</string>
+      </property>
+      <property name="text">
+       <string>시작하기 버튼을 눌러 쇼핑을 시작하세요</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="start_image" native="true">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>130</y>
+        <width>211</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <widget class="QLabel" name="cart_image">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>30</y>
+         <width>121</width>
+         <height>101</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="wind_image">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>70</y>
+         <width>61</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="qtcart_text">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>330</y>
+        <width>306</width>
+        <height>77</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 40pt &quot;Ria Sans&quot;;
 color: rgb(87, 227, 137);
 background-color: rgb(255, 255, 255);
 </string>
-   </property>
-   <property name="text">
-    <string>QT CART</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="start_text">
-   <property name="geometry">
-    <rect>
-     <x>340</x>
-     <y>320</y>
-     <width>261</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-</string>
-   </property>
-   <property name="text">
-    <string>시작하기 버튼을 눌러 쇼핑을 시작하세요</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="start_button">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>360</y>
-     <width>151</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 700 11pt &quot;Ria Sans&quot;;
+      </property>
+      <property name="text">
+       <string>QT CART</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="start_button">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>490</y>
+        <width>201</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 11pt &quot;Ria Sans&quot;;
 QPushButton {
     background-color: rgb(224, 27, 36);  /* ✅ 기본 상태: 더 진한 빨강 */
 	
@@ -131,11 +140,14 @@ QPushButton {
 
 
 </string>
-   </property>
-   <property name="text">
-    <string>시작하기</string>
-   </property>
-  </widget>
+      </property>
+      <property name="text">
+       <string>시작하기</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

@@ -24,7 +24,6 @@ QT_END_NAMESPACE
 class MainWidget : public QWidget
 {
     Q_OBJECT
-
 public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
@@ -57,6 +56,8 @@ private slots:
     void slotShowPayCardPage();
     void slotShowPayPage();
     void slotShowTotalPayPage_2();
+
+
 
 };
 #endif // MAINWIDGET_H

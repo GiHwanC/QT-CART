@@ -41,6 +41,8 @@ MainWidget::MainWidget(QWidget *parent)
     connect(pPageCart,  SIGNAL(guideModeClicked()),  this, SLOT(slotShowGuidePage()));
     connect(pPageCart, SIGNAL(goPay()), this, SLOT(slotShowPayPage()));
     connect(pPageCart,  SIGNAL(goWelcome()),         this, SLOT(slotShowWelcomePage()));
+    connect(pPageTotalPay, &PageTotalPay::backToStartClicked,
+            this, &MainWidget::slotShowWelcomePage);
 
     connect(pPagePay,   SIGNAL(creditCardClicked()), this, SLOT(slotShowPayCardPage()));
     connect(pPagePay, SIGNAL(backCartClicked()), this, SLOT(slotShowCartPage()));
@@ -113,6 +115,7 @@ void MainWidget::slotShowCartPage()
 void MainWidget::slotShowWelcomePage()
 {
     ui->pstackedWidget->setCurrentWidget(pPageWelcome);
+    pPageCart->resetCart();
 }
 void MainWidget::slotShowPayPage()
 {

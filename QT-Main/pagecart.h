@@ -40,12 +40,13 @@ public:
     };
 
     QVector<CartLine> getCartLines() const;
-    void resetCart();
+
 
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
-
+public slots:
+    void resetCart();
 signals:
     void guideModeClicked();
     void goWelcome();
@@ -65,6 +66,7 @@ private slots:
     void on_pushButton_clicked();    // clear cart 버튼(pushButton)
     void on_btnCheckout_clicked();
     void on_btnGuide_clicked();
+
 
 private:
     Ui::PageCart *ui;

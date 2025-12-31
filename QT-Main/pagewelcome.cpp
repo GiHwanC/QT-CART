@@ -24,11 +24,21 @@ PageWelcome::PageWelcome(QWidget *parent)
     // ✅ 이미지 로드/세팅(한 번만)
     loadPixmapsOnce();
 
-    // ✅ UI 레이아웃 적용된 다음 기준 Y 저장 + 중앙 정렬
+    // ✅ UI 레이아웃 적용된 다음 기본 Y 저장 + 중앙 정렬
     QTimer::singleShot(0, this, [this]() {
-        if (ui->start_image && m_baseY < 0) {
-            m_baseY = ui->start_image->y(); // UI에서 잡힌 기본 Y
-        }
+
+        if (ui->start_image && m_baseYStartImage < 0)
+            m_baseYStartImage = ui->start_image->y();
+
+        if (ui->qtcart_text && m_baseYTitle < 0)
+            m_baseYTitle = ui->qtcart_text->y();
+
+        if (ui->start_text && m_baseYStartText < 0)
+            m_baseYStartText = ui->start_text->y();
+
+        if (ui->start_button && m_baseYStartBtn < 0)
+            m_baseYStartBtn = ui->start_button->y();
+
         resetWelcome();
     });
 }
@@ -48,7 +58,6 @@ void PageWelcome::loadPixmapsOnce()
     if (m_pixLoaded) return;
     m_pixLoaded = true;
 
-    // ✅ cart_image / wind_image pixmap 강제 세팅
     QPixmap cartPx(":/etc/cart.png");
     QPixmap windPx(":/etc/wind.png");
 
@@ -86,7 +95,7 @@ void PageWelcome::hideEvent(QHideEvent *e)
 {
     QWidget::hideEvent(e);
 
-    // ✅ 페이지가 숨겨질 때 애니메이션이 남아있으면 정리(안전)
+    // ✅ 페이지가 숨겨질 때 애니메이션 남아있으면 정리(안전)
     if (m_anim) {
         m_anim->stop();
         m_anim->deleteLater();
@@ -100,7 +109,8 @@ void PageWelcome::resizeEvent(QResizeEvent *e)
 
     // ✅ 떠나지 않은 상태면 리사이즈 때도 가운데 유지
     if (!m_leaving) {
-        centerStartImage();
+        centerStartImage();        // ✅ 기존 유지
+        centerWelcomeWidgets();    // ✅ 추가
     }
 }
 
@@ -121,19 +131,24 @@ void PageWelcome::resetWelcome()
         m_anim = nullptr;
     }
 
-    // ✅ start_image 다시 보이기 + 가운데로 복귀
+    // ✅ 위젯 다시 보이기
     if (ui->start_image) ui->start_image->show();
     if (ui->cart_image)  ui->cart_image->show();
     if (ui->wind_image)  ui->wind_image->show();
 
     // 레이아웃 반영 후 이동
     QTimer::singleShot(0, this, [this]() {
-        // m_baseY가 아직이면 지금 값으로 잡기
-        if (ui->start_image && m_baseY < 0) m_baseY = ui->start_image->y();
-        centerStartImage();
+        if (ui->start_image && m_baseYStartImage < 0) m_baseYStartImage = ui->start_image->y();
+        if (ui->qtcart_text  && m_baseYTitle < 0)      m_baseYTitle = ui->qtcart_text->y();
+        if (ui->start_text  && m_baseYStartText < 0)  m_baseYStartText = ui->start_text->y();
+        if (ui->start_button&& m_baseYStartBtn < 0)   m_baseYStartBtn = ui->start_button->y();
+
+        centerStartImage();        // ✅ 기존 유지
+        centerWelcomeWidgets();    // ✅ 추가
     });
 }
 
+// ✅ 기존 함수는 그대로: start_image만 가운데
 void PageWelcome::centerStartImage()
 {
     if (!ui->start_image) return;
@@ -143,13 +158,29 @@ void PageWelcome::centerStartImage()
 
     const int pw = parentW->width();
     const int w  = ui->start_image->width();
+    const int x  = (pw - w) / 2;
 
-    const int x = (pw - w) / 2;
-
-    // ✅ Y는 처음 UI에서 잡힌 위치 유지(원하면 세로 중앙으로 바꿔도 됨)
-    int y = (m_baseY >= 0) ? m_baseY : ui->start_image->y();
+    int y = (m_baseYStartImage >= 0) ? m_baseYStartImage : ui->start_image->y();
 
     ui->start_image->move(x, y);
+}
+
+// ✅ 추가: qcart_text, start_text, start_button도 “X만” 중앙정렬
+void PageWelcome::centerWelcomeWidgets()
+{
+    QWidget *parentW = this; // 보통 PageWelcome 전체 기준이 가장 깔끔함
+    const int pw = parentW->width();
+
+    auto centerXKeepY = [&](QWidget *w, int baseY){
+        if (!w) return;
+        const int x = (pw - w->width()) / 2;
+        const int y = (baseY >= 0) ? baseY : w->y();
+        w->move(x, y);
+    };
+
+    centerXKeepY(ui->qtcart_text,    m_baseYTitle);
+    centerXKeepY(ui->start_text,    m_baseYStartText);
+    centerXKeepY(ui->start_button,  m_baseYStartBtn);
 }
 
 void PageWelcome::onStartClicked()
@@ -184,13 +215,10 @@ void PageWelcome::onStartClicked()
     m_anim->setEndValue(endPos);
 
     connect(m_anim, &QPropertyAnimation::finished, this, [this]() {
-        // 애니메이션 포인터 정리
         if (m_anim) {
             m_anim->deleteLater();
             m_anim = nullptr;
         }
-
-        // ✅ MainWidget에서 PageCart로 전환되게 신호 쏴주기(둘 다 유지)
         emit startRequested();
         emit startClicked();
     });
