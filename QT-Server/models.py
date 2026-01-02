@@ -8,15 +8,8 @@ class Item(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     price = Column(Float)
-    stock = Column(Integer)  
-    weight = Column(Float) 
-
-class Cart(Base):
-    __tablename__ = "cart"
-
-    id = Column(Integer, primary_key=True, index=True)
-    expected_weight = Column(Float, default=0.0)
-
+    stock = Column(Integer)
+    weight = Column(Float)
 
 class ItemCreate(BaseModel):
     name: str
@@ -33,16 +26,3 @@ class ItemSchema(BaseModel):
 
     class Config:
         from_attributes = True
-
-class CartScanResponse(BaseModel):
-    item: ItemSchema
-    cart_weight: float
-    expected_weight: float
-    weight_ok: bool
-    diff: float
-    
-    allowed: float
-    
-
-class ItemWithWeight(ItemSchema):
-    cart_weight: float
