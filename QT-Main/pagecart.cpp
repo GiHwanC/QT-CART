@@ -57,12 +57,16 @@ PageCart::PageCart(QWidget *parent)
         s->setColor(QColor(0, 0, 0, 60));
         return s;
     };
+    ui->tableCart->setStyleSheet(
+        "QTableWidget::item { padding: 0px; margin: 0px; }"
+        "QTableWidget { border: none; }"
+        );
 
     // ui에 widget / widget_2 가 존재 (새 UI)
     if (ui->widget_2) ui->widget_2->setGraphicsEffect(makeShadow(ui->widget_2));
     if (ui->widget)   ui->widget->setGraphicsEffect(makeShadow(ui->widget));
 
-    // 테이블 기본
+    // 테이블 기본s
     ui->tableCart->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableCart->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableCart->setShowGrid(false);
@@ -97,11 +101,11 @@ PageCart::PageCart(QWidget *parent)
     ui->tableCart->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->tableCart->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
 
-    ui->tableCart->setColumnWidth(2, 80);
-    ui->tableCart->setColumnWidth(3, 60);
-    ui->tableCart->setColumnWidth(4, 80);
-    ui->tableCart->setColumnWidth(5, 120);
-    ui->tableCart->setColumnWidth(6, 80);
+    ui->tableCart->setColumnWidth(0, 54);
+    ui->tableCart->setColumnWidth(2, 52);
+    ui->tableCart->setColumnWidth(3, 42);
+    ui->tableCart->setColumnWidth(5, 76);
+    ui->tableCart->setColumnWidth(6, 46);
 
     initDummyItems();
     updateTotal();
@@ -205,7 +209,7 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
 
     // (2) + 버튼
     QPushButton *btnPlus = new QPushButton("+", ui->tableCart);
-    btnPlus->setFixedSize(30, 30);
+    btnPlus->setFixedSize(26, 30);
     btnPlus->setStyleSheet(
         "QPushButton {"
         " background-color: rgb(37, 99, 235);"

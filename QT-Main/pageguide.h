@@ -26,13 +26,15 @@ signals:
     void requestGoal(double x, double y);
 
 private slots:
-    void onFindItemClicked();
-    void onStopGuideClicked();
+
     void onBackToCartClicked();
 
-    void on_Region1_clicked();
-    void on_Region2_clicked();
-
+    void onPuzzleClicked();
+    void onCreamClicked();
+    void onSnackClicked();
+    void onPayClicked();
+    void onbtnphoneClicked();
+    void onbtnpayClicked();
 
 private:
     Ui::PageGuide *ui;
@@ -48,6 +50,7 @@ private:
 
     // ▼ [추가] 속도 전송 도우미 함수
     void moveTurtle(double linear, double angular);
+    void showMovePopup(const QString &zoneText);
 };
 
 #endif // PAGEGUIDE_H

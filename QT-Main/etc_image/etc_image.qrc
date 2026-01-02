@@ -9,5 +9,16 @@
         <file>search.png</file>
         <file>wind.png</file>
         <file>map.pgm</file>
+        <file>guide_map.png</file>
+        <file>map_handcream.png</file>
+        <file>map_phone.png</file>
+        <file>mappin.png</file>
+        <file>map_snack.png</file>
+        <file>map_toy.png</file>
+        <file>map_pay.png</file>
+        <file>map_cream.png</file>
+        <file>map_toy_2.png</file>
+        <file>map_phone_1.png</file>
+        <file>map_door.png</file>
     </qresource>
 </RCC>

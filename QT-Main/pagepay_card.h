@@ -2,10 +2,13 @@
 #define PAGEPAY_CARD_H
 
 #include <QWidget>
+#include <QPixmap>
 
 namespace Ui {
 class pagepay_card;
 }
+class QShowEvent;
+class QResizeEvent;
 
 class pagepay_card : public QWidget
 {
@@ -27,6 +30,8 @@ private:
 private:
     Ui::pagepay_card *ui;
     bool m_modalShown = false;
+    // QPixmap makeEmojiPixmap(const QString& emoji, int px) const;
+    // QPixmap rotatedPixmap(const QPixmap& src, qreal deg) const;
 };
 
 #endif // PAGEPAY_CARD_H

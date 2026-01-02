@@ -8,6 +8,8 @@ int main(int argc, char *argv[])
 
     MainWidget w;
 
+    w.setFixedSize(800,  480);
+
     // 1) 시작하자마자 풀스크린
     w.showFullScreen();
 

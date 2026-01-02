@@ -6,102 +6,429 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>946</width>
-    <height>528</height>
+    <width>800</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="lblTitle">
-     <property name="text">
-      <string>지도</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" colspan="2">
-    <widget class="QPushButton" name="btnFindItem">
-     <property name="text">
-      <string>물건찾기</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="4">
-    <widget class="QPushButton" name="btnStopGuide">
-     <property name="text">
-      <string>안내 중지 하기</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" rowspan="6" colspan="8">
-    <widget class="QLabel" name="lblmap">
+   <item row="0" column="1">
+    <widget class="QFrame" name="frame">
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/etc/map.png) 0 0 0 0 stretch stretch;</string>
+      <string notr="true">/* ===== 카드(프레임) ===== */
+QFrame#frameCornerList {
+    background-color: rgb(255, 255, 255);
+    border-radius: 16px;
+    border: 1px solid rgb(229, 231, 235);   /* 연회색 */
+}
+
+/* 제목 라벨 */
+QLabel#lblCornerTitle {
+    background: transparent;
+    color: rgb(17, 24, 39);                 /* 진한 글씨 */
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* ===== 리스트 위젯 ===== */
+QListWidget#listCorners {
+    background: transparent;
+    border: none;
+    outline: 0;
+    padding: 6px;
+}
+
+/* 스크롤바 깔끔하게 (선택) */
+QListWidget#listCorners QScrollBar:vertical {
+    width: 10px;
+    background: transparent;
+}
+QListWidget#listCorners QScrollBar::handle:vertical {
+    background: rgb(209, 213, 219);
+    border-radius: 5px;
+    min-height: 20px;
+}
+QListWidget#listCorners QScrollBar::add-line:vertical,
+QListWidget#listCorners QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* ===== 아이템(행) 스타일 ===== */
+QListWidget#listCorners::item {
+    background-color: rgb(249, 250, 251);   /* 살짝 회색 */
+    border: 1px solid rgb(229, 231, 235);
+    border-radius: 12px;
+
+    padding: 14px 16px;   /* 안쪽 여백 */
+    margin: 6px 4px;      /* 아이템 간 간격 */
+
+    color: rgb(17, 24, 39);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+</string>
      </property>
-     <property name="text">
-      <string/>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
-     <property name="scaledContents">
-      <bool>true</bool>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
-    </widget>
-   </item>
-   <item row="1" column="8" rowspan="6">
-    <widget class="QListWidget" name="listWidget">
-     <item>
-      <property name="text">
-       <string>01구역 : 헬로키티</string>
+     <widget class="QPushButton" name="btnpay">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>350</y>
+        <width>61</width>
+        <height>51</height>
+       </rect>
       </property>
-     </item>
-     <item>
-      <property name="text">
-       <string> 02구역: 음식</string>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/etc/map_pay.png);</string>
       </property>
-     </item>
-    </widget>
-   </item>
-   <item row="2" column="7">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>출구</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="6">
-    <widget class="QPushButton" name="pushButton_5">
-     <property name="text">
-      <string>계산</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <widget class="QPushButton" name="Region2">
-     <property name="text">
-      <string>02구역</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>입구</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="3" colspan="2">
-    <widget class="QPushButton" name="Region1">
-     <property name="text">
-      <string>01구역</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="8">
-    <widget class="QPushButton" name="btnBackToCart">
-     <property name="text">
-      <string>장바구니로 돌아가기</string>
-     </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnpuzzle">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>170</y>
+        <width>61</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/etc/map_toy_2.png);
+
+QPushButton#Region1:hover{
+	background-color: rgb(222, 221, 218);
+};
+QPushButton#Region1:pressed{
+	background-color: rgb(222, 221, 218);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnsnack">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>130</y>
+        <width>61</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/etc/map_snack.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnBackToCart">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>10</y>
+        <width>201</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(53, 132, 228);
+color: rgb(255, 255, 255);
+border: none;
+border-radius: 14px;
+padding: 10px 18px;
+font: 14pt &quot;Ubuntu&quot;;</string>
+      </property>
+      <property name="text">
+       <string>장바구니로 돌아가기</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 22pt &quot;Ubuntu&quot;;
+color: rgb(46, 194, 126);</string>
+      </property>
+      <property name="text">
+       <string>안내 지도</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblmap">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>521</width>
+        <height>341</height>
+       </rect>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>780</width>
+        <height>800</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/etc/guide_map.png);
+
+border-style: solid;
+border-top: 3px solid rgb(200, 200, 200);
+border-left: 3px solid rgb(200, 200, 200);
+border-right: 3px solid rgb(200, 200, 200);
+border-bottom: 3px solid rgb(200, 200, 200);
+
+
+
+
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>20</y>
+        <width>371</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 300 italic 11pt &quot;Ubuntu&quot;;
+color: rgb(224, 27, 36);</string>
+      </property>
+      <property name="text">
+       <string>**지도의 아이콘을 터치하면 해당 구역으로 안내가 시작됩니다</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnphone">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>290</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/etc/map_phone_1.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btncream">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>350</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/etc/map_cream.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>180</y>
+        <width>21</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 14pt &quot;Ubuntu&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);</string>
+      </property>
+      <property name="text">
+       <string>01</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>140</y>
+        <width>21</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 14pt &quot;Ubuntu&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);</string>
+      </property>
+      <property name="text">
+       <string>02</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>350</y>
+        <width>21</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 14pt &quot;Ubuntu&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);</string>
+      </property>
+      <property name="text">
+       <string>03</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>290</y>
+        <width>21</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 14pt &quot;Ubuntu&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);</string>
+      </property>
+      <property name="text">
+       <string>04</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frameCornerList">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>60</y>
+        <width>191</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="lblCornerTitle">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>0</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+font: 700 16pt &quot;Ubuntu&quot;;</string>
+       </property>
+       <property name="text">
+        <string>물품위치</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="listCorners">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>191</width>
+         <height>341</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 11pt &quot;Ubuntu&quot;;</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>01코너 퍼즐</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>02코너 과자</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>03코너 핸드크림</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>04코너 핸드폰</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>05코너 계산대</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>360</y>
+        <width>21</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 700 14pt &quot;Ubuntu&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(224, 27, 36);</string>
+      </property>
+      <property name="text">
+       <string>05</string>
+      </property>
+     </widget>
+     <zorder>lblmap</zorder>
+     <zorder>btnpay</zorder>
+     <zorder>btnpuzzle</zorder>
+     <zorder>btnsnack</zorder>
+     <zorder>btnBackToCart</zorder>
+     <zorder>label</zorder>
+     <zorder>label_3</zorder>
+     <zorder>btnphone</zorder>
+     <zorder>btncream</zorder>
+     <zorder>label_4</zorder>
+     <zorder>label_5</zorder>
+     <zorder>label_6</zorder>
+     <zorder>label_7</zorder>
+     <zorder>frameCornerList</zorder>
+     <zorder>label_8</zorder>
     </widget>
    </item>
   </layout>
