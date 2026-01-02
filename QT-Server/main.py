@@ -117,7 +117,7 @@ def get_cart():
     }
 
 # 무게 체크
-@app.get("/cart/check")
+@app.get("/cart/check-weight")
 def check_cart():
     real = read_cart_weight()
     movable = is_movable(EXPECTED_WEIGHT, real)
