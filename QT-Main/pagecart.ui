@@ -44,9 +44,9 @@ border-radius: 16px;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>130</y>
+         <y>120</y>
          <width>511</width>
-         <height>231</height>
+         <height>241</height>
         </rect>
        </property>
       </widget>
@@ -69,7 +69,7 @@ border-radius: 16px;
       <widget class="QLabel" name="label_11">
        <property name="geometry">
         <rect>
-         <x>240</x>
+         <x>230</x>
          <y>70</y>
          <width>71</width>
          <height>31</height>
@@ -85,7 +85,7 @@ border-radius: 16px;
       <widget class="QLabel" name="label_12">
        <property name="geometry">
         <rect>
-         <x>410</x>
+         <x>415</x>
          <y>70</y>
          <width>71</width>
          <height>31</height>
@@ -430,7 +430,7 @@ color: rgb(154, 153, 150);
 background-color: #F2F4F7;</string>
       </property>
       <property name="text">
-       <string>O Payment    &gt;</string>
+       <string>O Payment    </string>
       </property>
      </widget>
      <widget class="QLabel" name="label_2">
@@ -455,9 +455,9 @@ background-color: #F2F4F7;</string>
       <property name="geometry">
        <rect>
         <x>550</x>
-        <y>320</y>
+        <y>330</y>
         <width>191</width>
-        <height>111</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="styleSheet">

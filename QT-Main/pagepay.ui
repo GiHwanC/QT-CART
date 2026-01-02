@@ -255,7 +255,7 @@ border-radius: 16px;</string>
          <x>0</x>
          <y>90</y>
          <width>441</width>
-         <height>141</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -346,7 +346,7 @@ color: rgb(154, 153, 150);
 background-color: #F2F4F7;</string>
       </property>
       <property name="text">
-       <string>O Payment    &gt;</string>
+       <string>O Payment   </string>
       </property>
      </widget>
     </widget>
