@@ -17,16 +17,15 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+
 #define SERVER_BASE_URL "http://192.168.123.43:8000"
 
-// ------------------------------
-// 상품명 -> 이미지 경로 매핑
-// ------------------------------
 static QString imageForName(const QString& name)
 {
     if (name == "헬로키티 인형")   return ":/etc/kitty.jpg";
     if (name == "바나나")         return ":/item/banana.jpg";
     if (name == "불닭볶음면 컵")   return ":/item/fire.jpg";
+    return ""; // 기본값
 }
 
 // ------------------------------
@@ -198,10 +197,18 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
     QLabel *img = new QLabel(ui->tableCart);
     img->setFixedSize(44, 44);
     img->setAlignment(Qt::AlignCenter);
+
     QPixmap px(imageForName(name));
     if (!px.isNull()) {
-        img->setPixmap(px.scaled(44, 44, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+        img->setPixmap(
+            px.scaled(
+                44, 44,
+                Qt::KeepAspectRatioByExpanding,
+                Qt::SmoothTransformation
+            )
+        );
     }
+
     ui->tableCart->setCellWidget(row, 0, makeCenterCell(img));
 
     // (1) 상품명
@@ -451,6 +458,7 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
 // ----------------------------------------
 void PageCart::handleItemFetched(const Item &item, double cartWeight)
 {
+    Q_UNUSED(cartWeight);
     addItemByScan(item);                     // row 추가/수량 증가
 
     updateTotal();
@@ -498,15 +506,6 @@ void PageCart::addItemByScan(const Item &item)
 
         updateRowAmount(rowFound);
     }
-}
-
-// ----------------------------------------
-// 로봇 모드 전송(임시)
-// ----------------------------------------
-void PageCart::sendRobotMode(int mode)
-{
-    qDebug() << "[SEND ROBOT MODE]" << mode;
-    // TODO: 실제 UDP / Serial 제어
 }
 
 // ----------------------------------------
@@ -678,4 +677,30 @@ void PageCart::sendRobotMode(int mode)
     QUdpSocket socket;
     QByteArray data = QString("MODE:%1").arg(mode).toUtf8();
     socket.writeDatagram(data, QHostAddress("192.168.123.43"), 55555);
+}
+
+void PageCart::checkWeightOrStop(double realWeight)
+{
+    double diff = std::abs(realWeight - m_expectedWeight);
+
+    qDebug() << "[CHECK WEIGHT]"
+             << "real =" << realWeight
+             << "expected =" << m_expectedWeight
+             << "diff =" << diff;
+
+    // 허용 오차 (헤더에 m_tolerance = 30.0 있음)
+    if (diff > m_tolerance) {
+        if (!m_isStopped) {
+            m_isStopped = true;
+
+            qDebug() << "[WEIGHT ERROR] STOP ROBOT";
+            sendRobotMode(0);
+
+            QMessageBox::warning(
+                this,
+                "무게 이상 감지",
+                "카트 무게가 서버 예상값과 일치하지 않습니다.\n로봇을 정지합니다."
+            );
+        }
+    }
 }

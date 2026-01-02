@@ -69,11 +69,12 @@ private slots:
     void on_pushButton_clicked();    // clear cart 버튼(pushButton)
     void on_btnCheckout_clicked();
     void on_btnGuide_clicked();
+    void requestCartWeightOnly();
 
 
 private:
     Ui::PageCart *ui;
-bool m_weightFail = false;
+    bool m_weightFail = false;
     /* Cart Data */
     QVector<ItemInfo> m_items;
     QVector<int> m_unitPrice;
@@ -85,6 +86,9 @@ bool m_weightFail = false;
     BarcodeScanner *m_scanner = nullptr;
     
     bool m_isStopped = false;
+
+    QTimer* m_weightRetryTimer = nullptr;
+    double  m_expectedWeight = 0.0; 
     
     /* Network */
     QUdpSocket *m_udpSocket = nullptr;
@@ -103,8 +107,9 @@ bool m_weightFail = false;
     /* Weight helpers */
     void addItemByScan(const Item &item);
     void updateExpectedWeightByScan(double itemWeight);
-    bool checkWeightOrStop(double cartWeight);
+    void checkWeightOrStop(double realWeight);
     void requestCheckWeightBeforeRun();
+    
 
 };
 
