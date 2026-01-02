@@ -46,7 +46,8 @@ private:
     // rclcpp::Node::SharedPtr node_;
     // rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
 
-
+protected:
+    bool eventFilter(QObject *obj,QEvent *event) override;
 private slots:
     void on_pPBStartClicked();
     void slotShowCartPage();

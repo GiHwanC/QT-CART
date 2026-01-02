@@ -8,13 +8,15 @@
 #include "pagepay_card.h"
 #include "pagetotalpay.h"
 #include <QTimer>
-
+#include <QApplication>
+#include <QEvent>
+#include <QKeyEvent>
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainWidget)
 {
     ui->setupUi(this);
-
+    qApp->installEventFilter(this);
     m_udpSocket = new QUdpSocket(this);
 
     pPageWelcome = new PageWelcome(this);
@@ -159,4 +161,15 @@ void MainWidget::slotShowPayCardPage()
 void MainWidget::slotShowTotalPayPage_2()
 {
     ui->pstackedWidget->setCurrentWidget(pPageTotalPay);
+}
+bool MainWidget::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        auto *ke = static_cast<QKeyEvent*>(event);
+        if (ke->key() == Qt::Key_F12) {
+            qApp->quit();         // ✅ 프로그램 종료
+            return true;          // 이벤트 먹기(다른 곳으로 안 넘어감)
+        }
+    }
+    return QWidget::eventFilter(obj, event);
 }

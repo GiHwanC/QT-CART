@@ -38,7 +38,8 @@ PageWelcome::PageWelcome(QWidget *parent)
 
         if (ui->start_button && m_baseYStartBtn < 0)
             m_baseYStartBtn = ui->start_button->y();
-
+        if(ui->qtcart_text && m_baseYStartText<0)
+            m_baseYStartText = ui->qtcart_text->y();
         resetWelcome();
     });
 }
