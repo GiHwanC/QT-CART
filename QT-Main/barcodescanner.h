@@ -11,21 +11,23 @@ class BarcodeScanner : public QObject
     Q_OBJECT
 public:
     explicit BarcodeScanner(QObject *parent = nullptr);
-
     void fetchItemDetails(const QString& barcodeId);
+    
+    void checkCartStatus();
+    
+    void removeItem(int itemId);
 
 signals:
     void itemFetched(const Item& item, double cart_weight);
     void fetchFailed(const QString& error);
     void requestStop();
 
-
-
-private slots:    void onNetworkReply(QNetworkReply *reply);
+private slots:
+    void onNetworkReply(QNetworkReply *reply);
 
 private:
     QNetworkAccessManager *manager;
-    const QString SERVER_BASE_URL = "http://100.97.162.49:8000";
+    const QString SERVER_BASE_URL = "http://192.168.123.43:8000";
 };
 
 #endif // BARCODESCANNER_H

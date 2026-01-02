@@ -88,8 +88,9 @@ PageCart::PageCart(QWidget *parent)
     connect(m_scanner, &BarcodeScanner::fetchFailed, this, &PageCart::handleFetchFailed);
 
     // Weight mismatch → STOP
-    connect(m_scanner, &BarcodeScanner::requestStop, this, [this](){
-        qDebug() << "[PageCart] Weight mismatch → STOP";
+    connect(m_scanner, &BarcodeScanner::requestStop, this, [this]() {
+        if (m_isStopped) return;
+        m_isStopped = true;
         sendRobotMode(0);
     });
 
@@ -107,7 +108,6 @@ PageCart::PageCart(QWidget *parent)
     ui->tableCart->setColumnWidth(5, 76);
     ui->tableCart->setColumnWidth(6, 46);
 
-    initDummyItems();
     updateTotal();
 
     // 새 UI 버튼들
@@ -135,25 +135,6 @@ PageCart::~PageCart()
 }
 
 // ----------------------------------------
-// 더미 데이터 3개
-// ----------------------------------------
-void PageCart::initDummyItems()
-{
-    QStringList names   = {"헬로키티 인형", "바나나", "불닭볶음면 컵"};
-    QVector<int> prices = {3000, 1500, 2500};
-
-    ui->tableCart->setRowCount(0);
-    m_unitPrice.clear();
-    m_items.clear();
-    m_expectedWeight = 0.0;
-
-    for (int i = 0; i < names.size(); ++i) {
-        addRowForItem(names[i], prices[i], 0);
-    }
-    updateTotal();
-}
-
-// ----------------------------------------
 // 행 추가: 이미지/상품명/+/수량/-/가격/X
 // ----------------------------------------
 void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
@@ -167,6 +148,7 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
 
     // weight 관리용 info도 같이 맞춰 넣어둠(서버 아이템 없을 때는 0)
     ItemInfo info;
+    info.id = -1; 
     info.name = name;
     info.price = unitPrice;
     info.weight = 0.0;
@@ -280,13 +262,17 @@ void PageCart::onPlusClicked()
     if (!btn) return;
 
     int row = findRowByButton(ui->tableCart, 2, btn);
-    if (row < 0) return;
+    if (row < 0 || row >= m_items.size()) return;
 
+    int itemId = m_items[row].id;
+    if (itemId <= 0) return;
+
+    // ✅ 서버에 scan 요청 (무게 증가 + movable 판단)
+    m_scanner->fetchItemDetails(QString::number(itemId));
+
+    // ✅ UI 반영
     int qty = ui->tableCart->item(row, 3)->text().toInt();
     ui->tableCart->item(row, 3)->setText(QString::number(qty + 1));
-
-    // 무게 기대값도 업데이트(해당 row의 weight 사용)
-    if (row < m_items.size()) m_expectedWeight += m_items[row].weight;
 
     updateRowAmount(row);
     updateTotal();
@@ -301,18 +287,22 @@ void PageCart::onMinusClicked()
     if (!btn) return;
 
     int row = findRowByButton(ui->tableCart, 4, btn);
-    if (row < 0) return;
+    if (row < 0 || row >= m_items.size()) return;
 
     int qty = ui->tableCart->item(row, 3)->text().toInt();
     if (qty <= 0) return;
 
-    ui->tableCart->item(row, 3)->setText(QString::number(qty - 1));
-
-    if (row < m_items.size()) {
-        m_expectedWeight -= m_items[row].weight;
-        if (m_expectedWeight < 0) m_expectedWeight = 0;
+    int itemId = m_items[row].id;
+    if (itemId <= 0) {
+        qDebug() << "[Minus] invalid itemId" << itemId;
+        return;
     }
 
+    // ✅ 서버에 remove 전송 (무게 감소 + movable 판단)
+    m_scanner->removeItem(itemId);
+
+    // ✅ UI 반영
+    ui->tableCart->item(row, 3)->setText(QString::number(qty - 1));
     updateRowAmount(row);
     updateTotal();
 }
@@ -326,22 +316,25 @@ void PageCart::onDeleteClicked()
     if (!btn) return;
 
     int row = findRowByButton(ui->tableCart, 6, btn);
-    if (row < 0) return;
+    if (row < 0 || row >= m_items.size()) return;
 
-    // 삭제 시 기대무게도 제거(현재 qty만큼)
-    int qty = 0;
-    if (auto *qtyItem = ui->tableCart->item(row, 3))
-        qty = qtyItem->text().toInt();
+    int itemId = m_items[row].id;
+    int qty = ui->tableCart->item(row, 3)->text().toInt();
 
-    if (row < m_items.size()) {
-        m_expectedWeight -= (m_items[row].weight * qty);
-        if (m_expectedWeight < 0) m_expectedWeight = 0;
+    if (itemId <= 0 || qty <= 0) {
+        qDebug() << "[Delete] invalid state";
+        return;
     }
 
+    // ✅ 서버에 qty 만큼 remove
+    for (int i = 0; i < qty; ++i)
+        m_scanner->removeItem(itemId);
+
+    // ✅ UI 제거
     if (row < m_unitPrice.size()) m_unitPrice.removeAt(row);
     if (row < m_items.size())     m_items.removeAt(row);
-
     ui->tableCart->removeRow(row);
+
     updateTotal();
 }
 
@@ -439,10 +432,6 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
 void PageCart::handleItemFetched(const Item &item, double cartWeight)
 {
     addItemByScan(item);                     // row 추가/수량 증가
-    updateExpectedWeightByScan(item.weight); // 기대 무게 누적
-
-    if (!checkWeightOrStop(cartWeight))
-        return;
 
     updateTotal();
 }
@@ -472,46 +461,22 @@ void PageCart::addItemByScan(const Item &item)
 
         // 방금 추가된 row에 weight 업데이트
         int newRow = ui->tableCart->rowCount() - 1;
-        if (newRow >= 0 && newRow < m_items.size())
+        if (newRow >= 0 && newRow < m_items.size()){
+            m_items[newRow].id = item.id;
             m_items[newRow].weight = item.weight;
+        }
     } else {
         int qty = ui->tableCart->item(rowFound, 3)->text().toInt();
         ui->tableCart->item(rowFound, 3)->setText(QString::number(qty + 1));
 
         // 같은 상품이면 weight 갱신(0일 때만 채워도 되고, 그냥 덮어써도 됨)
-        if (rowFound < m_items.size())
+        if (rowFound < m_items.size()) {
+            m_items[rowFound].id = item.id; 
             m_items[rowFound].weight = item.weight;
+        }
 
         updateRowAmount(rowFound);
     }
-}
-
-// ----------------------------------------
-// 기대 무게 누적
-// ----------------------------------------
-void PageCart::updateExpectedWeightByScan(double itemWeight)
-{
-    m_expectedWeight += itemWeight;
-}
-
-// ----------------------------------------
-// 무게 검사(오차 초과 시 STOP)
-// ----------------------------------------
-bool PageCart::checkWeightOrStop(double cartWeight)
-{
-    double diff = std::fabs(cartWeight - m_expectedWeight);
-
-    qDebug() << "[WEIGHT CHECK]"
-             << "expected =" << m_expectedWeight
-             << "real =" << cartWeight
-             << "diff =" << diff;
-
-    if (diff > m_tolerance) {
-        qDebug() << "[STOP] 무게 불일치";
-        sendRobotMode(0);
-        return false;
-    }
-    return true;
 }
 
 // ----------------------------------------
@@ -573,7 +538,6 @@ void PageCart::resetCart()
         if (auto *priceItem = ui->tableCart->item(r, 5))
             priceItem->setText("0");
     }
-
-    m_expectedWeight = 0.0;
+    
     updateTotal();
 }
