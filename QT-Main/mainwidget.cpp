@@ -7,6 +7,7 @@
 #include <QtNetwork/QHostAddress>
 #include "pagepay_card.h"
 #include "pagetotalpay.h"
+#include <QTimer>
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
@@ -82,11 +83,14 @@ void MainWidget::onPageChanged(int index)
 
 void MainWidget::sendRobotMode(int mode)
 {
-    // 형식: "MODE:1"
     QString cmd = QString("MODE:%1").arg(mode);
     QByteArray data = cmd.toUtf8();
 
-    m_udpSocket->writeDatagram(data, QHostAddress(ROS_SERVER_IP), ROS_SERVER_PORT);
+    m_udpSocket->writeDatagram(
+        data,
+        QHostAddress(ROS_SERVER_IP),
+        ROS_SERVER_PORT
+    );
 }
 
 void MainWidget::onGoalRequested(double x, double y)

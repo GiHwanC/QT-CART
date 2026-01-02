@@ -14,92 +14,85 @@ BarcodeScanner::BarcodeScanner(QObject *parent)
 
 void BarcodeScanner::fetchItemDetails(const QString& barcodeId)
 {
-    QUrl url(QString("%1/items/%2").arg(SERVER_BASE_URL).arg(barcodeId));
+    QUrl url(QString("%1/scan/%2").arg(SERVER_BASE_URL).arg(barcodeId));
     QNetworkRequest request(url);
 
     manager->get(request);
     qDebug() << "Fetching item details for ID:" << barcodeId;
 }
 
+void BarcodeScanner::removeItem(int itemId)
+{
+    QUrl url(QString("%1/cart/remove/%2")
+             .arg(SERVER_BASE_URL)
+             .arg(itemId));
+
+    QNetworkRequest request(url);
+    manager->post(request, QByteArray());
+}
+
+void BarcodeScanner::checkCartStatus()
+{
+    QUrl url(QString("%1/cart/check").arg(SERVER_BASE_URL));
+    QNetworkRequest request(url);
+    manager->get(request);
+}
 
 void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
 {
-    // 1. HTTP 상태 코드
-    int statusCode =
-        reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-
-    // 2. 네트워크 오류
+    // 1. 네트워크 오류
     if (reply->error() != QNetworkReply::NoError) {
-        emit fetchFailed(QString("네트워크 오류: %1").arg(reply->errorString()));
-        reply->deleteLater();
-        return;
-    }
 
-    if (statusCode >= 400) {
-        if (statusCode == 404) {
-            emit fetchFailed(QString("상품 ID %1는 존재하지 않습니다.")
-                             .arg(reply->url().path().split("/").last()));
-        } else {
-            emit fetchFailed(QString("서버 오류 발생. Status: %1").arg(statusCode));
+        // cart/update-weight 응답이면 조용히 처리
+        if (reply->url().path().contains("/cart/update-weight")) {
+            qDebug() << "[WEIGHT UPDATE ERROR]" << reply->errorString();
+            reply->deleteLater();
+            return;
         }
+
+        // item 조회 에러만 사용자에게 알림
+        emit fetchFailed(reply->errorString());
         reply->deleteLater();
         return;
     }
 
-    // 3. 응답 데이터 (한 번만!)
+    // 2. 응답 데이터
     QByteArray responseData = reply->readAll();
-    qDebug() << "[SCAN] server replied, raw:" << responseData;
+    qDebug() << "[NETWORK RAW]" << responseData;
 
-    // 4. JSON 파싱
+    // 3. JSON 파싱
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(responseData, &parseError);
 
     if (parseError.error != QJsonParseError::NoError || !doc.isObject()) {
-        emit fetchFailed("서버로부터 유효하지 않은 JSON 응답을 받았습니다.");
+        emit fetchFailed("Invalid JSON response");
         reply->deleteLater();
         return;
     }
 
     QJsonObject obj = doc.object();
 
-    // 5. ✅ 키 존재 검증 (핵심)
-    if (!obj.contains("id") ||
-        !obj.contains("name") ||
-        !obj.contains("price") ||
-        !obj.contains("stock") ||
-        !obj.contains("weight") ||
-        !obj.contains("cart_weight")) {
-
-        emit fetchFailed("서버 응답에 필수 키가 누락되었습니다.");
-        reply->deleteLater();
-        return;
+    if (obj.contains("movable")) {
+        bool movable = obj["movable"].toBool();
+        if (!movable) emit requestStop();
     }
 
-    // 6. ✅ 타입 검증 (실무 필수)
-    if (!obj.value("id").isDouble() ||
-        !obj.value("name").isString() ||
-        !obj.value("price").isDouble() ||
-        !obj.value("stock").isDouble() ||
-        !obj.value("weight").isDouble() ||
-        !obj.value("cart_weight").isDouble()) {
-
-        emit fetchFailed("서버 응답 데이터 타입이 올바르지 않습니다.");
-        reply->deleteLater();
-        return;
+    if (obj.contains("item")) {
+        QJsonObject it = obj["item"].toObject();
+        Item item;
+        item.id = it["id"].toInt();
+        item.name = it["name"].toString();
+        item.price = it["price"].toDouble();
+        item.weight = it["weight"].toDouble();
+        emit itemFetched(item, 0.0);
     }
 
-    // 7. Item 매핑
     Item item;
     item.id     = obj.value("id").toInt();
     item.name   = obj.value("name").toString();
     item.price  = obj.value("price").toDouble();
-    item.stock  = obj.value("stock").toInt();
-    item.weight = obj.value("weight").toDouble();
 
-    double cartWeight = obj.value("cart_weight").toDouble();
-
-    // 8. 성공 시그널
-    emit itemFetched(item, cartWeight);
+    emit itemFetched(item, 0.0); // cart_weight 이제 서버가 관리하므로 의미 없음
 
     reply->deleteLater();
 }
