@@ -79,7 +79,7 @@ private:
     QVector<ItemInfo> m_items;
     QVector<int> m_unitPrice;
     const double m_tolerance = 30.0;
-
+    void initFixedItems();
     /* Barcode */
     QLineEdit *m_editBarcode = nullptr;
     QString m_barcodeData;

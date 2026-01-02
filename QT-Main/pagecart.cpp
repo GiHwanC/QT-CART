@@ -22,9 +22,10 @@
 
 static QString imageForName(const QString& name)
 {
-    if (name == "헬로키티 인형")   return ":/etc/kitty.jpg";
-    if (name == "바나나")         return ":/item/banana.jpg";
-    if (name == "불닭볶음면 컵")   return ":/item/fire.jpg";
+    if (name == "아이폰")         return ":/item/cart_iphone.jpg";     // <- 너 리소스 경로로
+    if (name == "핸드크림")       return ":/item/cart_handcream.jpg";
+    if (name == "퍼즐")           return ":/etc_image/puzzle.jpg";
+    if (name == "과자")           return ":/item/cart_snack.jpg";
     return ""; // 기본값
 }
 
@@ -111,7 +112,7 @@ PageCart::PageCart(QWidget *parent)
     ui->tableCart->setColumnWidth(3, 42);
     ui->tableCart->setColumnWidth(5, 76);
     ui->tableCart->setColumnWidth(6, 46);
-
+    initFixedItems();
     updateTotal();
 
     // 새 UI 버튼들
@@ -566,13 +567,13 @@ void PageCart::resetCart()
 
     manager->post(req, QByteArray());
 
-    for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
-        if (auto *qtyItem = ui->tableCart->item(r, 3))
-            qtyItem->setText("0");
+    // 2) ✅ UI 테이블 행을 전부 삭제 (완전 비움)
+    ui->tableCart->setRowCount(0);
 
-        if (auto *priceItem = ui->tableCart->item(r, 5))
-            priceItem->setText("0");
-    }
+    // 3) ✅ 내부 데이터도 같이 비움 (안 맞으면 나중에 계산 꼬임 방지)
+    m_unitPrice.clear();
+    m_items.clear();
+    m_expectedWeight = 0.0;
     
     updateTotal();
 }
@@ -703,4 +704,33 @@ void PageCart::checkWeightOrStop(double realWeight)
             );
         }
     }
+}
+void PageCart::initFixedItems()
+{
+    struct P { int id; QString name; int price; };
+
+    // ✅ 여기 id는 서버에서 쓰는 item id가 있으면 넣어줘야 +/−가 서버랑 연동됨
+    // 서버 id를 모르면 일단 -1로 두고(로컬로만 보이게), 아래 3)에서 옵션 선택
+    QVector<P> items = {
+        { 1, "아이폰",   100000 },
+        {3 , "핸드크림",   1000 },
+        { 4, "퍼즐",      3000 },
+        {2, "과자",      1500 }
+    };
+
+    ui->tableCart->setRowCount(0);
+    m_unitPrice.clear();
+    m_items.clear();
+
+    for (const auto &p : items) {
+        addRowForItem(p.name, p.price, 0);
+
+        // addRowForItem가 m_items에 push하니까, 방금 추가된 row에 id 세팅
+        int row = ui->tableCart->rowCount() - 1;
+        if (row >= 0 && row < m_items.size()) {
+            m_items[row].id = p.id;
+        }
+    }
+
+    updateTotal();
 }

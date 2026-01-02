@@ -101,9 +101,9 @@
      <widget class="QLabel" name="qtcart_text">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>260</y>
-        <width>311</width>
+        <x>10</x>
+        <y>250</y>
+        <width>771</width>
         <height>77</height>
        </rect>
       </property>
@@ -118,6 +118,9 @@ background-color: rgb(255, 255, 255);
       </property>
       <property name="text">
        <string>QT CART</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QPushButton" name="start_button">
