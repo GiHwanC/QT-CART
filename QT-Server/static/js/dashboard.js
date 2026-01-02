@@ -53,8 +53,8 @@ async function updateDashboard() {
             c1.status = "ONLINE";
             
             // 배터리 & 속도
-            c1.battery = botData.battery.toFixed(1); 
-            c1.speed = botData.speed.toFixed(2);
+            c1.battery = parseInt(botData.battery);
+            c1.speed = botData.speed.toFixed(1);
             
             if(cartData) {
                 // 무게 & 아이템
@@ -214,7 +214,6 @@ function renderDetailPanel() {
         countEl.innerText = '0';
         priceEl.innerText = '0원';
     } else {
-        // 아이템 집계 (같은 상품은 수량 증가)
         const agg = {};
         let totalP = 0;
         let totalC = 0;
