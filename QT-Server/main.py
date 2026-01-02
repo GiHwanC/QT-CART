@@ -27,14 +27,14 @@ def is_movable(expected, real):
     diff_ratio = abs(real - expected) / expected
     return diff_ratio <= 0.05
 
-# 🧺 카트 무게 기준값 설정
+# 카트 무게 기준값 설정
 @app.post("/cart/tare")
 def tare_cart():
     global EXPECTED_WEIGHT
     EXPECTED_WEIGHT = read_cart_weight()
     return {"expected_weight": EXPECTED_WEIGHT}
 
-# 📦 상품 등록
+# 상품 등록
 @app.post("/items/")
 def create_item(item: models.ItemCreate, db: Session = Depends(get_db)):
     db_item = models.Item(
@@ -48,7 +48,7 @@ def create_item(item: models.ItemCreate, db: Session = Depends(get_db)):
     db.refresh(db_item)
     return db_item
 
-# ➕ 상품 추가 (스캔)
+# 상품 추가 (스캔)
 @app.post("/cart/add/{item_id}")
 def add_item(item_id: int, db: Session = Depends(get_db)):
     global EXPECTED_WEIGHT, CART_ITEMS
@@ -78,7 +78,7 @@ def add_item(item_id: int, db: Session = Depends(get_db)):
         "movable": movable
     }
 
-# ➖ 상품 제거
+# 상품 제거
 @app.post("/cart/remove/{item_id}")
 def remove_item(item_id: int):
     global EXPECTED_WEIGHT, CART_ITEMS
@@ -104,7 +104,7 @@ def remove_item(item_id: int):
         "movable": movable
     }
 
-# 🛒 장바구니 조회
+# 장바구니 조회
 @app.get("/cart")
 def get_cart():
     total_price = sum(item["price"] for item in CART_ITEMS)
@@ -116,7 +116,7 @@ def get_cart():
         "expected_weight": EXPECTED_WEIGHT
     }
 
-# ⚖️ 무게 체크
+# 무게 체크
 @app.get("/cart/check")
 def check_cart():
     real = read_cart_weight()
@@ -130,7 +130,7 @@ def check_cart():
         "stop_type": "abnormal" if not movable else "none"
     }
 
-# 🔄 카트 초기화
+# 카트 초기화
 @app.post("/cart/reset")
 def reset_cart():
     global EXPECTED_WEIGHT, CART_ITEMS
