@@ -34,13 +34,16 @@ class HX711:
 
     def read_raw(self):
         while not self.is_ready():
-            pass
+            time.sleep(0.001)
 
         data = 0
         for _ in range(24):
             lgpio.gpio_write(self.chip, self.PD_SCK, 1)
+            time.sleep(0.000001)  # 1 µs
             data = (data << 1) | lgpio.gpio_read(self.chip, self.DOUT)
             lgpio.gpio_write(self.chip, self.PD_SCK, 0)
+            time.sleep(0.000001)
+
 
         for _ in range(self.GAIN):
             lgpio.gpio_write(self.chip, self.PD_SCK, 1)

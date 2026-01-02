@@ -73,11 +73,10 @@ private slots:
 
 private:
     Ui::PageCart *ui;
-
+bool m_weightFail = false;
     /* Cart Data */
     QVector<ItemInfo> m_items;
     QVector<int> m_unitPrice;
-
     const double m_tolerance = 30.0;
 
     /* Barcode */
@@ -105,6 +104,8 @@ private:
     void addItemByScan(const Item &item);
     void updateExpectedWeightByScan(double itemWeight);
     bool checkWeightOrStop(double cartWeight);
+    void requestCheckWeightBeforeRun();
+
 };
 
 #endif // PAGECART_H

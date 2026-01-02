@@ -14,11 +14,82 @@ BarcodeScanner::BarcodeScanner(QObject *parent)
 
 void BarcodeScanner::fetchItemDetails(const QString& barcodeId)
 {
-    QUrl url(QString("%1/scan/%2").arg(SERVER_BASE_URL).arg(barcodeId));
+    QUrl url(QString("%1/cart/add/%2")
+             .arg(SERVER_BASE_URL)
+             .arg(barcodeId));
+
     QNetworkRequest request(url);
 
-    manager->get(request);
-    qDebug() << "Fetching item details for ID:" << barcodeId;
+    // POST (body 없음)
+    manager->post(request, QByteArray());
+
+    qDebug() << "Scanning (POST) item ID:" << barcodeId;
+}
+
+
+
+void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
+{
+    int statusCode =
+        reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+
+    if (reply->error() != QNetworkReply::NoError) {
+        emit fetchFailed(QString("네트워크 오류: %1").arg(reply->errorString()));
+        reply->deleteLater();
+        return;
+    }
+
+    if (statusCode >= 400) {
+        emit fetchFailed(QString("서버 오류: %1").arg(statusCode));
+        reply->deleteLater();
+        return;
+    }
+
+    QByteArray responseData = reply->readAll();
+    qDebug() << "[SCAN] server replied:" << QString::fromUtf8(responseData);
+
+
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(responseData, &parseError);
+
+    if (parseError.error != QJsonParseError::NoError || !doc.isObject()) {
+        emit fetchFailed("JSON 파싱 실패");
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject root = doc.object();
+
+    // 1️⃣ item 객체 존재 확인
+    if (!root.contains("item") || !root.value("item").isObject()) {
+        emit fetchFailed("서버 응답에 item 이 없습니다.");
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject obj = root.value("item").toObject();
+
+    Item item;
+    item.id     = obj.value("id").toInt();
+    item.name   = obj.value("name").toString();
+    item.price  = obj.value("price").toDouble();
+    item.stock  = obj.value("stock").toInt();
+    item.weight = obj.value("weight").toDouble();
+
+    double cartWeight = root.value("cart_weight").toDouble();
+    bool weightOk     = root.value("weight_ok").toBool();
+
+    // 2️⃣ 무게 실패 → 정지 요청
+    if (!weightOk) {
+        emit requestStop();                           // 로봇 정지
+        emit fetchFailed("무게가 일치하지 않습니다!"); // 팝업 띄울 메시지
+    }
+
+
+    // 3️⃣ UI/Cart 쪽으로 전달
+    emit itemFetched(item, cartWeight);
+
+    reply->deleteLater();
 }
 
 void BarcodeScanner::removeItem(int itemId)
@@ -28,71 +99,35 @@ void BarcodeScanner::removeItem(int itemId)
              .arg(itemId));
 
     QNetworkRequest request(url);
-    manager->post(request, QByteArray());
-}
 
-void BarcodeScanner::checkCartStatus()
-{
-    QUrl url(QString("%1/cart/check").arg(SERVER_BASE_URL));
-    QNetworkRequest request(url);
-    manager->get(request);
-}
+    auto reply = manager->post(request, QByteArray());
 
-void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
-{
-    // 1. 네트워크 오류
-    if (reply->error() != QNetworkReply::NoError) {
+    qDebug() << "[REMOVE] request item =" << itemId;
 
-        // cart/update-weight 응답이면 조용히 처리
-        if (reply->url().path().contains("/cart/update-weight")) {
-            qDebug() << "[WEIGHT UPDATE ERROR]" << reply->errorString();
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+
+        QByteArray response = reply->readAll();
+        qDebug() << "[REMOVE] server replied:" << QString::fromUtf8(response);
+
+        QJsonParseError err;
+        QJsonDocument doc = QJsonDocument::fromJson(response, &err);
+
+        if (err.error != QJsonParseError::NoError || !doc.isObject()) {
+            emit fetchFailed("REMOVE JSON 파싱 실패");
             reply->deleteLater();
             return;
         }
 
-        // item 조회 에러만 사용자에게 알림
-        emit fetchFailed(reply->errorString());
+        QJsonObject root = doc.object();
+
+        double cartWeight = root.value("cart_weight").toDouble();
+        bool weightOk     = root.value("weight_ok").toBool();
+
+        
+        if (!weightOk) {
+            emit requestStop();
+        }
+
         reply->deleteLater();
-        return;
-    }
-
-    // 2. 응답 데이터
-    QByteArray responseData = reply->readAll();
-    qDebug() << "[NETWORK RAW]" << responseData;
-
-    // 3. JSON 파싱
-    QJsonParseError parseError;
-    QJsonDocument doc = QJsonDocument::fromJson(responseData, &parseError);
-
-    if (parseError.error != QJsonParseError::NoError || !doc.isObject()) {
-        emit fetchFailed("Invalid JSON response");
-        reply->deleteLater();
-        return;
-    }
-
-    QJsonObject obj = doc.object();
-
-    if (obj.contains("movable")) {
-        bool movable = obj["movable"].toBool();
-        if (!movable) emit requestStop();
-    }
-
-    if (obj.contains("item")) {
-        QJsonObject it = obj["item"].toObject();
-        Item item;
-        item.id = it["id"].toInt();
-        item.name = it["name"].toString();
-        item.price = it["price"].toDouble();
-        item.weight = it["weight"].toDouble();
-        emit itemFetched(item, 0.0);
-    }
-
-    Item item;
-    item.id     = obj.value("id").toInt();
-    item.name   = obj.value("name").toString();
-    item.price  = obj.value("price").toDouble();
-
-    emit itemFetched(item, 0.0); // cart_weight 이제 서버가 관리하므로 의미 없음
-
-    reply->deleteLater();
+    });
 }

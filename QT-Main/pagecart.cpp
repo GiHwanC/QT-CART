@@ -13,6 +13,11 @@
 #include <QLabel>
 #include <QPixmap>
 #include <cmath>
+#include <QTimer>
+#include <QJsonDocument>
+#include <QJsonObject>
+
+#define SERVER_BASE_URL "http://192.168.123.43:8000"
 
 // ------------------------------
 // 상품명 -> 이미지 경로 매핑
@@ -127,6 +132,19 @@ PageCart::PageCart(QWidget *parent)
     if (ui->pushButton) {
         connect(ui->pushButton, &QPushButton::clicked, this, &PageCart::resetCart);
     }
+
+    // 5초마다 무게 재확인
+    // 5초 → 5000ms
+    m_weightRetryTimer = new QTimer(this);
+    m_weightRetryTimer->setInterval(5000);
+
+    // 항상 돌리기
+    connect(
+        m_weightRetryTimer, &QTimer::timeout,
+        this, &PageCart::requestCartWeightOnly
+    );
+
+    m_weightRetryTimer->start();
 }
 
 PageCart::~PageCart()
@@ -307,6 +325,8 @@ void PageCart::onMinusClicked()
     updateTotal();
 }
 
+
+
 // ----------------------------------------
 // X 삭제 버튼
 // ----------------------------------------
@@ -436,6 +456,7 @@ void PageCart::handleItemFetched(const Item &item, double cartWeight)
     updateTotal();
 }
 
+
 void PageCart::handleFetchFailed(const QString &err)
 {
     QMessageBox::critical(this, "상품 조회 실패", err);
@@ -531,6 +552,21 @@ QVector<PageCart::CartLine> PageCart::getCartLines() const
 
 void PageCart::resetCart()
 {
+    QUrl url(QString("%1/cart/reset").arg(SERVER_BASE_URL));
+    QNetworkRequest req(url);
+
+    auto *manager = new QNetworkAccessManager(this);
+    connect(manager, &QNetworkAccessManager::finished,
+            this, [manager](QNetworkReply *reply){
+
+        qDebug() << "[RESET] response =" << reply->readAll();
+
+        reply->deleteLater();
+        manager->deleteLater();
+    });
+
+    manager->post(req, QByteArray());
+
     for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
         if (auto *qtyItem = ui->tableCart->item(r, 3))
             qtyItem->setText("0");
@@ -540,4 +576,106 @@ void PageCart::resetCart()
     }
     
     updateTotal();
+}
+
+void PageCart::requestCartWeightOnly()
+{
+    qDebug() << "[TIMER] requestCartWeightOnly() called";
+
+    QUrl url(QString("%1/cart/check-weight").arg(SERVER_BASE_URL));
+    QNetworkRequest request(url);
+
+    auto *manager = new QNetworkAccessManager(this);
+
+    connect(manager, &QNetworkAccessManager::finished,
+            this, [this, manager](QNetworkReply *reply) {
+
+        if (reply->error() != QNetworkReply::NoError) {
+            qDebug() << "[TIMER] network error =" << reply->errorString();
+            reply->deleteLater();
+            manager->deleteLater();
+            return;
+        }
+
+        QByteArray data = reply->readAll();
+        qDebug() << "[TIMER] reply from server =" << data;
+
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        if (!doc.isObject()) {
+            qDebug() << "[TIMER] JSON parse failed";
+            reply->deleteLater();
+            manager->deleteLater();
+            return;
+        }
+
+        QJsonObject obj = doc.object();
+
+        double cartWeight = obj.value("real").toDouble();
+        double expected   = obj.value("expected").toDouble();
+
+        m_expectedWeight = expected;
+
+        qDebug() << "[SYNC] expected sync =" << m_expectedWeight;
+
+        checkWeightOrStop(cartWeight);
+
+        reply->deleteLater();
+        manager->deleteLater();
+    });
+
+    manager->get(request);
+}
+
+
+
+void PageCart::requestCheckWeightBeforeRun()
+{
+    QUrl url(QString("%1/cart/check-weight").arg(SERVER_BASE_URL));
+    QNetworkRequest req(url);
+
+    auto *manager = new QNetworkAccessManager(this);
+
+    connect(manager, &QNetworkAccessManager::finished,
+            this, [this, manager](QNetworkReply *reply){
+
+        QByteArray data = reply->readAll();
+        reply->deleteLater();
+        manager->deleteLater();
+
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        if (!doc.isObject()) return;
+
+        QJsonObject obj = doc.object();
+
+        bool weightOk = obj.value("weight_ok").toBool();
+        QString stopType = obj.value("stop_type").toString();
+
+        if (!weightOk) {
+            QMessageBox::warning(
+                this,
+                "출발 불가",
+                "카트 무게가 일치하지 않습니다.\n정상적으로 출발할 수 없습니다."
+            );
+            sendRobotMode(0);
+            return;
+        }
+
+        // ✅ 정상 출발
+        QMessageBox::information(
+            this,
+            "확인 완료",
+            "무게 정상 — 출발합니다."
+        );
+
+        sendRobotMode(1);   
+    });
+
+    manager->get(req);
+}
+
+void PageCart::sendRobotMode(int mode)
+{
+    QUdpSocket socket;
+    QByteArray data = QString("MODE:%1").arg(mode).toUtf8();
+    socket.writeDatagram(data, QHostAddress("192.168.123.43"), 55555);
 }

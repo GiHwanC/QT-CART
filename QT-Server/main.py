@@ -132,5 +132,101 @@ def check_cart_weight():
         "movable": movable
     }
 
+@app.post("/cart/add/{item_id}", response_model=models.CartScanResponse)
+def add_item_to_cart(item_id: int, db: Session = Depends(get_db)):
+    item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    if not item:
+        raise HTTPException(404, "Item not found")
+
+    cart = db.query(models.Cart).first()
+
+    if not cart:
+        cart = models.Cart(expected_weight=0.0)
+        db.add(cart)
+        db.commit()
+        db.refresh(cart)
+
+    cart.expected_weight += item.weight
+    db.commit()
+    db.refresh(cart)
+
+    real = read_cart_weight()
+    result = check_weight(cart.expected_weight, real)
+
+    return {
+        "item": item,
+        "cart_weight": real,
+        "expected_weight": cart.expected_weight,
+        "weight_ok": result["weight_ok"],
+        "diff": result["diff"],
+        "allowed": result["allowed"]
+    }
+
+@app.get("/cart/check-weight")
+def check_cart_weight(db: Session = Depends(get_db)):
+    cart = db.query(models.Cart).first()
+
+    if not cart:
+        raise HTTPException(400, "Cart not initialized")
+
+    real = read_cart_weight()
+    result = check_weight(cart.expected_weight, real)
+
+    result["stop_type"] = "abnormal" if not result["weight_ok"] else "none"
+    return result
+
+@app.post("/cart/reset")
+def reset_cart(db: Session = Depends(get_db)):
+    cart = db.query(models.Cart).first()
+
+    if not cart:
+        return {"ok": True, "message": "cart did not exist"}
+
+    cart.expected_weight = 0
+    db.commit()
+
+    return {"ok": True, "message": "cart weight reset to 0"}
+
+@app.post("/cart/remove/{item_id}", response_model=models.CartScanResponse)
+def remove_item_from_cart(item_id: int, db: Session = Depends(get_db)):
+    item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    if not item:
+        raise HTTPException(404, "Item not found")
+
+    cart = db.query(models.Cart).first()
+    if not cart:
+        raise HTTPException(400, "Cart not initialized")
+
+    cart.expected_weight -= item.weight
+    if cart.expected_weight < 0:
+        cart.expected_weight = 0
+
+    db.commit()
+    db.refresh(cart)
+
+    real = read_cart_weight()
+    result = check_weight(cart.expected_weight, real)
+
+    return {
+        "item": item,
+        "cart_weight": real,
+        "expected_weight": cart.expected_weight,
+        "weight_ok": result["weight_ok"],
+        "diff": result["diff"],
+        "allowed": result["allowed"]
+    }
+
+@app.on_event("startup")
+def reset_cart_on_startup():
+    db = database.SessionLocal()
+    cart = db.query(models.Cart).first()
+
+    if cart:
+        cart.expected_weight = 0
+        db.commit()
+
+    db.close()
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
