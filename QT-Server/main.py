@@ -31,7 +31,7 @@ def is_movable(expected, real):
     diff_ratio = abs(real - expected) / expected
     return diff_ratio <= 0.05
 
-# --- 페이지 라우팅
+# 페이지 라우팅
 @app.get("/dashboard")
 async def dashboard_view(): return FileResponse("templates/dashboard.html")
 
@@ -72,9 +72,9 @@ def add_item(item_id: int, db: Session = Depends(get_db)):
 
     return {
         "action": "add",
-        "id": item.id,          # <--- 추가됨
+        "id": item.id,         
         "item": item.name,
-        "price": item.price,    # <--- 추가됨 (DB 가격 전달)
+        "price": item.price,    
         "expected_weight": EXPECTED_WEIGHT,
         "real_weight": real,
         "diff": abs(real - EXPECTED_WEIGHT),
@@ -101,9 +101,9 @@ def remove_item(item_id: int):
 
     return {
         "action": "remove",
-        "id": removed["id"],       # <--- 추가됨
+        "id": removed["id"],       
         "item": removed["name"],
-        "price": removed["price"], # <--- 추가됨
+        "price": removed["price"], 
         "expected_weight": EXPECTED_WEIGHT,
         "real_weight": real,
         "movable": movable

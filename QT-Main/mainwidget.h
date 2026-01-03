@@ -12,7 +12,7 @@
 #include "pagetotalpay.h"
 
 // 우분투 중계 서버
-#define ROS_SERVER_IP   "192.168.123.43"
+#define ROS_SERVER_IP   "192.168.123.42"
 #define ROS_SERVER_PORT 55555
 
 QT_BEGIN_NAMESPACE
@@ -43,8 +43,6 @@ private:
 
     pagepay_card *pPageCard;
     PageTotalPay *pPageTotalPay;
-    // rclcpp::Node::SharedPtr node_;
-    // rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -58,8 +56,5 @@ private slots:
     void slotShowPayCardPage();
     void slotShowPayPage();
     void slotShowTotalPayPage_2();
-
-
-
 };
 #endif // MAINWIDGET_H
