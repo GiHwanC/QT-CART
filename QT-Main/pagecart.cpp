@@ -13,9 +13,6 @@
 #include <QLabel>
 #include <QPixmap>
 #include <cmath>
-#include <QTimer>
-#include <QJsonDocument>
-#include <QJsonObject>
 
 
 #define SERVER_BASE_URL "http://192.168.123.43:8000"
@@ -263,9 +260,8 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
 // ----------------------------------------
 // + 버튼
 // ----------------------------------------
-void PageCart::onPlusClicked()
-{
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
+void PageCart::onPlusClicked() {
+    auto *btn = qobject_cast<QPushButton*>(sender());
     if (!btn) return;
 
     int row = findRowByButton(ui->tableCart, 2, btn);
@@ -299,9 +295,8 @@ void PageCart::onPlusClicked()
 // ----------------------------------------
 // - 버튼
 // ----------------------------------------
-void PageCart::onMinusClicked()
-{
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
+void PageCart::onMinusClicked() {
+    auto *btn = qobject_cast<QPushButton*>(sender());
     if (!btn) return;
 
     int row = findRowByButton(ui->tableCart, 4, btn);
@@ -332,9 +327,8 @@ void PageCart::onMinusClicked()
 // ----------------------------------------
 // X 삭제 버튼
 // ----------------------------------------
-void PageCart::onDeleteClicked()
-{
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
+void PageCart::onDeleteClicked() {
+    auto *btn = qobject_cast<QPushButton*>(sender());
     if (!btn) return;
 
     int row = findRowByButton(ui->tableCart, 6, btn);
@@ -342,6 +336,7 @@ void PageCart::onDeleteClicked()
 
     int itemId = m_items[row].id;
     int qty = ui->tableCart->item(row, 3)->text().toInt();
+    if (itemId <= 0 || qty <= 0) return;
 
     // 1. [수정] 서버 전송
     // 서버 DB와 동기화하기 위해 현재 수량만큼 remove 요청을 보냅니다.
@@ -391,7 +386,6 @@ void PageCart::updateRowAmount(int row)
 void PageCart::updateTotal()
 {
     int totalCount = 0;     // 장바구니 전체 수량 합
-    int productsCount = 0;  // 담긴 "종류" 개수(수량>0인 행 개수)
     int totalPrice = 0;     // 총 금액 합
 
     for (int r = 0; r < ui->tableCart->rowCount(); ++r) {
@@ -400,7 +394,6 @@ void PageCart::updateTotal()
 
         int qty = qtyItem->text().toInt();
         totalCount += qty;
-        if (qty > 0) productsCount++;
 
         // ✅ 총 금액 누적(단가 * 수량)
         int unit = (r < m_unitPrice.size()) ? m_unitPrice[r] : 0;
@@ -418,8 +411,6 @@ void PageCart::updateTotal()
         ui->lblCartTitle->setText(QString("Cart (%1 products)").arg(totalCount));
 }
 
-
-
 // ----------------------------------------
 // 바코드 엔터(숨김 QLineEdit)
 // ----------------------------------------
@@ -429,7 +420,7 @@ void PageCart::onBarcodeEntered()
     m_editBarcode->clear();
     if (code.isEmpty()) return;
 
-    m_scanner->fetchItemDetails(code);
+    m_scanner->addItem(code.toInt());
 }
 
 // ----------------------------------------
@@ -444,7 +435,7 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
 
         if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
             if (!m_barcodeData.isEmpty()) {
-                m_scanner->fetchItemDetails(m_barcodeData);
+                m_scanner->addItem(m_barcodeData.toInt());
                 m_barcodeData.clear();
             }
             return true;
@@ -456,23 +447,6 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QWidget::eventFilter(obj, event);
-}
-
-// ----------------------------------------
-// 서버에서 상품 수신 (item + cartWeight)
-// ----------------------------------------
-void PageCart::handleItemFetched(const Item &item, double cartWeight)
-{
-    Q_UNUSED(cartWeight);
-    addItemByScan(item);                     // row 추가/수량 증가
-
-    updateTotal();
-}
-
-
-void PageCart::handleFetchFailed(const QString &err)
-{
-    QMessageBox::critical(this, "상품 조회 실패", err);
 }
 
 // ----------------------------------------
@@ -529,6 +503,13 @@ void PageCart::on_pushButton_clicked()
 {
     // clear cart 버튼이 auto-connection으로 여기 들어올 수도 있음
     resetCart();
+}
+
+void PageCart::checkWeightBeforeMove()
+{
+    if (m_checkingWeight) return;
+    m_checkingWeight = true;
+    m_scanner->checkCart();
 }
 
 void PageCart::on_btnCheckout_clicked()
@@ -678,6 +659,51 @@ void PageCart::initFixedItems()
         if (row >= 0 && row < m_items.size()) {
             m_items[row].id = p.id;
         }
+
+        // 통과 → 출발
+        QMessageBox::information(
+            this,
+            "출발",
+            "무게 확인 완료. 출발합니다."
+        );
+        m_isStopped = false;
+        sendRobotMode(1);
+        return;
+    }
+
+    if (r.action == CartAction::Reset) {
+        // reset 응답 성공 후 UI 완전 초기화
+        ui->tableCart->setRowCount(0);
+        m_items.clear();
+        m_unitPrice.clear();
+        m_expectedWeight = 0.0;
+        m_isStopped = false;
+        updateTotal();
+        return;
+    }
+}
+
+
+void PageCart::applyRemoveOneToUi(int itemId)
+{
+    // itemId로 row 찾기
+    int rowFound = -1;
+    for (int r = 0; r < m_items.size(); ++r) {
+        if (m_items[r].id == itemId) { rowFound = r; break; }
+    }
+    if (rowFound < 0) return;
+
+    int qty = ui->tableCart->item(rowFound, 3)->text().toInt();
+    qty -= 1;
+
+    if (qty <= 0) {
+        // row 제거
+        if (rowFound < m_unitPrice.size()) m_unitPrice.removeAt(rowFound);
+        if (rowFound < m_items.size())     m_items.removeAt(rowFound);
+        ui->tableCart->removeRow(rowFound);
+    } else {
+        ui->tableCart->item(rowFound, 3)->setText(QString::number(qty));
+        updateRowAmount(rowFound);
     }
 
     updateTotal();

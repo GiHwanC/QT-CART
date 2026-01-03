@@ -20,5 +20,6 @@
         <file>map_toy_2.png</file>
         <file>map_phone_1.png</file>
         <file>map_door.png</file>
+        <file>puzzle.jpg</file>
     </qresource>
 </RCC>
