@@ -119,11 +119,6 @@ PageCart::PageCart(QWidget *parent)
         connect(ui->btnCheckout, SIGNAL(clicked()), this, SLOT(on_btnCheckout_clicked()));
     }
 
-    // clear cart 버튼(pushButton)
-    if (ui->pushButton) {
-        connect(ui->pushButton, &QPushButton::clicked, this, &PageCart::resetCart);
-    }
-
     resetCart();
 }
 
