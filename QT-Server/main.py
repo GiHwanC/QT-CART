@@ -3,8 +3,11 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse 
 from sqlalchemy.orm import Session
+from typing import List
+from datetime import datetime
 import models, database
 import dashboard
+import logging
 from read_weight import read_cart_weight
 
 CART_ITEMS = []
@@ -46,14 +49,9 @@ def tare_cart():
     EXPECTED_WEIGHT = read_cart_weight()
     return {"expected_weight": EXPECTED_WEIGHT}
 
-# 상품 및 장바구니 API
-@app.post("/items", response_model=models.ItemSchema)
-def create_item(item: models.ItemCreate, db: Session = Depends(get_db)):
-    db_item = models.Item(**item.dict())
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
-    return db_item
+@app.get("/items", response_model=List[models.ItemSchema])
+def read_all_items(db: Session = Depends(get_db)):
+    return db.query(models.Item).all()
 
 # 상품 추가 
 @app.post("/cart/add/{item_id}")
@@ -137,6 +135,52 @@ def check_cart():
         "stop_type": "abnormal" if not movable else "none"
     }
 
+# 대시보드 상태 조회
+@app.get("/cart/status")
+def get_cart_status_for_dashboard():
+    global EXPECTED_WEIGHT, CART_ITEMS
+    
+    real = read_cart_weight()
+    movable = is_movable(EXPECTED_WEIGHT, real)
+    
+    system_status = "NORMAL" if movable else "WARNING_WEIGHT_MISMATCH"
+    
+    return {
+        "real_weight": real,
+        "expected_weight": EXPECTED_WEIGHT,
+        "cart_items": CART_ITEMS,
+        "total_price": sum(item["price"] for item in CART_ITEMS),
+        "total_count": len(CART_ITEMS),
+        "system_status": system_status,
+        "movable": movable
+    }
+
+# 결제
+@app.post("/cart/pay")
+def pay_cart(db: Session = Depends(get_db)):
+    global CART_ITEMS, EXPECTED_WEIGHT
+    
+    if not CART_ITEMS:
+        raise HTTPException(status_code=400, detail="장바구니가 비어있습니다.")
+
+    total_price = sum(item["price"] for item in CART_ITEMS)
+
+    new_pay = models.Pay(
+        total_price=total_price,
+        created_at=datetime.now()
+    )
+    db.add(new_pay)
+    db.commit()
+
+    reset_cart() 
+
+    return {"msg": "결제 완료", "amount": total_price}
+
+# 결제 내역 조회 
+@app.get("/payments", response_model=List[models.PaySchema])
+def get_payment_history(db: Session = Depends(get_db)):
+    return db.query(models.Pay).order_by(models.Pay.created_at.desc()).all()
+
 # 카트 초기화
 @app.post("/cart/reset")
 def reset_cart():
@@ -144,6 +188,14 @@ def reset_cart():
     EXPECTED_WEIGHT = 0.0
     CART_ITEMS.clear()
     return {"ok": True}
+
+# 로그 필터
+class EndpointFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        msg = record.getMessage()
+        return all(x not in msg for x in ["/bot/check", "/bot/report", "/cart/status"])
+
+logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
