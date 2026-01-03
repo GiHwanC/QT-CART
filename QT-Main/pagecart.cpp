@@ -85,6 +85,8 @@ PageCart::PageCart(QWidget *parent)
     // 서버 연동 BarcodeScanner
     m_scanner = new BarcodeScanner(this);
 
+    connect(m_scanner, &BarcodeScanner::itemFetched, this, &PageCart::handleItemFetched);
+    
     // ✅ 너 헤더에 맞게: itemFetched(item, cartWeight) 형태로 연결
     connect(m_scanner, &BarcodeScanner::fetchFailed, this, &PageCart::handleFetchFailed);
 
