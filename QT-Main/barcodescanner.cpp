@@ -1,133 +1,100 @@
 #include "barcodescanner.h"
 #include <QNetworkRequest>
 #include <QUrl>
+#include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QDebug>
 
 BarcodeScanner::BarcodeScanner(QObject *parent)
-    : QObject{parent}, manager(new QNetworkAccessManager(this))
+    : QObject(parent),
+      manager(new QNetworkAccessManager(this))
 {
     connect(manager, &QNetworkAccessManager::finished,
             this, &BarcodeScanner::onNetworkReply);
 }
 
-void BarcodeScanner::fetchItemDetails(const QString& barcodeId)
+// -------------------------------------------------
+// 상품 추가 (스캔)
+// -------------------------------------------------
+void BarcodeScanner::fetchItemDetails(const QString& itemId)
 {
-    QUrl url(QString("%1/cart/add/%2")
-             .arg(SERVER_BASE_URL)
-             .arg(barcodeId));
-
+    // 서버 주소 확인
+    QUrl url(QString("http://192.168.123.43:8000/cart/add/%1").arg(itemId));
     QNetworkRequest request(url);
-
-    // POST (body 없음)
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    
+    // POST 요청
     manager->post(request, QByteArray());
 
-    qDebug() << "Scanning (POST) item ID:" << barcodeId;
+    qDebug() << "[Scanner] Requesting ADD Item ID:" << itemId;
 }
 
-
-
-void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
-{
-    int statusCode =
-        reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-
-    if (reply->error() != QNetworkReply::NoError) {
-        emit fetchFailed(QString("네트워크 오류: %1").arg(reply->errorString()));
-        reply->deleteLater();
-        return;
-    }
-
-    if (statusCode >= 400) {
-        emit fetchFailed(QString("서버 오류: %1").arg(statusCode));
-        reply->deleteLater();
-        return;
-    }
-
-    QByteArray responseData = reply->readAll();
-    qDebug() << "[SCAN] server replied:" << QString::fromUtf8(responseData);
-
-
-    QJsonParseError parseError;
-    QJsonDocument doc = QJsonDocument::fromJson(responseData, &parseError);
-
-    if (parseError.error != QJsonParseError::NoError || !doc.isObject()) {
-        emit fetchFailed("JSON 파싱 실패");
-        reply->deleteLater();
-        return;
-    }
-
-    QJsonObject root = doc.object();
-
-    // 1️⃣ item 객체 존재 확인
-    if (!root.contains("item") || !root.value("item").isObject()) {
-        emit fetchFailed("서버 응답에 item 이 없습니다.");
-        reply->deleteLater();
-        return;
-    }
-
-    QJsonObject obj = root.value("item").toObject();
-
-    Item item;
-    item.id     = obj.value("id").toInt();
-    item.name   = obj.value("name").toString();
-    item.price  = obj.value("price").toDouble();
-    item.stock  = obj.value("stock").toInt();
-    item.weight = obj.value("weight").toDouble();
-
-    double cartWeight = root.value("cart_weight").toDouble();
-    bool weightOk     = root.value("weight_ok").toBool();
-
-    // 2️⃣ 무게 실패 → 정지 요청
-    if (!weightOk) {
-        emit requestStop();                           // 로봇 정지
-        emit fetchFailed("무게가 일치하지 않습니다!"); // 팝업 띄울 메시지
-    }
-
-
-    // 3️⃣ UI/Cart 쪽으로 전달
-    emit itemFetched(item, cartWeight);
-
-    reply->deleteLater();
-}
-
+// -------------------------------------------------
+// 상품 제거
+// -------------------------------------------------
 void BarcodeScanner::removeItem(int itemId)
 {
-    QUrl url(QString("%1/cart/remove/%2")
-             .arg(SERVER_BASE_URL)
-             .arg(itemId));
-
+    QUrl url(QString("http://192.168.123.43:8000/cart/remove/%1").arg(itemId));
     QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    auto reply = manager->post(request, QByteArray());
+    manager->post(request, QByteArray());
 
-    qDebug() << "[REMOVE] request item =" << itemId;
+    qDebug() << "[Scanner] Requesting REMOVE Item ID:" << itemId;
+}
 
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-
-        QByteArray response = reply->readAll();
-        qDebug() << "[REMOVE] server replied:" << QString::fromUtf8(response);
-
-        QJsonParseError err;
-        QJsonDocument doc = QJsonDocument::fromJson(response, &err);
-
-        if (err.error != QJsonParseError::NoError || !doc.isObject()) {
-            emit fetchFailed("REMOVE JSON 파싱 실패");
-            reply->deleteLater();
-            return;
-        }
-
-        QJsonObject root = doc.object();
-
-        double cartWeight = root.value("cart_weight").toDouble();
-        bool weightOk     = root.value("weight_ok").toBool();
-
-        
-        if (!weightOk) {
-            emit requestStop();
-        }
-
+// -------------------------------------------------
+// 서버 응답 처리 (핵심 수정 부분)
+// -------------------------------------------------
+void BarcodeScanner::onNetworkReply(QNetworkReply *reply)
+{
+    // 1. 에러 체크
+    if (reply->error() != QNetworkReply::NoError) {
+        qDebug() << "[Scanner] Error:" << reply->errorString();
+        emit fetchFailed(reply->errorString());
         reply->deleteLater();
-    });
+        return;
+    }
+
+    // 2. 데이터 읽기
+    QByteArray data = reply->readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    
+    if (!doc.isObject()) {
+        // 서버가 이상한거 보냄 (혹은 빈 응답)
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject obj = doc.object();
+    QString action = obj["action"].toString(); // "add" or "remove"
+
+    // 3. UI 업데이트를 위해 데이터 파싱 (add 일때만 처리해도 무방)
+    if (action == "add") {
+        Item item;
+        // 서버 응답 키값("item")이 상품명임. 
+        // 주의: 현재 서버 응답에는 id, price가 최상위에 없고 내부 로직에 있음.
+        // 서버 응답 예시: { "action": "add", "item": "새우깡", "expected_weight": ... }
+        // 따라서 이름만으로 UI에서 매칭하거나, 서버가 더 많은 정보를 주도록 해야 함.
+        
+        // 일단 PageCart가 이름으로 매칭해서 처리하므로 이름만 잘 넘겨줘도 됨.
+        item.name = obj["item"].toString(); 
+        
+        // 만약 서버가 price도 같이 보내주면 item.price = obj["price"].toInt();
+        // 현재 서버 코드 기준으로는 price가 안 넘어오는데, 
+        // PageCart::addItemByScan 로직이 이름으로 기존 아이템을 찾으므로 괜찮음.
+        
+        double expectedWeight = obj["expected_weight"].toDouble();
+
+        // ✅ PageCart로 신호 발사! -> 화면 갱신
+        emit itemFetched(item, expectedWeight);
+    }
+    
+    // "remove" 액션일 때는 보통 UI가 먼저 반응하고 서버에 통보하는 식이라
+    // 여기서 굳이 처리 안 해도 되지만, 필요하면 로그 출력
+    else if (action == "remove") {
+        qDebug() << "[Scanner] Remove confirmed by server.";
+    }
+
+    reply->deleteLater();
 }
