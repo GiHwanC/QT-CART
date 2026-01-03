@@ -2,7 +2,6 @@ from sqlalchemy import Column, Integer, String, Float, DateTime
 from database import Base
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
 
 # 상품 테이블
 class Item(Base):
@@ -22,12 +21,6 @@ class Pay(Base):
     id = Column(Integer, primary_key=True, index=True)
     total_price = Column(Float)
     created_at = Column(DateTime, default=datetime.now)
-
-class Cart(Base):
-    __tablename__ = "cart"
-
-    id = Column(Integer, primary_key=True, index=True)
-    expected_weight = Column(Float, default=0.0)
 
 # 상품 생성 요청 
 class ItemCreate(BaseModel):

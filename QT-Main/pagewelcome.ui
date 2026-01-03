@@ -39,9 +39,9 @@
      <widget class="QLabel" name="start_text">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>0</x>
         <y>340</y>
-        <width>249</width>
+        <width>781</width>
         <height>22</height>
        </rect>
       </property>
@@ -51,6 +51,9 @@
       </property>
       <property name="text">
        <string>시작하기 버튼을 눌러 쇼핑을 시작하세요</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QWidget" name="start_image" native="true">
@@ -101,7 +104,7 @@
      <widget class="QLabel" name="qtcart_text">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>5</x>
         <y>250</y>
         <width>771</width>
         <height>77</height>
@@ -126,9 +129,9 @@ background-color: rgb(255, 255, 255);
      <widget class="QPushButton" name="start_button">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>260</x>
         <y>390</y>
-        <width>201</width>
+        <width>261</width>
         <height>30</height>
        </rect>
       </property>

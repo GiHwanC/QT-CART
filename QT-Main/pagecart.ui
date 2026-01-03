@@ -400,7 +400,7 @@ background-color: rgb(242, 244, 245);
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>20</y>
+        <y>18</y>
         <width>121</width>
         <height>20</height>
        </rect>
@@ -418,8 +418,8 @@ background-color: #F2F4F7;
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>20</y>
+        <x>460</x>
+        <y>19</y>
         <width>111</width>
         <height>17</height>
        </rect>
@@ -437,7 +437,7 @@ background-color: #F2F4F7;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>20</y>
+        <y>19</y>
         <width>111</width>
         <height>17</height>
        </rect>

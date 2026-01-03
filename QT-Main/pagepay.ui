@@ -122,7 +122,7 @@ border-radius: 16px;</string>
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>20</y>
+        <y>19</y>
         <width>121</width>
         <height>20</height>
        </rect>
@@ -236,7 +236,7 @@ border-radius: 16px;</string>
       <widget class="QLabel" name="label_12">
        <property name="geometry">
         <rect>
-         <x>370</x>
+         <x>385</x>
          <y>50</y>
          <width>91</width>
          <height>41</height>
