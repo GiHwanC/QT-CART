@@ -73,7 +73,7 @@ private slots:
     void onBarcodeEntered();
 
     // BarcodeScanner 응답 처리
-    void handleItemFetched(const Item &item, double cartWeight);
+    void handleItemFetched(const Item &item);
     void handleFetchFailed(const QString &err);
 
     // 기타 UI 슬롯

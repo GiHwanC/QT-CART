@@ -656,11 +656,7 @@ void PageCart::initFixedItems()
     }
 }
 
-// ---------------------------------------------------------
-// [누락된 함수 구현] pagecart.cpp 맨 아래에 붙여넣으세요
-// ---------------------------------------------------------
-
-void PageCart::handleItemFetched(const Item &item, double cartWeight)
+void PageCart::handleItemFetched(const Item &item)
 {
     // 1. 기존 테이블에 동일한 상품이 있는지 확인
     int rowFound = -1;
@@ -697,10 +693,6 @@ void PageCart::handleItemFetched(const Item &item, double cartWeight)
 
     // 2. 전체 금액 및 라벨 갱신
     updateTotal();
-
-    // 3. (선택사항) 서버에서 받아온 카트 전체 무게 저장
-    // m_expectedWeight = cartWeight; 
-    // qDebug() << "Cart Weight form Server:" << cartWeight;
 }
 
 void PageCart::handleFetchFailed(const QString &err)

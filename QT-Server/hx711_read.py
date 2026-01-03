@@ -17,7 +17,7 @@ except FileNotFoundError:
 
 # --- 2. HX711 초기화 (설정 함수 제거) ---
 # 에러가 발생했던 set_reading_format, set_reference_unit 제거함
-hx = HX711(23, 24)
+hx = HX711(5, 6)
 
 # 만약 reset() 함수도 없다면 아래 줄도 주석 처리하거나 지우세요.
 # hx.reset() 
