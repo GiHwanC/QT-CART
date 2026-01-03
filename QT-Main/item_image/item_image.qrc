@@ -6,7 +6,5 @@
         <file>cart_iphone.jpg</file>
         <file>cart_snack.jpg</file>
         <file>fire.jpg</file>
-        <file>../etc_image/puzzle.jpg</file>
-        <file>../etc_image/puzzle_1.jpg</file>
     </qresource>
 </RCC>

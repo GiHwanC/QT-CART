@@ -25,10 +25,18 @@ static QString moneyKR(qint64 v)
 
 static QString imageForName(const QString& name)
 {
-    if (name == "아이폰")   return ":/item/cart_iphone.jpg";
-    if (name == "과자")         return ":/item/cart_snack.jpg";
-    if (name == "핸드크림")   return ":/item/cart_handcream.jpg";
-    if (name == "퍼즐")   return ":/etc/puzzle.jpg";
+    if(name=="홈런볼 초코맛") return ":/cart_snack(1).jpg";
+    if(name=="허니버터칩") return ":/cart_snack(2).png";
+    if(name=="오레오 초콜릿크림") return ":/cart_snack(3).jpg";
+    if(name=="빼빼로 아몬드") return ":/cart_snack(4).jpg";
+    if(name=="빈츠") return ":/cart_snack(5).jpg";
+    if(name=="예감 치즈그르탕") return ":/cart_snack(6).jpg";
+    if(name=="오!감자 감자그라탕") return ":/cart_snack(7).jpg";
+    if(name=="포카칩 오리지널") return ":/cart_snack(8).jpg";
+    if(name=="아이폰 15 프로") return ":/cart_iphone.jpg";
+    if(name=="핸드크림") return ":/cart_handcream.jpg";
+    if(name=="크리스마스 퍼즐") return ":/cart_puzzle.png";
+
     return ""; // 기본값
 }
 
@@ -92,7 +100,7 @@ PageCart::PageCart(QWidget *parent)
     m_scanner = new BarcodeScanner(this);
 
     connect(m_scanner, &BarcodeScanner::itemFetched, this, &PageCart::handleItemFetched);
-    
+
     // ✅ 너 헤더에 맞게: itemFetched(item, cartWeight) 형태로 연결
     connect(m_scanner, &BarcodeScanner::fetchFailed, this, &PageCart::handleFetchFailed);
 
@@ -125,7 +133,8 @@ PageCart::PageCart(QWidget *parent)
         connect(ui->btnCheckout, SIGNAL(clicked()), this, SLOT(on_btnCheckout_clicked()));
     }
 
-    resetCart();
+     resetCart();
+    // initFixedItems();
 }
 
 PageCart::~PageCart()
@@ -147,7 +156,7 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
 
     // weight 관리용 info도 같이 맞춰 넣어둠(서버 아이템 없을 때는 0)
     ItemInfo info;
-    info.id = -1; 
+    info.id = -1;
     info.name = name;
     info.price = unitPrice;
     info.weight = 0.0;
@@ -187,8 +196,8 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
                 44, 44,
                 Qt::KeepAspectRatioByExpanding,
                 Qt::SmoothTransformation
-            )
-        );
+                )
+            );
     }
 
     ui->tableCart->setCellWidget(row, 0, makeCenterCell(img));
@@ -293,6 +302,7 @@ void PageCart::onPlusClicked()
     ui->tableCart->item(row, 3)->setText(QString::number(qty + 1));
 
     updateRowAmount(row);
+
     updateTotal();
 }
 
@@ -320,7 +330,7 @@ void PageCart::onMinusClicked()
 
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished, manager, &QNetworkAccessManager::deleteLater);
-    manager->post(req, QByteArray()); 
+    manager->post(req, QByteArray());
 
     // 2. UI 즉시 반영
     ui->tableCart->item(row, 3)->setText(QString::number(qty - 1));
@@ -348,7 +358,7 @@ void PageCart::onDeleteClicked()
     if (itemId > 0 && qty > 0) {
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         // 매니저는 모든 요청 처리 후 나중에 해제되도록 부모 지정
-        
+
         QUrl url(QString("%1/cart/remove/%2").arg(SERVER_BASE_URL).arg(itemId));
         QNetworkRequest req(url);
         req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -358,13 +368,13 @@ void PageCart::onDeleteClicked()
             connect(reply, &QNetworkReply::finished, reply, &QNetworkReply::deleteLater);
         }
         // manager는 적절한 시점에 해제되도록 connect하거나 멤버변수로 관리 권장 (여기서는 간략화)
-        connect(manager, &QNetworkAccessManager::finished, manager, &QNetworkAccessManager::deleteLater); 
+        connect(manager, &QNetworkAccessManager::finished, manager, &QNetworkAccessManager::deleteLater);
     }
 
     // 2. UI 데이터 정리 및 행 삭제
     if (row < m_unitPrice.size()) m_unitPrice.removeAt(row);
     if (row < m_items.size())     m_items.removeAt(row);
-    
+
     ui->tableCart->removeRow(row);
 
     updateTotal();
@@ -439,7 +449,7 @@ bool PageCart::eventFilter(QObject *obj, QEvent *event)
         if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
             if (!m_barcodeData.isEmpty()) {
                 // [수정] .toInt() 제거! (QString 그대로 전달)
-                m_scanner->fetchItemDetails(m_barcodeData); 
+                m_scanner->fetchItemDetails(m_barcodeData);
                 m_barcodeData.clear();
             }
             return true;
@@ -567,59 +577,59 @@ void PageCart::requestCheckWeightBeforeRun()
     // 1. 서버 URL 준비
     QUrl url(QString("%1/cart/check_weight").arg(SERVER_BASE_URL));
     QNetworkRequest req(url);
-    
+
     auto *manager = new QNetworkAccessManager(this);
 
     connect(manager, &QNetworkAccessManager::finished,
             this, [this, manager](QNetworkReply *reply){
 
-        reply->deleteLater();
-        manager->deleteLater();
+                reply->deleteLater();
+                manager->deleteLater();
 
-        // 2. 네트워크 에러 체크
-        if (reply->error() != QNetworkReply::NoError) {
-            QMessageBox::critical(this, "통신 오류", 
-                "서버와 연결할 수 없습니다.\n" + reply->errorString());
-            return;
-        }
+                // 2. 네트워크 에러 체크
+                if (reply->error() != QNetworkReply::NoError) {
+                    QMessageBox::critical(this, "통신 오류",
+                                          "서버와 연결할 수 없습니다.\n" + reply->errorString());
+                    return;
+                }
 
-        // 3. JSON 파싱
-        QByteArray data = reply->readAll();
-        QJsonDocument doc = QJsonDocument::fromJson(data);
-        if (!doc.isObject()) {
-             QMessageBox::warning(this, "데이터 오류", "서버 응답이 올바르지 않습니다.");
-             return;
-        }
+                // 3. JSON 파싱
+                QByteArray data = reply->readAll();
+                QJsonDocument doc = QJsonDocument::fromJson(data);
+                if (!doc.isObject()) {
+                    QMessageBox::warning(this, "데이터 오류", "서버 응답이 올바르지 않습니다.");
+                    return;
+                }
 
-        QJsonObject obj = doc.object();
-        
-        // 서버 파이썬 코드에서 5% 오차를 계산하여 보내준 movable 값
-        bool movable = obj.value("movable").toBool();      
-        double expected = obj.value("expected_weight").toDouble();
-        double real = obj.value("real_weight").toDouble();
-        double diff = obj.value("diff").toDouble();
+                QJsonObject obj = doc.object();
 
-        // 4. 판단 및 로봇 제어
-        if (movable) {
-            // [성공] 오차 범위 이내 -> 결제 페이지 이동 및 로봇 구동
-            sendRobotMode(1); // 1: 로봇 구동 모드
-            emit goPay();     // 결제 화면으로 전환
-        } else {
-            // [실패] 무게 불일치 -> 이동 불가 안내
-            QString msg = QString("상품 무게가 일치하지 않습니다.\n\n"
-                                  "예상 무게: %1 g\n"
-                                  "실제 무게: %2 g\n"
-                                  "차이: %3 g\n\n"
-                                  "카트의 물건을 확인해주세요.")
-                          .arg(expected, 0, 'f', 1)
-                          .arg(real, 0, 'f', 1)
-                          .arg(diff, 0, 'f', 1);
-            
-            QMessageBox::warning(this, "출발 불가", msg);
-            
-            sendRobotMode(0); // 0: 로봇 정지/대기 모드
-        }
-    });
+                // 서버 파이썬 코드에서 5% 오차를 계산하여 보내준 movable 값
+                bool movable = obj.value("movable").toBool();
+                double expected = obj.value("expected_weight").toDouble();
+                double real = obj.value("real_weight").toDouble();
+                double diff = obj.value("diff").toDouble();
+
+                // 4. 판단 및 로봇 제어
+                if (movable) {
+                    // [성공] 오차 범위 이내 -> 결제 페이지 이동 및 로봇 구동
+                    sendRobotMode(1); // 1: 로봇 구동 모드
+                    emit goPay();     // 결제 화면으로 전환
+                } else {
+                    // [실패] 무게 불일치 -> 이동 불가 안내
+                    QString msg = QString("상품 무게가 일치하지 않습니다.\n\n"
+                                          "예상 무게: %1 g\n"
+                                          "실제 무게: %2 g\n"
+                                          "차이: %3 g\n\n"
+                                          "카트의 물건을 확인해주세요.")
+                                      .arg(expected, 0, 'f', 1)
+                                      .arg(real, 0, 'f', 1)
+                                      .arg(diff, 0, 'f', 1);
+
+                    QMessageBox::warning(this, "출발 불가", msg);
+
+                    sendRobotMode(0); // 0: 로봇 정지/대기 모드
+                }
+            });
 
     manager->get(req); // GET 요청 전송
 }
@@ -633,13 +643,21 @@ void PageCart::sendRobotMode(int mode)
 
 void PageCart::initFixedItems()
 {
-    // 테스트용 고정 아이템 세팅
-    struct P { int id; QString name; int price; };
+    struct P { int id; QString name; int price; int qty; };
+
+    // ✅ 테스트용: 장바구니에 "담긴 상태"로 올림 (qty 1~3 등)
     QVector<P> items = {
-        { 1, "아이폰",   100000 },
-        { 3, "핸드크림",   1000 },
-        { 4, "퍼즐",      3000 },
-        { 2, "과자",      1500 }
+        { 1,  "홈런볼 초코맛",     1700, 1 },
+        { 2,  "허니버터칩",        1800, 2 },
+        { 3,  "오레오 초콜릿크림",  2500, 1 },
+        { 4,  "빼빼로 아몬드",     1500, 3 },
+        { 5,  "빈츠",             2000, 1 },
+        { 6,  "예감 치즈그르탕",   1600, 2 },
+        { 7,  "오!감자 감자그라탕", 1700, 1 },
+        { 8,  "포카칩 오리지널",   1600, 2 },
+        { 9,  "아이폰 15 프로", 1500000, 1 },
+        { 10, "핸드크림",          3000, 1 },
+        { 11, "크리스마스 퍼즐",  10000, 1 }
     };
 
     ui->tableCart->setRowCount(0);
@@ -647,13 +665,15 @@ void PageCart::initFixedItems()
     m_items.clear();
 
     for (const auto &p : items) {
-        addRowForItem(p.name, p.price, 0); // 수량 0으로 목록만 생성
+        addRowForItem(p.name, p.price, p.qty);
 
         int row = ui->tableCart->rowCount() - 1;
         if (row >= 0 && row < m_items.size()) {
-            m_items[row].id = p.id;
+            m_items[row].id = p.id;   // ✅ (+/-) 서버 연동하려면 실제 DB id로 맞춰야 함
         }
     }
+
+    updateTotal();
 }
 
 void PageCart::handleItemFetched(const Item &item)

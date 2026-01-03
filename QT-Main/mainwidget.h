@@ -47,6 +47,8 @@ private:
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 private slots:
+
+    void onGuideCancel();
     void on_pPBStartClicked();
     void slotShowCartPage();
     void slotShowGuidePage();

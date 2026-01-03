@@ -6,8 +6,9 @@
 // #include <geometry_msgs/msg/pose_stamped.hpp>
 // #include <geometry_msgs/msg/twist.hpp>
 #include <QPixmap>
+#include <QPointer>
 
-
+class QDialog;
 namespace Ui {
 class PageGuide;
 }
@@ -24,6 +25,7 @@ public:
 signals:
     void backToCartClicked();
     void requestGoal(double x, double y);
+    void requestCancelGoal();
 
 private slots:
 
@@ -51,6 +53,8 @@ private:
     // ▼ [추가] 속도 전송 도우미 함수
     void moveTurtle(double linear, double angular);
     void showMovePopup(const QString &zoneText);
+     void showMovePopupAsync(const QString &zoneText);
+    QPointer<QDialog> m_moveDlg;                      // ✅ 현재 떠있는 팝업 추적
 };
 
 #endif // PAGEGUIDE_H

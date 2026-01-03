@@ -109,6 +109,7 @@ private:
     /* 핵심 로직 함수들 */
     void requestCheckWeightBeforeRun(); // 출발 전 무게 체크 (HTTP)
     void sendRobotMode(int mode);       // 로봇 주행 명령 (UDP)
+
 };
 
 #endif // PAGECART_H

@@ -20,6 +20,18 @@
         <file>map_toy_2.png</file>
         <file>map_phone_1.png</file>
         <file>map_door.png</file>
-        <file>puzzle.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>cart_puzzle.png</file>
+        <file>cart_snack(1).jpg</file>
+        <file>cart_snack(2).png</file>
+        <file>cart_snack(3).jpg</file>
+        <file>cart_snack(4).jpg</file>
+        <file>cart_snack(5).jpg</file>
+        <file>cart_snack(6).jpg</file>
+        <file>cart_snack(7).jpg</file>
+        <file>cart_snack(8).jpg</file>
+        <file>cart_handcream.jpg</file>
+        <file>cart_iphone.jpg</file>
     </qresource>
 </RCC>

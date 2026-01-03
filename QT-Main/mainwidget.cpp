@@ -56,6 +56,8 @@ MainWidget::MainWidget(QWidget *parent)
     connect(pPageTotalPay, &PageTotalPay::backToStartClicked,
             this, &MainWidget::slotShowWelcomePage);
 
+    connect(pPageGuide, &PageGuide::requestCancelGoal,
+            this, &MainWidget::onGuideCancel);
     onPageChanged(ui->pstackedWidget->currentIndex());
 }
 
@@ -172,4 +174,14 @@ bool MainWidget::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QWidget::eventFilter(obj, event);
+}
+
+
+void MainWidget::onGuideCancel()
+{
+    // ✅ (가능하면) 네비게이션 goal cancel도 같이
+    // 예: navClient->cancelGoal();
+
+    // ✅ 핵심: 화면이 안 바뀌어도 즉시 정지 모드 전송
+    sendRobotMode(0);
 }
