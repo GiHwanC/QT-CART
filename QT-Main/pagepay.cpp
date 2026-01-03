@@ -6,9 +6,11 @@
 #include <QPushButton>
 #include <QPixmap>
 
-static QString moneyKR(int v)
+static QString moneyKR(qint64 v)
 {
-    return QString::number(v) + "원";
+    // ✅ 무조건 "1,234" 형식으로 나오게(환경 영향 최소화)
+    const QLocale loc(QLocale::Korean, QLocale::SouthKorea);
+    return loc.toString(v) + "원";
 }
 
 PagePay::PagePay(QWidget *parent)
@@ -92,7 +94,7 @@ void PagePay::setupUiTable()
     // ✅ 800x480 최적값(기본)
     int gapW   = 12;  // 물품-갯수 / 갯수-가격 사이 간격
     int qtyW   = 60;  // "3개" 정도 충분
-    int priceW = 90;  // "13000원" 정도 충분
+    int priceW = 110;  // "13000원" 정도 충분
 
     // ✅ 테이블 폭에 따라 살짝 자동 보정 (작아지면 더 줄임)
     int tableW = ui->tablePayItems->viewport()->width();

@@ -2,8 +2,8 @@ from HX711 import HX711
 import time
 import json
 
-DT_PIN = 5
-SCK_PIN = 6
+DT_PIN = 23
+SCK_PIN = 24
 
 hx = HX711(DT_PIN, SCK_PIN)
 

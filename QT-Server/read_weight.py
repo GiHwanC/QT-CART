@@ -10,7 +10,7 @@ with open("hx711_calib.json", "r") as f:
 OFFSET = calib["offset"]
 SCALE  = calib["scale"]
 
-hx = HX711(5, 6)
+hx = HX711(23, 24)
 
 hx_lock = threading.Lock()
 

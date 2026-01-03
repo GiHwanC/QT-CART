@@ -129,7 +129,7 @@ border-radius: 0px;
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>20</y>
+          <y>10</y>
           <width>81</width>
           <height>31</height>
          </rect>
@@ -155,7 +155,7 @@ border-radius: 0px;
         <property name="geometry">
          <rect>
           <x>90</x>
-          <y>30</y>
+          <y>20</y>
           <width>151</width>
           <height>17</height>
          </rect>
