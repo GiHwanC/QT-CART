@@ -62,12 +62,9 @@ void PageGuide::applyTreePixmap()
     ui->lblmap->setPixmap(scaled);
 }
 
-
-
 void PageGuide::onBackToCartClicked()
 {
     emit backToCartClicked(); // ✅ MainWidget에서 cart로 전환
-
 }
 
 void PageGuide::onPuzzleClicked()
@@ -78,7 +75,6 @@ void PageGuide::onPuzzleClicked()
     emit requestGoal(0.0, 1.0);
 }
 
-
 void PageGuide::onSnackClicked()
 {
     showMovePopup("02코너 과자");
@@ -86,7 +82,6 @@ void PageGuide::onSnackClicked()
     qDebug() << "Region2 Icon Clicked";
     emit requestGoal(0.0, 1.0);
 }
-
 
 void PageGuide::onbtnphoneClicked()
 {
@@ -96,7 +91,6 @@ void PageGuide::onbtnphoneClicked()
     emit requestGoal(0.0, 1.0);
 }
 
-
 void PageGuide::onCreamClicked()
 {
     showMovePopup("03코너 핸드크림");
@@ -104,7 +98,6 @@ void PageGuide::onCreamClicked()
     qDebug() << "Region2 Icon Clicked";
     emit requestGoal(0.0, 1.0);
 }
-
 
 void PageGuide::onPayClicked()
 {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTCART 관제 시스템</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="logo">🛒 QT-CART</div>
+        <nav>
+            <a href="/dashboard" class="nav-btn active">관제 모니터링</a>
+            <a href="/inventory" class="nav-btn">통합 관리</a>
+        </nav>
+        <div class="status-group">
+            <div id="apiBadge" class="status-badge off"><span class="dot"></span> 서버 연결</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="cart-select-grid" id="cartGrid">
+            </div>
+
+        <div id="detailPanel" class="cart-panel">
+            <div class="panel-header">
+                <div class="cart-info">
+                    <div class="cart-icon">🛒</div>
+                    <div class="cart-name" id="detailName">QTCART 1호차</div>
+                </div>
+                <div id="detailStatusText" class="panel-status">● 데이터 로딩중</div>
+            </div>
+
+            <div class="sensor-grid">
+                <div class="data-box">
+                    <div class="data-label">배터리 잔량</div>
+                    <div class="data-value"><span id="detailBattery">--</span><span class="unit">%</span></div>
+                </div>
+                <div class="data-box">
+                    <div class="data-label">현재 속도</div>
+                    <div class="data-value"><span id="detailSpeed">--</span><span class="unit">m/s</span></div>
+                </div>
+                <div class="data-box">
+                    <div class="data-label">기대 무게 (상품 합계)</div>
+                    <div class="data-value" style="color:#fbbf24;"><span id="detailExpected">0</span><span class="unit">g</span></div>
+                </div>
+                <div class="data-box">
+                    <div class="data-label">실제 무게 (센서 값)</div>
+                    <div class="data-value"><span id="detailReal">--</span><span class="unit">g</span></div>
+                </div>
+            </div>
+
+            <div class="items-section">
+                <div class="items-header">
+                    <div class="items-title">📦 담긴 상품 목록</div>
+                    <div class="items-summary">
+                        총 <span id="detailCount">0</span>개 
+                        <span class="total-price" id="detailPrice">0원</span>
+                    </div>
+                </div>
+                <div class="table-scroll-box">
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>상품명</th>
+                                <th style="text-align: right;">단가</th>
+                                <th style="text-align: right;">무게</th>
+                                <th style="text-align: right;">수량</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailListBody">
+                            <tr><td colspan="4" style="text-align: center; color: #64748b; padding: 30px;">데이터 없음</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

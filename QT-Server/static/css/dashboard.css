@@ -1,0 +1,186 @@
+/* --- 다크 모드 테마 적용 --- */
+body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 헤더 스타일 */
+header {
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+    padding: 0 30px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.logo { font-weight: 800; font-size: 1.3rem; margin-right: 40px; color: #fff; }
+
+nav { display: flex; gap: 10px; flex: 1; }
+
+.nav-btn {
+    text-decoration: none;
+    color: #94a3b8;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+.nav-btn:hover { background-color: #334155; color: #fff; }
+.nav-btn.active { background-color: #3b82f6; color: #fff; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+
+/* 상단 상태 배지 */
+.status-group { display: flex; gap: 10px; }
+.status-badge {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 99px;
+    background-color: #334155;
+    color: #94a3b8;
+    font-weight: 700;
+    display: flex; align-items: center; gap: 6px; border: 1px solid #475569;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background-color: #94a3b8; }
+.status-badge.on { background-color: #064e3b; color: #34d399; border-color: #059669; }
+.status-badge.on .dot { background-color: #34d399; box-shadow: 0 0 4px #34d399; }
+.status-badge.off { background-color: #450a0a; color: #f87171; border-color: #b91c1c; }
+.status-badge.off .dot { background-color: #f87171; box-shadow: 0 0 4px #f87171; }
+
+/* --- 메인 레이아웃 --- */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 상단 카트 요약 그리드 */
+.cart-select-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.cart-summary-card {
+    background-color: #1e293b;
+    border: 2px solid #334155;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.cart-summary-card:hover { transform: translateY(-2px); border-color: #64748b; }
+
+/* 선택된 카드 강조 */
+.cart-summary-card.selected {
+    border-color: #3b82f6;
+    background-color: #1e293b;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+.summary-header { display: flex; justify-content: space-between; align-items: center; }
+.summary-name { font-weight: 700; color: #fff; font-size: 1rem; }
+.summary-status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #475569; }
+.summary-status-dot.online { background-color: #10b981; box-shadow: 0 0 5px #10b981; }
+.summary-status-dot.warning { background-color: #e45d0f; box-shadow: 0 0 5px #e45d0f; }
+.summary-status-dot.offline { background-color: #fa0303; box-shadow: 0 0 5px #e45d0f;}
+
+.summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: #94a3b8; }
+.summary-val { color: #f1f5f9; font-weight: 600; }
+
+/* 하단 상세 패널 */
+.cart-panel {
+    flex: 1;
+    background-color: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    border: 2px solid #334155;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    background-color: #0f172a;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+}
+.cart-info { display: flex; align-items: center; gap: 10px; }
+.cart-icon { font-size: 1.5rem; }
+.cart-name { font-size: 1.2rem; font-weight: 800; color: #fff; }
+.panel-status { font-weight: 700; font-size: 0.95rem; color: #64748b; }
+
+/* 센서 그리드 */
+.sensor-grid {
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    border-bottom: 1px solid #334155;
+}
+.data-box {
+    background-color: #28364d;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; justify-content: center;
+}
+.data-label { font-size: 0.9rem; color: #94a3b8; margin-bottom: 5px; font-weight: 600; }
+.data-value { font-size: 1.8rem; font-weight: 800; color: #fff; }
+.unit { font-size: 0.9rem; color: #64748b; font-weight: 500; margin-left: 3px; }
+
+.val-normal { color: #38bdf8; }
+.val-warning { color: #f87171; }
+.val-success { color: #34d399; }
+.val-offline { color: #64748b; }
+
+/* 아이템 리스트 */
+.items-section { padding: 25px; background-color: #1e293b; flex: 1; display: flex; flex-direction: column; }
+.items-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.items-title { font-size: 1.1rem; font-weight: 700; color: #e2e8f0; }
+.items-summary { font-size: 0.95rem; color: #94a3b8; font-weight: 600; }
+.total-price { color: #34d399; font-weight: 800; font-size: 1.1rem; margin-left: 8px; }
+
+.table-scroll-box {
+    flex: 1; overflow-y: auto; 
+    border: 1px solid #334155; border-radius: 8px;
+    background-color: #1e293b;
+    min-height: 200px;
+}
+.table-scroll-box::-webkit-scrollbar { width: 8px; }
+.table-scroll-box::-webkit-scrollbar-track { background: #1e293b; }
+.table-scroll-box::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+
+.items-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.items-table th {
+    text-align: left; color: #94a3b8; padding: 12px 20px; background-color: #0f172a;
+    position: sticky; top: 0; z-index: 1; border-bottom: 1px solid #334155; font-size: 0.85rem; font-weight: 700;
+}
+.items-table td { padding: 12px 20px; border-bottom: 1px solid #334155; color: #f1f5f9; }
+.items-table tr:hover td { background-color: #334155; }
