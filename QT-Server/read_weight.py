@@ -1,7 +1,5 @@
-from HX711 import HX711
-import json
-import threading
-import time
+from hx711 import HX711
+import json, time, threading
 
 # --- 보정값 로드 ---
 with open("hx711_calib.json", "r") as f:

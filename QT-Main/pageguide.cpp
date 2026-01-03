@@ -72,7 +72,7 @@ void PageGuide::onPuzzleClicked()
     showMovePopup("01코너 퍼즐");
 
     qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
+    emit requestGoal(-0.1, -2.4);
 }
 
 void PageGuide::onSnackClicked()
@@ -80,15 +80,7 @@ void PageGuide::onSnackClicked()
     showMovePopup("02코너 과자");
 
     qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
-}
-
-void PageGuide::onbtnphoneClicked()
-{
-    showMovePopup("04코너 핸드폰");
-
-    qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
+    emit requestGoal(3.0, 0.55);
 }
 
 void PageGuide::onCreamClicked()
@@ -96,7 +88,15 @@ void PageGuide::onCreamClicked()
     showMovePopup("03코너 핸드크림");
 
     qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
+    emit requestGoal(0.021, -5.0);
+}
+
+void PageGuide::onbtnphoneClicked()
+{
+    showMovePopup("04코너 핸드폰");
+
+    qDebug() << "Region2 Icon Clicked";
+    emit requestGoal(-0.1, -5.0);
 }
 
 void PageGuide::onPayClicked()
@@ -104,7 +104,7 @@ void PageGuide::onPayClicked()
     showMovePopup("결제 구역");
 
     qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
+    emit requestGoal(-0.07, -6.7);
 }
 #include <QGraphicsDropShadowEffect>
 

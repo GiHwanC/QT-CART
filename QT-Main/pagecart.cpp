@@ -211,7 +211,7 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
         "QPushButton:pressed { background-color: rgb(30, 64, 175); }"
         );
     ui->tableCart->setCellWidget(row, 2, makeCenterCell(btnPlus));
-    connect(btnPlus, SIGNAL(clicked()), this, SLOT(onPlusClicked()));
+    connect(btnPlus,  &QPushButton::clicked, this, &PageCart::onPlusClicked);
 
     // (3) 수량
     QTableWidgetItem *qtyItem = new QTableWidgetItem(QString::number(qty));
@@ -233,7 +233,7 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
         "QPushButton:pressed { background-color: rgb(94, 92, 100); }"
         );
     ui->tableCart->setCellWidget(row, 4, makeCenterCell(btnMinus));
-    connect(btnMinus, SIGNAL(clicked()), this, SLOT(onMinusClicked()));
+    connect(btnMinus, &QPushButton::clicked, this, &PageCart::onMinusClicked);
 
     // (5) 가격(금액)
     QTableWidgetItem *priceItem = new QTableWidgetItem(moneyKR(0));
@@ -255,7 +255,7 @@ void PageCart::addRowForItem(const QString& name, int unitPrice, int qty)
         "QPushButton:pressed { background-color: rgb(150, 0, 15); }"
         );
     ui->tableCart->setCellWidget(row, 6, makeRightCell(btnDelete));
-    connect(btnDelete, SIGNAL(clicked()), this, SLOT(onDeleteClicked()));
+    connect(btnDelete,&QPushButton::clicked, this, &PageCart::onDeleteClicked);
 
     updateRowAmount(row);
 }
