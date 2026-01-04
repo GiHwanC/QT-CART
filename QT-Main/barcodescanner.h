@@ -4,7 +4,15 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include "item.h" // Item 구조체 정의 필요
+
+class Item {
+public:
+    QString id = "";
+    QString name = "";
+    double price = 0.0;
+    int stock = 0;
+    double weight = 0.0;
+};
 
 class BarcodeScanner : public QObject
 {
@@ -13,7 +21,7 @@ public:
     explicit BarcodeScanner(QObject *parent = nullptr);
 
     void fetchItemDetails(const QString& itemId); // 바코드 스캔 시 호출
-    void removeItem(int itemId);
+    void removeItem(const QString& itemId);
 
 signals:
     // UI(PageCart)로 데이터를 넘겨주는 핵심 신호

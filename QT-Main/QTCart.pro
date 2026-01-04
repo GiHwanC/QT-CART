@@ -17,7 +17,6 @@ SOURCES += \
 
 HEADERS += \
     barcodescanner.h \
-    item.h \
     mainwidget.h \
     pagecart.h \
     pageguide.h \

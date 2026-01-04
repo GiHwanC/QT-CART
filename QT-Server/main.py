@@ -29,7 +29,7 @@ def get_db():
 def is_movable(expected, real):
     if expected <= 0: return True
     diff_ratio = abs(real - expected) / expected
-    return diff_ratio <= 0.05
+    return diff_ratio <= 0.07
 
 # 페이지 라우팅
 @app.get("/dashboard")

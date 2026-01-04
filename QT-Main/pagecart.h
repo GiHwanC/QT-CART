@@ -17,7 +17,6 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-#include "item.h"
 #include "barcodescanner.h"
 
 namespace Ui {
@@ -28,7 +27,7 @@ class PageCart;
  * 장바구니 아이템 구조체
  * ======================= */
 struct ItemInfo {
-    int id;  
+    QString id;  
     QString name;
     int price;
     double weight;
@@ -101,10 +100,10 @@ private:
 
     /* 내부 헬퍼 함수들 */
     void initFixedItems(); // 초기 고정 상품 세팅
-    void addRowForItem(const QString& name, int unitPrice, int qty);
+    void addRowForItem(const QString& id, const QString& name, int unitPrice, int qty, double weight = 0.0);
     void updateRowAmount(int row);
     void updateTotal();
-    void addItemByScan(const Item &item);
+    int getRowFromButton(QWidget *btn);
 
     /* 핵심 로직 함수들 */
     void requestCheckWeightBeforeRun(); // 출발 전 무게 체크 (HTTP)
