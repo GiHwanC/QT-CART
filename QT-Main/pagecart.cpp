@@ -40,28 +40,10 @@ static QString imageForName(const QString& name)
     return ""; // 기본값
 }
 
-// ------------------------------
-// wrapper 셀 안의 버튼으로 row 찾기
-// ------------------------------
-// static int findRowByButton(QTableWidget* table, int col, QPushButton* btn)
-// {
-//     if (!table || !btn) return -1;
-
-//     for (int r = 0; r < table->rowCount(); ++r) {
-//         QWidget *cell = table->cellWidget(r, col);
-//         if (!cell) continue;
-
-//         const auto buttons = cell->findChildren<QPushButton*>();
-//         for (auto *b : buttons) {
-//             if (b == btn) return r;
-//         }
-//     }
-//     return -1;
-// }
-
 PageCart::PageCart(QWidget *parent)
     : QWidget(parent),
-    ui(new Ui::PageCart)
+    ui(new Ui::PageCart),
+    m_isCheckingOut(false)
 {
     ui->setupUi(this);
 
@@ -117,17 +99,10 @@ PageCart::PageCart(QWidget *parent)
     ui->tableCart->setColumnWidth(6, 46);
     updateTotal();
 
-    // 새 UI 버튼들
     if (ui->btnHome) {
         connect(ui->btnHome, &QPushButton::clicked, this, [this](){
             emit goWelcome();
         });
-    }
-    if (ui->btnGuide) {
-        connect(ui->btnGuide, SIGNAL(clicked()), this, SLOT(on_btnGuide_clicked()));
-    }
-    if (ui->btnCheckout) {
-        connect(ui->btnCheckout, SIGNAL(clicked()), this, SLOT(on_btnCheckout_clicked()));
     }
 
      resetCart();
@@ -281,7 +256,7 @@ void PageCart::onPlusClicked()
 }
 
 // ----------------------------------------
-// - 버튼
+// - 버튼 (수정됨: 0개가 되면 삭제)
 // ----------------------------------------
 void PageCart::onMinusClicked()
 {
@@ -297,18 +272,15 @@ void PageCart::onMinusClicked()
         return;
     }
 
-    int qty = ui->tableCart->item(row, 3)->text().toInt();
-    qDebug() << "[INFO] 현재 수량:" << qty;
-
-    if (qty <= 0) {
-        qDebug() << "[INFO] 수량이 0이므로 더 이상 줄일 수 없습니다.";
-        return;
-    }
+    // 현재 수량 가져오기
+    int currentQty = ui->tableCart->item(row, 3)->text().toInt();
+    int newQty = currentQty - 1; // 줄어든 수량 미리 계산
 
     QString itemId = m_items[row].id;
-    qDebug() << "[INFO] 아이템 ID:" << itemId;
+    qDebug() << "[INFO] 아이템 ID:" << itemId << " 현재:" << currentQty << " -> 변경:" << newQty;
 
-    // 서버 전송
+    // 1. 서버 전송 (공통: 무조건 1개 줄이는 요청 보냄)
+    //    서버에서도 1개 남았을 때 줄이면 삭제 처리가 되어야 정상입니다.
     qDebug() << "[NETWORK] 서버로 수량 감소 요청 전송";
     QUrl url(QString("%1/cart/remove/%2").arg(SERVER_BASE_URL).arg(itemId));
     QNetworkRequest req(url);
@@ -318,12 +290,26 @@ void PageCart::onMinusClicked()
     connect(manager, &QNetworkAccessManager::finished, manager, &QNetworkAccessManager::deleteLater);
     manager->post(req, QByteArray());
 
-    // UI 반영
-    int newQty = qty - 1;
-    qDebug() << "[UI] 수량 변경:" << qty << "->" << newQty;
-    ui->tableCart->item(row, 3)->setText(QString::number(newQty));
+    // 2. UI 처리 분기
+    if (newQty <= 0) {
+        // [변경사항] 수량이 0개가 되면 행을 삭제함
+        qDebug() << "[UI] 수량이 0이 되므로 행을 삭제합니다.";
+        
+        // 데이터 리스트에서 제거 (순서 중요)
+        m_unitPrice.removeAt(row);
+        m_items.removeAt(row);
+        
+        // 테이블 위젯에서 행 제거
+        ui->tableCart->removeRow(row);
+    } 
+    else {
+        // [기존유지] 수량이 1개 이상이면 숫자만 변경
+        qDebug() << "[UI] 수량 텍스트 변경:" << newQty;
+        ui->tableCart->item(row, 3)->setText(QString::number(newQty));
+        updateRowAmount(row); // 행 별 금액 갱신
+    }
 
-    updateRowAmount(row);
+    // 전체 총액 갱신
     updateTotal();
 }
 
@@ -369,8 +355,6 @@ void PageCart::onDeleteClicked()
             // 응답을 받으면 매니저와 reply를 메모리에서 해제
             connect(manager, &QNetworkAccessManager::finished, 
                     manager, [manager](QNetworkReply* reply){
-                // 로그 확인용 (필요시 주석 해제)
-                // qDebug() << "[NETWORK] 삭제 응답:" << reply->readAll();
                 reply->deleteLater();
                 manager->deleteLater(); 
             });
@@ -479,6 +463,22 @@ void PageCart::on_pushButton_clicked()
 
 void PageCart::on_btnCheckout_clicked()
 {
+    // 1. 장바구니가 비어있는지 확인
+    if (ui->tableCart->rowCount() == 0) {
+        QMessageBox::information(this, "알림", "장바구니에 상품을 담아주세요.");
+        return;
+    }
+
+    // 2. 이미 결제 진행 중(통신 중)인지 확인 (중복 클릭 방지)
+    if (m_isCheckingOut) {
+        return; 
+    }
+
+    // 3. 플래그 설정 및 버튼 비활성화 (시각적 피드백)
+    m_isCheckingOut = true;
+    ui->btnCheckout->setEnabled(false); 
+    
+    // 무게 체크 요청 시작
     requestCheckWeightBeforeRun();
 }
 
@@ -524,7 +524,6 @@ void PageCart::resetCart()
     // 3) ✅ 내부 데이터도 초기화
     m_unitPrice.clear();
     m_items.clear();
-    m_expectedWeight = 0.0;
 
     // 4) 라벨 갱신
     updateTotal();
@@ -532,7 +531,6 @@ void PageCart::resetCart()
 
 void PageCart::requestCheckWeightBeforeRun()
 {
-    // 1. 서버 URL 준비
     QUrl url(QString("%1/cart/check_weight").arg(SERVER_BASE_URL));
     QNetworkRequest req(url);
 
@@ -541,17 +539,23 @@ void PageCart::requestCheckWeightBeforeRun()
     connect(manager, &QNetworkAccessManager::finished,
             this, [this, manager](QNetworkReply *reply){
 
+                // [중요] 통신이 끝났으므로 상태 복구 (성공/실패 여부와 관계없이 실행)
+                m_isCheckingOut = false;
+                if (ui->btnCheckout) {
+                    ui->btnCheckout->setEnabled(true);
+                }
+
                 reply->deleteLater();
                 manager->deleteLater();
 
-                // 2. 네트워크 에러 체크
+                // 1. 네트워크 에러 체크
                 if (reply->error() != QNetworkReply::NoError) {
                     QMessageBox::critical(this, "통신 오류",
                                           "서버와 연결할 수 없습니다.\n" + reply->errorString());
                     return;
                 }
 
-                // 3. JSON 파싱
+                // 2. 데이터 파싱
                 QByteArray data = reply->readAll();
                 QJsonDocument doc = QJsonDocument::fromJson(data);
                 if (!doc.isObject()) {
@@ -561,35 +565,33 @@ void PageCart::requestCheckWeightBeforeRun()
 
                 QJsonObject obj = doc.object();
 
-                // 서버 파이썬 코드에서 5% 오차를 계산하여 보내준 movable 값
                 bool movable = obj.value("movable").toBool();
                 double expected = obj.value("expected_weight").toDouble();
                 double real = obj.value("real_weight").toDouble();
                 double diff = obj.value("diff").toDouble();
 
-                // 4. 판단 및 로봇 제어
+                // 3. 결과 처리
                 if (movable) {
-                    // [성공] 오차 범위 이내 -> 결제 페이지 이동 및 로봇 구동
-                    sendRobotMode(1); // 1: 로봇 구동 모드
-                    emit goPay();     // 결제 화면으로 전환
+                    // [성공] 결제 화면 이동
+                    sendRobotMode(1); 
+                    emit goPay();
                 } else {
-                    // [실패] 무게 불일치 -> 이동 불가 안내
+                    // [실패] 경고 메시지 (중복 클릭이 방지되었으므로 이 메시지도 1번만 뜹니다)
                     QString msg = QString("상품 무게가 일치하지 않습니다.\n\n"
                                           "예상 무게: %1 g\n"
                                           "실제 무게: %2 g\n"
                                           "차이: %3 g\n\n"
                                           "카트의 물건을 확인해주세요.")
-                                      .arg(expected, 0, 'f', 1)
-                                      .arg(real, 0, 'f', 1)
-                                      .arg(diff, 0, 'f', 1);
+                                    .arg(expected, 0, 'f', 1)
+                                    .arg(real, 0, 'f', 1)
+                                    .arg(diff, 0, 'f', 1);
 
                     QMessageBox::warning(this, "출발 불가", msg);
-
-                    sendRobotMode(0); // 0: 로봇 정지/대기 모드
+                    sendRobotMode(0);
                 }
             });
 
-    manager->get(req); // GET 요청 전송
+    manager->get(req);
 }
 
 void PageCart::sendRobotMode(int mode)
