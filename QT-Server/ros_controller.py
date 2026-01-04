@@ -5,6 +5,8 @@ from geometry_msgs.msg import TwistStamped, PoseWithCovarianceStamped
 from nav2_msgs.action import NavigateToPose
 from sensor_msgs.msg import BatteryState
 from nav_msgs.msg import Odometry
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
+
 import socket
 import time
 import math
@@ -22,7 +24,10 @@ API_WEIGHT_URL = f"http://{SERVER_IP}:8000/cart/check_weight"
 TAG_HEIGHT = 1.85
 ANCHOR_Z = 2.37
 H_DIFF = abs(ANCHOR_Z - TAG_HEIGHT)
+
+# 고정 오프셋 보정값 
 FIXED_OFFSETS = {0: -7.00, 1: -7.00, 2: -7.50}
+# 앵커 절대 좌표 
 ANCHORS_POS = {
     0: {'x': 0.00, 'y': 0.00},
     1: {'x': 6.00, 'y': 0.00},
@@ -35,11 +40,22 @@ class IntegratedRosController(Node):
     def __init__(self):
         super().__init__('integrated_ros_controller_node')
 
+        amcl_qos = QoSProfile(
+            depth=10,
+            reliability=ReliabilityPolicy.RELIABLE,
+            durability=DurabilityPolicy.TRANSIENT_LOCAL 
+        )
+
         self.cmd_vel_pub = self.create_publisher(TwistStamped, '/cmd_vel', 10)
         self.battery_sub = self.create_subscription(BatteryState, '/battery_state', self.battery_callback, 10)
         self.odom_sub = self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
-        self.amcl_sub = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.amcl_callback, 10)
-        
+        self.amcl_sub = self.create_subscription(
+            PoseWithCovarianceStamped, 
+            '/amcl_pose', 
+            self.amcl_callback, 
+            amcl_qos 
+        )
+
         self.nav_to_pose_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
 
         self.sock_uwb = self.create_udp_socket(UDP_PORT_UWB)
@@ -134,6 +150,7 @@ class IntegratedRosController(Node):
         # 스레드 비동기 전송 후 종료 
         threading.Thread(target=_post, daemon=True).start()
 
+    # 삼변측량 함수 
     def calculate_trilateration(self, distances):
         try:
             x1, y1, r1 = ANCHORS_POS[0]['x'], ANCHORS_POS[0]['y'], distances[0]
@@ -153,6 +170,7 @@ class IntegratedRosController(Node):
         my = -7.35 + (uy * 0.5966)
         return mx, my
 
+    # UWB 데이터 수신
     def receive_uwb_data(self):
         try:
             for _ in range(10): 
@@ -237,6 +255,7 @@ class IntegratedRosController(Node):
         self.last_target_pos = [0.0, 0.0]
         self.trigger_async_weight_check()
 
+    # 네비게이션 실행
     def start_navigation(self, x, y):
         if not self.is_weight_ok: return
 

@@ -47,7 +47,7 @@ function renderTable(sortKey) {
         }
 
         let stockHtml = '';
-        if (item.stock <= 5) {
+        if (item.stock === 0) {
             stockHtml = `<span class="stock-badge stock-low">부족 (${item.stock})</span>`;
         } else {
             stockHtml = `<span class="stock-badge stock-normal">${item.stock}개</span>`;

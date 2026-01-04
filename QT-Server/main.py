@@ -25,7 +25,7 @@ def get_db():
     try: yield db
     finally: db.close()
 
-# 무게 검증 로직 (5% 오차)
+# 무게 검증 로직 
 def is_movable(expected, real):
     if expected <= 0: return True
     diff_ratio = abs(real - expected) / expected
