@@ -5,46 +5,37 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QMessageBox>
 #include <QResizeEvent>
 #include <QDialog>
 #include <QLabel>
-#include <QTimer>
+#include <QGraphicsDropShadowEffect>
 
 PageGuide::PageGuide(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::PageGuide)
 {
     ui->setupUi(this);
+    
     QPixmap pm(":/etc/guide_map.png");
-    ui->lblmap->setPixmap(pm);
-    ui->lblmap->setScaledContents(true);   // 라벨 크기에 맞게 꽉 채움
-    ui->lblmap->setStyleSheet("QLabel { border: none; }");
-
-    // 버튼 연결
+    if(!pm.isNull()) {
+        m_treePixmap = pm; 
+        ui->lblmap->setPixmap(pm);
+        ui->lblmap->setScaledContents(true);
+    }
+    ui->lblmap->setStyleSheet("border-radius:14px; background:#ffffff; border: none;");
 
     connect(ui->btnBackToCart, &QPushButton::clicked, this, &PageGuide::onBackToCartClicked);
-
-
-    // ✅ 지도 위 버튼들 연결
     connect(ui->btnpuzzle, &QPushButton::clicked, this, &PageGuide::onPuzzleClicked);
     connect(ui->btncream,  &QPushButton::clicked, this, &PageGuide::onCreamClicked);
     connect(ui->btnsnack,  &QPushButton::clicked, this, &PageGuide::onSnackClicked);
     connect(ui->btnpay,    &QPushButton::clicked, this, &PageGuide::onPayClicked);
-    connect(ui->btnphone,    &QPushButton::clicked, this, &PageGuide:: onbtnphoneClicked);
-
-
-
-
-    // 이미지 라벨도 살짝 카드 느낌
-    ui->lblmap->setStyleSheet("border-radius:14px; background:#ffffff;");
+    connect(ui->btnphone,  &QPushButton::clicked, this, &PageGuide::onbtnphoneClicked);
 }
 
 PageGuide::~PageGuide()
 {
     delete ui;
 }
-
 
 void PageGuide::resizeEvent(QResizeEvent *e)
 {
@@ -55,8 +46,6 @@ void PageGuide::resizeEvent(QResizeEvent *e)
 void PageGuide::applyTreePixmap()
 {
     if (m_treePixmap.isNull() || !ui->lblmap) return;
-
-    // 라벨 크기에 맞춰 비율 유지로 스케일
     QSize target = ui->lblmap->size();
     QPixmap scaled = m_treePixmap.scaled(target, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui->lblmap->setPixmap(scaled);
@@ -64,84 +53,81 @@ void PageGuide::applyTreePixmap()
 
 void PageGuide::onBackToCartClicked()
 {
-    emit backToCartClicked(); // ✅ MainWidget에서 cart로 전환
+    emit backToCartClicked(); 
 }
 
 void PageGuide::onPuzzleClicked()
 {
+    emit requestGoal(-0.1, -2.4);
     showMovePopup("01코너 퍼즐");
-
-    qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
 }
 
 void PageGuide::onSnackClicked()
 {
+    emit requestGoal(3.0, 0.55); 
     showMovePopup("02코너 과자");
-
-    qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
-}
-
-void PageGuide::onbtnphoneClicked()
-{
-    showMovePopup("04코너 핸드폰");
-
-    qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
 }
 
 void PageGuide::onCreamClicked()
 {
+    emit requestGoal(2.6, -6.5); 
     showMovePopup("03코너 핸드크림");
+}
 
-    qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
+void PageGuide::onbtnphoneClicked()
+{
+    emit requestGoal(-0.1, -5.0); 
+    showMovePopup("04코너 핸드폰");
 }
 
 void PageGuide::onPayClicked()
 {
+    emit requestGoal(-0.07, -6.7); 
     showMovePopup("결제 구역");
-
-    qDebug() << "Region2 Icon Clicked";
-    emit requestGoal(0.0, 1.0);
 }
-#include <QGraphicsDropShadowEffect>
 
+// 팝업창 
 void PageGuide::showMovePopup(const QString &zoneText)
 {
-    QWidget *parentW = this->window();   // ✅ 800x480 메인 창 기준
-    if (!parentW) parentW = this;
+    // 이미 떠있는 팝업이 있다면 닫기 
+    if (m_currentPopup) {
+        m_currentPopup->close();
+        delete m_currentPopup;
+        m_currentPopup = nullptr;
+    }
 
-    // ✅ 카드 크기만 가진 프레임리스 모달 다이얼로그
-    QDialog dlg(parentW);
+    QWidget *parentW = this->window();
+    m_currentPopup = new QDialog(parentW);
+    QDialog &dlg = *m_currentPopup;
+
     dlg.setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
     dlg.setModal(true);
+    dlg.setAttribute(Qt::WA_DeleteOnClose); // 닫히면 자동 삭제
     dlg.setStyleSheet("QDialog { background: transparent; }");
-    dlg.setFixedSize(520, 260); // 카드 팝업 크기(원하면 조절)
+    dlg.setFixedSize(520, 260);
 
-    // ✅ 부모(800x480) 기준 "정중앙"으로 이동 (글로벌 좌표로)
+    // 팝업이 닫힐 때 포인터 초기화
+    connect(&dlg, &QDialog::destroyed, this, [this](){
+        m_currentPopup = nullptr;
+    });
+
+    // 중앙 정렬 
     const QPoint parentTopLeft = parentW->mapToGlobal(QPoint(0, 0));
     const int x = parentTopLeft.x() + (parentW->width()  - dlg.width())  / 2;
     const int y = parentTopLeft.y() + (parentW->height() - dlg.height()) / 2;
     dlg.move(x, y);
 
-    // ✅ 카드 프레임 (팝업 배경)
+    // 카드 스타일 UI 구성 
     QFrame *card = new QFrame(&dlg);
     card->setObjectName("popupCard");
-    card->setStyleSheet(
-        "#popupCard { background: rgb(246, 245, 244);; border-radius: 16px; }"
+    card->setStyleSheet("#popupCard { background: rgb(246, 245, 244); border-radius: 16px; }");
 
-        );
-
-    // ✅ 그림자(선택)
     auto *shadow = new QGraphicsDropShadowEffect(card);
     shadow->setBlurRadius(30);
     shadow->setOffset(0, 8);
     shadow->setColor(QColor(0, 0, 0, 80));
     card->setGraphicsEffect(shadow);
 
-    // ✅ 레이아웃
     QVBoxLayout *root = new QVBoxLayout(&dlg);
     root->setContentsMargins(0, 0, 0, 0);
     root->addWidget(card);
@@ -154,29 +140,40 @@ void PageGuide::showMovePopup(const QString &zoneText)
     title->setAlignment(Qt::AlignCenter);
     title->setStyleSheet("font-size:24px; font-weight:900; color:#111827;");
 
-    QLabel *desc = new QLabel("화면을 종료하거나 터치하지 마십시오", card);
+    QLabel *desc = new QLabel("도착 시 자동으로 닫힙니다.\n중지하려면 버튼을 누르세요.", card);
     desc->setAlignment(Qt::AlignCenter);
     desc->setStyleSheet("font-size:16px; font-weight:700; color:#6B7280;");
 
-    QPushButton *ok = new QPushButton("확인", card);
-    ok->setFixedHeight(48);
-    ok->setMinimumWidth(220); // ✅ 버튼 가로 넓이
-    ok->setStyleSheet(
-        "QPushButton{ background:#2563EB; color:white; border:none; border-radius:12px; "
+    QPushButton *stopBtn = new QPushButton("안내 중지", card);
+    stopBtn->setFixedHeight(48);
+    stopBtn->setMinimumWidth(220);
+    stopBtn->setStyleSheet(
+        "QPushButton{ background:#EF4444; color:white; border:none; border-radius:12px; " 
         "font-size:18px; font-weight:900; padding:8px 18px; }"
-        "QPushButton:hover{ background:#1D4ED8; }"
-        "QPushButton:pressed{ background:#1E40AF; }"
-        );
+        "QPushButton:hover{ background:#DC2626; }"
+        "QPushButton:pressed{ background:#B91C1C; }"
+    );
 
     lay->addStretch();
     lay->addWidget(title);
     lay->addWidget(desc);
     lay->addSpacing(8);
-    lay->addWidget(ok, 0, Qt::AlignHCenter);
+    lay->addWidget(stopBtn, 0, Qt::AlignHCenter);
     lay->addStretch();
 
-    QObject::connect(ok, &QPushButton::clicked, &dlg, &QDialog::accept);
+    // 안내 중지 
+    connect(stopBtn, &QPushButton::clicked, this, [this, &dlg](){
+        emit requestStop(); 
+        dlg.accept();
+    });
 
-    dlg.exec();
+    dlg.show(); 
 }
 
+void PageGuide::onRobotArrived()
+{
+    if (m_currentPopup) {
+        qDebug() << "PageGuide: Robot Arrived! Closing popup.";
+        m_currentPopup->accept(); 
+    }
+}
