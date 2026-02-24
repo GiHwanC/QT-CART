@@ -1,0 +1,35 @@
+# Qt Creator 
+*.pro.user*
+.qtcreator/
+build*/
+*.o
+*.obj
+moc_*
+ui_*
+qrc_*
+Makefile*
+.qmake.stash
+QTCart
+*.exe
+*.out
+*.app
+*.qtds
+
+# Python 
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.pytest_cache/
+
+# IDE & System 
+.vscode/
+.idea/
+.DS_Store
+[Tt]humbs.db
+
+QT-Main/Makefile
+QT-Main/build/
+QT-Server/build/

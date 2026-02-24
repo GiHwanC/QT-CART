@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/etc">
+        <file>card.png</file>
+        <file>cart.png</file>
+        <file>counter.png</file>
+        <file>food.png</file>
+        <file>home.png</file>
+        <file>kitty.jpg</file>
+        <file>search.png</file>
+        <file>wind.png</file>
+        <file>map.pgm</file>
+        <file>guide_map.png</file>
+        <file>map_handcream.png</file>
+        <file>map_phone.png</file>
+        <file>mappin.png</file>
+        <file>map_snack.png</file>
+        <file>map_toy.png</file>
+        <file>map_pay.png</file>
+        <file>map_cream.png</file>
+        <file>map_toy_2.png</file>
+        <file>map_phone_1.png</file>
+        <file>map_door.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>cart_puzzle.png</file>
+        <file>cart_snack(1).jpg</file>
+        <file>cart_snack(2).png</file>
+        <file>cart_snack(3).jpg</file>
+        <file>cart_snack(4).jpg</file>
+        <file>cart_snack(5).jpg</file>
+        <file>cart_snack(6).jpg</file>
+        <file>cart_snack(7).jpg</file>
+        <file>cart_snack(8).jpg</file>
+        <file>cart_handcream.jpg</file>
+        <file>cart_iphone.jpg</file>
+    </qresource>
+</RCC>
